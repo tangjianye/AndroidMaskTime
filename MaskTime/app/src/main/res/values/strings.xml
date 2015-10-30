@@ -2,4 +2,9 @@
     <string name="app_name">面膜时间</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="main_tab_home">第一</string>
+    <string name="main_tab_category">第二</string>
+    <string name="main_tab_local">第三</string>
+    <string name="main_tab_other">第四</string>
 </resources>

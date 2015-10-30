@@ -15,13 +15,11 @@ public class BaseApplication extends Application {
     }
 
     private void init() {
-//        DBManager.getInstance().initialize(this);
         mAppManager = AppManager.getInstance();
     }
 
     public void exitApp(boolean isKillProcess) {
         mAppManager.appExit(this, isKillProcess);
-//        DBController.getInstance().clearAllCustomer();
     }
 
     @Override

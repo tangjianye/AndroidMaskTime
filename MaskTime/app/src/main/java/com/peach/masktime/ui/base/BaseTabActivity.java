@@ -1,6 +1,6 @@
 package com.peach.masktime.ui.base;
 
-import android.app.Activity;
+import android.app.TabActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +10,7 @@ import com.peach.masktime.R;
 /**
  * Created by tangjy on 2015/10/24.
  */
-public class BaseActivity extends Activity {
+public class BaseTabActivity extends TabActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
