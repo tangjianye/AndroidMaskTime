@@ -1,65 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/tabhost"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/DefaultBgStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name" />
+    </LinearLayout>
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="fill_parent"
-                android:layout_height="0.0dip"
-                android:layout_weight="1.0" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@color/pink"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.0"
-                android:visibility="gone" />
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name" />
+    </LinearLayout>
 
-        <RadioGroup
-            android:id="@+id/tab_group"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/android_height_big"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:background="@color/orangered"
-            android:gravity="center_horizontal|center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="5.0dip"
-            android:paddingTop="5.0dip">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#0000ff"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/tab_home"
-                style="@style/TabButtonStyle"
-                android:checked="true"
-                android:text="@string/main_tab_home" />
+        <TextView
+            android:id="@+id/txt_community"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/selector_btn_community"
+            android:gravity="center"
+            android:text="@string/main_community" />
 
-            <RadioButton
-                android:id="@+id/tab_category"
-                style="@style/TabButtonStyle"
-                android:text="@string/main_tab_category" />
+        <TextView
+            android:id="@+id/txt_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/selector_btn_record"
+            android:gravity="center"
+            android:text="@string/main_record" />
 
-            <RadioButton
-                android:id="@+id/tab_local"
-                style="@style/TabButtonStyle"
-                android:text="@string/main_tab_local" />
+        <TextView
+            android:id="@+id/txt_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/selector_btn_store"
+            android:gravity="center"
+            android:text="@string/main_store" />
 
-            <RadioButton
-                android:id="@+id/tab_other"
-                style="@style/TabButtonStyle"
-                android:text="@string/main_tab_other" />
-        </RadioGroup>
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/txt_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/selector_btn_setting"
+            android:gravity="center"
+            android:text="@string/main_setting" />
 
-</TabHost>
+    </LinearLayout>
+</LinearLayout>

@@ -5,13 +5,13 @@ import android.os.Bundle;
 import com.peach.masktime.R;
 import com.peach.masktime.ui.base.BaseActivity;
 
-public class MainActivity extends BaseActivity {
-    public static final String TAG = "MainActivity";
+public class CommunityActivity extends BaseActivity {
+    public static final String TAG = "CommunityActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_community);
     }
 
     @Override

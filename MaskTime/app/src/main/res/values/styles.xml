@@ -36,8 +36,8 @@
     </style>
     <!-- 字体样式 End -->
 
-    <style name="AppMainBg">
-        <item name="android:background">@color/tomato</item>
+    <style name="DefaultBgStyle">
+        <item name="android:background">@drawable/default_bg</item>
     </style>
 
     <!--    <style name="AnimationPreview">
@@ -61,7 +61,7 @@
     <!-- Tab选项标签 -->
     <style name="TabButtonStyle">
         <item name="android:textSize">12.0dip</item>
-<!--        <item name="android:textColor">@color/v3_maintab_btn_text_color</item>-->
+        <!--        <item name="android:textColor">@color/v3_maintab_btn_text_color</item>-->
         <item name="android:gravity">center_horizontal|center_vertical</item>
         <!--        <item name="android:background">@drawable/v3_maintabactivity_bottom_bg</item>-->
         <item name="android:layout_width">0.0dip</item>
