@@ -2,7 +2,7 @@ package com.peach.masktime;
 
 import android.app.Application;
 
-import com.peach.masktime.common.AppManager;
+import com.peach.masktime.common.mgr.AppManager;
 
 public class BaseApplication extends Application {
     private static final String TAG = BaseApplication.class.getSimpleName();

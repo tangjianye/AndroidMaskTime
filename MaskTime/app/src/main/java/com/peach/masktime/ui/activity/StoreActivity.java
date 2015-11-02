@@ -6,7 +6,7 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IStatus;
 import com.peach.masktime.ui.base.BaseActivity;
 
-public class CommunityActivity extends BaseActivity implements IStatus {
+public class StoreActivity extends BaseActivity implements IStatus {
     public static final String TAG = "CommunityActivity";
 
     @Override
