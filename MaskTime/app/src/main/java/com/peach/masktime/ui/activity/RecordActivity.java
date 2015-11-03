@@ -12,7 +12,7 @@ public class RecordActivity extends BaseActivity implements IStatus {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community);
+        setContentView(R.layout.activity_record);
         initDatas();
         initTitles();
         initViews();

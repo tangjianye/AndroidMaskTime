@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.peach.masktime.ui.layer.WelcomeLayer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/welcome" />
+
+</com.peach.masktime.ui.layer.WelcomeLayer>

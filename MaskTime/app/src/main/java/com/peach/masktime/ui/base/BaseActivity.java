@@ -8,22 +8,21 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.peach.masktime.R;
-import com.peach.masktime.common.interfaces.IStatus;
 
 /**
  * Created by tangjy on 2015/10/24.
  */
-public class BaseActivity extends Activity implements IStatus {
+public abstract class BaseActivity extends Activity {
     private static final int FLAG_NO = -100;
     private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initDatas();
-        initTitles();
-        initViews();
-        initEvents();
+//        initDatas();
+//        initTitles();
+//        initViews();
+//        initEvents();
     }
 
     @Override
@@ -41,25 +40,25 @@ public class BaseActivity extends Activity implements IStatus {
         super.onPause();
     }
 
-    @Override
-    public void initDatas() {
-
-    }
-
-    @Override
-    public void initTitles() {
-
-    }
-
-    @Override
-    public void initViews() {
-
-    }
-
-    @Override
-    public void initEvents() {
-
-    }
+//    @Override
+//    public void initDatas() {
+//
+//    }
+//
+//    @Override
+//    public void initTitles() {
+//
+//    }
+//
+//    @Override
+//    public void initViews() {
+//
+//    }
+//
+//    @Override
+//    public void initEvents() {
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,7 +107,7 @@ public class BaseActivity extends Activity implements IStatus {
         openActivity(pclass, pBundle, FLAG_NO);
     }
 
-    protected void openActivity(Class<?> pClass, Bundle pBundle, int flag) {
+    public void openActivity(Class<?> pClass, Bundle pBundle, int flag) {
         Intent intent = new Intent(this, pClass);
         if (pBundle != null) {
             intent.putExtras(pBundle);
@@ -120,7 +119,7 @@ public class BaseActivity extends Activity implements IStatus {
         // overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
-    protected void openActivity(Class<?> pClass, Bundle pBundle, int[] animRes) {
+    public void openActivity(Class<?> pClass, Bundle pBundle, int[] animRes) {
         Intent intent = new Intent(this, pClass);
         if (pBundle != null) {
             intent.putExtras(pBundle);
@@ -133,15 +132,15 @@ public class BaseActivity extends Activity implements IStatus {
         }
     }
 
-    protected void openActivity(String pAction) {
+    public void openActivity(String pAction) {
         openActivity(pAction, null);
     }
 
-    protected void openActivity(String pAction, Bundle pBundle) {
+    public void openActivity(String pAction, Bundle pBundle) {
         openActivity(pAction, pBundle, null);
     }
 
-    protected void openActivity(String pAction, Bundle pBundle, int[] animRes) {
+    public void openActivity(String pAction, Bundle pBundle, int[] animRes) {
         Intent intent = new Intent(pAction);
         if (pBundle != null) {
             intent.putExtras(pBundle);
@@ -164,8 +163,8 @@ public class BaseActivity extends Activity implements IStatus {
      * @param pBundle
      * @see {@link android.app.Activity#startActivityForResult}
      */
-    public void openActivityForResult(Class<?> pClass, int requestCode,
-                                      Bundle pBundle) {
+    protected void openActivityForResult(Class<?> pClass, int requestCode,
+                                         Bundle pBundle) {
         Intent intent = new Intent(this, pClass);
         if (pBundle != null) {
             intent.putExtras(pBundle);

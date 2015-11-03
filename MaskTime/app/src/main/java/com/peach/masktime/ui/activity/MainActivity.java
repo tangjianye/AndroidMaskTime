@@ -14,6 +14,12 @@ public class MainActivity extends BaseActivity implements IStatus, View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View view = null;
+        view = findViewById(R.id.txt_community);
+        if (null == view) {
+            showToast("view null");
+            return;
+        }
         initDatas();
         initTitles();
         initViews();

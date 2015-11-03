@@ -4,19 +4,24 @@ import android.os.Bundle;
 
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IStatus;
-import com.peach.masktime.ui.base.BaseActivity;
+import com.peach.masktime.ui.base.BaseTitleActivity;
 
-public class SettingActivity extends BaseActivity implements IStatus {
+public class SettingActivity extends BaseTitleActivity implements IStatus {
     public static final String TAG = "CommunityActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community);
+        // setContentView(R.layout.activity_community);
         initDatas();
         initTitles();
         initViews();
         initEvents();
+    }
+
+    @Override
+    protected void setContentLayer() {
+        setContentView(R.layout.activity_setting);
     }
 
     @Override
@@ -41,7 +46,7 @@ public class SettingActivity extends BaseActivity implements IStatus {
 
     @Override
     public void initTitles() {
-
+        mTitleTips.setText(R.string.main_setting);
     }
 
     @Override
