@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.peach.masktime.R;
-import com.peach.masktime.common.interfaces.IStatus;
+import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.ui.base.BaseActivity;
 
-public class MainActivity extends BaseActivity implements IStatus, View.OnClickListener {
+public class MainActivity extends BaseActivity implements IInit, View.OnClickListener {
     public static final String TAG = "MainActivity";
 
     @Override

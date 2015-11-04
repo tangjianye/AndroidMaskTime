@@ -1,8 +1,8 @@
 package com.peach.masktime.ui.base;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -12,7 +12,7 @@ import com.peach.masktime.R;
 /**
  * Created by tangjy on 2015/10/24.
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends FragmentActivity {
     private static final int FLAG_NO = -100;
     private Toast mToast;
 

@@ -3,10 +3,10 @@ package com.peach.masktime.ui.activity;
 import android.os.Bundle;
 
 import com.peach.masktime.R;
-import com.peach.masktime.common.interfaces.IStatus;
+import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.ui.base.BaseActivity;
 
-public class RecordActivity extends BaseActivity implements IStatus {
+public class RecordActivity extends BaseActivity implements IInit {
     public static final String TAG = "CommunityActivity";
 
     @Override

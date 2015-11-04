@@ -6,9 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.peach.masktime.R;
-import com.peach.masktime.common.interfaces.IStatus;
 
-public abstract class BaseTitleActivity extends BaseActivity implements IStatus {
+public abstract class BaseTitleActivity extends BaseActivity {
     private static final String TAG = "BaseTitleActivity";
     protected ImageView mTitleBack;
     protected TextView mTitleTips;
@@ -19,10 +18,10 @@ public abstract class BaseTitleActivity extends BaseActivity implements IStatus 
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.activity_community);
         setContentLayer();
-        initDatas();
-        initTitles();
-        initViews();
-        initEvents();
+        this.initDatas();
+        this.initTitles();
+        this.initViews();
+        this.initEvents();
     }
 
     @Override
@@ -40,13 +39,12 @@ public abstract class BaseTitleActivity extends BaseActivity implements IStatus 
         super.onPause();
     }
 
-    @Override
-    public void initDatas() {
+
+    private void initDatas() {
 
     }
 
-    @Override
-    public void initTitles() {
+    private void initTitles() {
         mTitleBack = (ImageView) findViewById(R.id.ic_header);
         mTitleTips = (TextView) findViewById(R.id.title_header);
         mTitleMore = (ImageView) findViewById(R.id.more_header);
@@ -63,13 +61,11 @@ public abstract class BaseTitleActivity extends BaseActivity implements IStatus 
         });
     }
 
-    @Override
-    public void initViews() {
+    private void initViews() {
 
     }
 
-    @Override
-    public void initEvents() {
+    private void initEvents() {
 
     }
 

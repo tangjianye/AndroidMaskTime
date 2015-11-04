@@ -1,7 +1,6 @@
 package com.peach.masktime.ui.layer;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.View;
@@ -11,18 +10,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.peach.masktime.R;
-import com.peach.masktime.common.interfaces.IPageState;
-import com.peach.masktime.ui.adapter.GuidePagerAdapter;
+import com.peach.masktime.common.interfaces.ICycle;
+import com.peach.masktime.ui.adapter.BasePagerAdapter;
+import com.peach.masktime.ui.view.CustomViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class GuideLayer extends RelativeLayout implements IPageState {
+public class GuideLayer extends RelativeLayout implements ICycle {
     // private Button mBtnEntry;
     private LinearLayout mIndicator;
-    private ViewPager mViewPager;
-    private List<ImageView> mBannerViewList;
+    private CustomViewPager mViewPager;
+    private List<View> mBannerViewList;
 
     private int mGuidePageResId[] = {R.drawable.guide_page_1,
             R.drawable.guide_page_2, R.drawable.guide_page_3};
@@ -49,7 +49,7 @@ public class GuideLayer extends RelativeLayout implements IPageState {
     }
 
     private void notifyAdapter() {
-        mViewPager.setAdapter(new GuidePagerAdapter(getContext(), mBannerViewList));
+        mViewPager.setAdapter(new BasePagerAdapter(getContext(), mBannerViewList));
         mViewPager.setOnPageChangeListener(new GuidePageChangeListener());
         // mBtnEntry.setOnClickListener(mClickListener);
     }
@@ -78,7 +78,7 @@ public class GuideLayer extends RelativeLayout implements IPageState {
     private void initData() {
         // 初始化引导页
         ImageView imageView;
-        mBannerViewList = new ArrayList<ImageView>();
+        mBannerViewList = new ArrayList<>();
         for (int id : mGuidePageResId) {
             imageView = new ImageView(getContext());
             imageView.setImageResource(id);
@@ -107,7 +107,7 @@ public class GuideLayer extends RelativeLayout implements IPageState {
     private void initView() {
         // mBtnEntry = (Button) findViewById(R.id.btn_entry);
         mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (CustomViewPager) findViewById(R.id.view_pager);
     }
 
 //    private OnClickListener mClickListener = new OnClickListener() {

@@ -1,6 +1,6 @@
 package com.peach.masktime.common.interfaces;
 
-public interface IPageState {
+public interface ICycle {
     void init();
 
     void show(boolean isAnimte);

@@ -8,12 +8,12 @@ import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
-import com.peach.masktime.common.interfaces.IPageState;
+import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.ui.activity.MainActivity;
 import com.peach.masktime.ui.activity.WelcomeActivity;
 import com.peach.masktime.ui.base.BaseActivity;
 
-public class WelcomeLayer extends RelativeLayout implements IPageState {
+public class WelcomeLayer extends RelativeLayout implements ICycle {
     private static final String TAG = "WelcomeLayer";
     private final int DELAY_TIME = 1000;
     private final int ENTRY_TO_WALLPAPER_ACTIVITY = 1;
