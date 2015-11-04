@@ -12,7 +12,6 @@ public class SettingActivity extends BaseTitleActivity implements IStatus {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_community);
         initDatas();
         initTitles();
         initViews();
