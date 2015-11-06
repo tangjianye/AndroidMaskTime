@@ -1,7 +1,7 @@
 package com.peach.masktime.ui.activity;
 
 import android.os.Bundle;
-import android.view.View;
+import android.view.ViewStub;
 
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
@@ -12,25 +12,31 @@ import com.peach.masktime.utils.SPUtils;
 
 public class WelcomeActivity extends BaseActivity {
     public static final String TAG = "CommunityActivity";
-    private GuideLayer mGuideLayer;
-    private WelcomeLayer mWelcomeLayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        mGuideLayer = (GuideLayer) findViewById(R.id.in_guide);
-        mWelcomeLayer = (WelcomeLayer) findViewById(R.id.in_welcome);
+        switchView(getGuideSwitch());
+    }
 
-        mWelcomeLayer.setVisibility(View.GONE);
-        mGuideLayer.setVisibility(View.GONE);
+    private Boolean getGuideSwitch() {
+        return (Boolean) SPUtils.get(this, Constants.HAVED_SHOW_GUIDE, false);
+    }
 
-        Boolean havedShowGuide = (Boolean) SPUtils.get(this, Constants.HAVED_SHOW_GUIDE, false);
+    private void switchView(Boolean havedShowGuide) {
         if (havedShowGuide) {
-            mWelcomeLayer.show(false);
+            ViewStub stub = (ViewStub) findViewById(R.id.vs_welcome);
+            stub.inflate();
+            WelcomeLayer welcomeLayer = (WelcomeLayer) findViewById(R.id.in_welcome);
+            welcomeLayer.show(false);
         } else {
-            mGuideLayer.show(false);
+            ViewStub stub = (ViewStub) findViewById(R.id.vs_guide);
+            stub.inflate();
+            GuideLayer guideLayer = (GuideLayer) findViewById(R.id.in_guide);
+            guideLayer.show(false);
+
             SPUtils.put(this, Constants.HAVED_SHOW_GUIDE, true);
         }
     }
