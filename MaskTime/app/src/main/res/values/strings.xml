@@ -7,4 +7,7 @@
     <string name="main_record">心得</string>
     <string name="main_store">商城</string>
     <string name="main_setting">设置</string>
+
+    <string name="community">交流</string>
+    <string name="read">阅读</string>
 </resources>

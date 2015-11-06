@@ -19,10 +19,6 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        initDatas();
-//        initTitles();
-//        initViews();
-//        initEvents();
     }
 
     @Override
@@ -40,25 +36,6 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onPause();
     }
 
-//    @Override
-//    public void initDatas() {
-//
-//    }
-//
-//    @Override
-//    public void initTitles() {
-//
-//    }
-//
-//    @Override
-//    public void initViews() {
-//
-//    }
-//
-//    @Override
-//    public void initEvents() {
-//
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
