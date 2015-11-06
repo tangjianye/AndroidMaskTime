@@ -88,11 +88,11 @@ public class WelcomeLayer extends RelativeLayout implements ICycle {
 //        View third = this.findViewById(R.id.third);
 //        third.setAlpha(1f);
 //
-//        AnimatorSet set = WallpaperAnimUtils.createAnimatorSet();
+//        AnimatorSet set = AnimatorUtils.createAnimatorSet();
 //        set.setDuration(800);
-//        Animator a1 = WallpaperAnimUtils.ofFloat(first, "alpha", 1f, 0f);
-//        Animator a2 = WallpaperAnimUtils.ofFloat(second, "alpha", 1f, 0f);
-//        Animator a3 = WallpaperAnimUtils.ofFloat(third, "alpha", 1f, 0f);
+//        Animator a1 = AnimatorUtils.ofFloat(first, "alpha", 1f, 0f);
+//        Animator a2 = AnimatorUtils.ofFloat(second, "alpha", 1f, 0f);
+//        Animator a3 = AnimatorUtils.ofFloat(third, "alpha", 1f, 0f);
 //        set.addListener(new AnimatorListener() {
 //            private boolean isCanceled = false;
 //
@@ -103,7 +103,7 @@ public class WelcomeLayer extends RelativeLayout implements ICycle {
 //
 //            @Override
 //            public void onAnimationEnd(Animator animation) {
-//                WallpaperLog.d(TAG, "onAnimationEnd: " + isCanceled);
+//                LogUtils.d(TAG, "onAnimationEnd: " + isCanceled);
 //                if (isCanceled) {
 //                    return;
 //                }
@@ -112,7 +112,7 @@ public class WelcomeLayer extends RelativeLayout implements ICycle {
 //
 //            @Override
 //            public void onAnimationCancel(Animator animation) {
-//                WallpaperLog.d(TAG, "onAnimationCancel");
+//                LogUtils.d(TAG, "onAnimationCancel");
 //                isCanceled = true;
 //            }
 //

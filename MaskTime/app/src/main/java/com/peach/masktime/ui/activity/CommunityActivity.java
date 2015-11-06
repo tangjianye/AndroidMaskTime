@@ -1,5 +1,6 @@
 package com.peach.masktime.ui.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -18,8 +19,8 @@ import com.peach.masktime.ui.view.CustomViewPager;
 import java.util.ArrayList;
 
 public class CommunityActivity extends BaseActivity implements IInit, View.OnClickListener {
-    public static final String TAG = "CommunityActivity";
-
+    private static final String TAG = "CommunityActivity";
+    private static final int SELECTED_ITEM_INDEX = 0;
     /**
      * 标题选择
      */
@@ -70,7 +71,7 @@ public class CommunityActivity extends BaseActivity implements IInit, View.OnCli
         mTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // setResult(Activity.RESULT_CANCELED, null);
+                setResult(Activity.RESULT_CANCELED, null);
                 finish();
             }
         });
@@ -81,8 +82,11 @@ public class CommunityActivity extends BaseActivity implements IInit, View.OnCli
         // 标题
         mCommunityView = (TextView) findViewById(R.id.title_community);
         mReadView = (TextView) findViewById(R.id.title_read);
-
         mViewPager = (CustomViewPager) findViewById(R.id.view_pager);
+
+        // init
+        setIndicatorSelected(SELECTED_ITEM_INDEX);
+        mViewPager.setCurrentItem(SELECTED_ITEM_INDEX);
     }
 
     @Override
@@ -100,16 +104,16 @@ public class CommunityActivity extends BaseActivity implements IInit, View.OnCli
         switch (view.getId()) {
             case R.id.title_community:
                 mViewPager.setCurrentItem(0);
-                setIndicatorEnabled(0);
+                setIndicatorSelected(0);
                 break;
             case R.id.title_read:
                 mViewPager.setCurrentItem(1);
-                setIndicatorEnabled(1);
+                setIndicatorSelected(1);
                 break;
         }
     }
 
-    private void setIndicatorEnabled(int position) {
+    private void setIndicatorSelected(int position) {
         if (0 == position) {
             mCommunityView.setSelected(true);
             mReadView.setSelected(false);
@@ -137,7 +141,7 @@ public class CommunityActivity extends BaseActivity implements IInit, View.OnCli
 
         @Override
         public void onPageSelected(int arg0) {
-            setIndicatorEnabled(arg0);
+            setIndicatorSelected(arg0);
         }
     };
 }

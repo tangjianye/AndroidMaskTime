@@ -9,7 +9,7 @@ public class SPUtils {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "share_data";
+    public static final String FILE_NAME = "sp_data";
 
     public SPUtils() {
         throw new AssertionError();

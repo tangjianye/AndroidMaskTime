@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="true">
+    <item android:state_selected="true">
         <shape>
             <!-- 填充颜色 -->
             <solid android:color="@color/red"></solid>
@@ -15,7 +15,7 @@
         </shape>
     </item>
 
-    <item android:state_enabled="false">
+    <item android:state_selected="false">
         <shape>
             <!-- 填充颜色 -->
             <solid android:color="@color/white"></solid>

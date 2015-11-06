@@ -8,17 +8,29 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.peach.masktime.R;
+import com.peach.masktime.ui.view.LoadingDialog;
 
 /**
  * Created by tangjy on 2015/10/24.
  */
 public abstract class BaseActivity extends FragmentActivity {
     private static final int FLAG_NO = -100;
+
+    /**
+     * 加载提示框
+     */
+    private LoadingDialog mLoadingDialog = null;
+
+    /**
+     * 弹出提示框
+     */
     private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mLoadingDialog = new LoadingDialog(this);
     }
 
     @Override
@@ -35,7 +47,6 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onPause() {
         super.onPause();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,7 +69,26 @@ public abstract class BaseActivity extends FragmentActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    /**********************************************************************************************/
 
+    /**********************************************************************************************/
+//    public void showLoadingDialog(final String text) {
+//        if (mLoadingDialog != null) {
+//            mLoadingDialog = null;
+//        }
+//        mLoadingDialog = new LoadingDialog(BaseActivity.this, text);
+//        mLoadingDialog.setCancelable(true);
+//        mLoadingDialog.show();
+//    }
+//
+//    public void dismissLoadingDialog() {
+//        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+//            mLoadingDialog.dismiss();
+//        }
+//        mLoadingDialog = null;
+//    }
+
+    /**********************************************************************************************/
     public void showToast(int resId) {
         showToast(getResources().getString(resId));
     }
@@ -72,6 +102,13 @@ public abstract class BaseActivity extends FragmentActivity {
         mToast.show();
     }
 
+    public void cancelToast() {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+    }
+
+    /**********************************************************************************************/
     public void openActivity(Class<?> pClass) {
         openActivity(pClass, null, FLAG_NO);
     }
@@ -149,4 +186,5 @@ public abstract class BaseActivity extends FragmentActivity {
         startActivityForResult(intent, requestCode);
         // overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
+    /**********************************************************************************************/
 }
