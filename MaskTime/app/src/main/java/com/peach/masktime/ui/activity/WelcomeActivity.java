@@ -22,6 +22,17 @@ public class WelcomeActivity extends BaseActivity {
 
         mGuideLayer = (GuideLayer) findViewById(R.id.in_guide);
         mWelcomeLayer = (WelcomeLayer) findViewById(R.id.in_welcome);
+
+        mWelcomeLayer.setVisibility(View.GONE);
+        mGuideLayer.setVisibility(View.GONE);
+
+        Boolean havedShowGuide = (Boolean) SPUtils.get(this, Constants.HAVED_SHOW_GUIDE, false);
+        if (havedShowGuide) {
+            mWelcomeLayer.show(false);
+        } else {
+            mGuideLayer.show(false);
+            SPUtils.put(this, Constants.HAVED_SHOW_GUIDE, true);
+        }
     }
 
     @Override
@@ -37,16 +48,6 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mWelcomeLayer.setVisibility(View.GONE);
-        mGuideLayer.setVisibility(View.GONE);
-
-        Boolean havedShowGuide = (Boolean) SPUtils.get(this, Constants.HAVED_SHOW_GUIDE, false);
-        if (havedShowGuide) {
-            mWelcomeLayer.show(false);
-        } else {
-            mGuideLayer.show(false);
-            SPUtils.put(this, Constants.HAVED_SHOW_GUIDE, true);
-        }
     }
 
     @Override
