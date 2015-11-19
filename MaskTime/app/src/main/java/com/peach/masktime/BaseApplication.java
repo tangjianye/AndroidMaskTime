@@ -2,11 +2,11 @@ package com.peach.masktime;
 
 import android.app.Application;
 
-import com.peach.masktime.common.manager.AppManager;
+import com.peach.masktime.exception.CrashException;
 
 public class BaseApplication extends Application {
     private static final String TAG = BaseApplication.class.getSimpleName();
-    private AppManager mAppManager;
+    // private AppManager mAppManager;
 
     @Override
     public void onCreate() {
@@ -15,12 +15,13 @@ public class BaseApplication extends Application {
     }
 
     private void init() {
-        mAppManager = AppManager.getInstance();
+        CrashException.getInstance().init(this);
+        // mAppManager = AppManager.getInstance();
     }
 
-    public void exitApp(boolean isKillProcess) {
-        mAppManager.appExit(this, isKillProcess);
-    }
+//    public void exitApp(boolean isKillProcess) {
+//        mAppManager.appExit(this, isKillProcess);
+//    }
 
     @Override
     public void onTerminate() {

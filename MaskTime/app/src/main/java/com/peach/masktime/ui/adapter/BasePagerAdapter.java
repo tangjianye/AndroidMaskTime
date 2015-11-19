@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.peach.masktime.ui.activity.MainActivity;
-import com.peach.masktime.ui.activity.WelcomeActivity;
+import com.peach.masktime.ui.activity.SplashActivity;
 import com.peach.masktime.ui.base.BaseActivity;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class BasePagerAdapter extends PagerAdapter {
                 public void onClick(View view) {
                     // TODO Auto-generated method stub
                     ((BaseActivity) mContext).openActivity(MainActivity.class);
-                    ((WelcomeActivity) mContext).finish();
+                    ((SplashActivity) mContext).finish();
                 }
             });
         }

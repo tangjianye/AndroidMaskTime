@@ -10,7 +10,7 @@ import com.peach.masktime.ui.layer.GuideLayer;
 import com.peach.masktime.ui.layer.WelcomeLayer;
 import com.peach.masktime.utils.SPUtils;
 
-public class WelcomeActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity {
     public static final String TAG = "CommunityActivity";
 
     @Override

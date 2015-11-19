@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.ui.activity.MainActivity;
-import com.peach.masktime.ui.activity.WelcomeActivity;
+import com.peach.masktime.ui.activity.SplashActivity;
 import com.peach.masktime.ui.base.BaseActivity;
 
 public class WelcomeLayer extends RelativeLayout implements ICycle {
@@ -29,7 +29,7 @@ public class WelcomeLayer extends RelativeLayout implements ICycle {
                 default:
                     break;
             }
-            ((WelcomeActivity) getContext()).finish();
+            ((SplashActivity) getContext()).finish();
             super.handleMessage(msg);
         }
     };
