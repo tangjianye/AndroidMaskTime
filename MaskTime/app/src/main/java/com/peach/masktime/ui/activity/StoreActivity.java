@@ -8,7 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
-import com.peach.masktime.common.mgr.VolleyManager;
+import com.peach.masktime.common.manager.VolleyManager;
 import com.peach.masktime.ui.base.BaseTitleActivity;
 import com.peach.masktime.utils.LogUtils;
 
