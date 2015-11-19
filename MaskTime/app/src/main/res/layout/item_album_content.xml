@@ -4,10 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/include_base_title" />
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/nt_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/place_holder" />
 
-    <ListView
-        android:id="@+id/lv_content"
+    <TextView
+        android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

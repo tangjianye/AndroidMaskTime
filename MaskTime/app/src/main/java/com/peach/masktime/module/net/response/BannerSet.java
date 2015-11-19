@@ -1,6 +1,6 @@
 package com.peach.masktime.module.net.response;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2015/11/19 0019.
@@ -8,7 +8,7 @@ import java.util.List;
 public class BannerSet {
     private int errno;
     private String err;
-    private List<BannerItem> rsm;
+    private ArrayList<BannerItem> rsm;
 
     public String getErr() {
         return err;
@@ -26,11 +26,11 @@ public class BannerSet {
         this.errno = errno;
     }
 
-    public List<BannerItem> getRsm() {
+    public ArrayList<BannerItem> getRsm() {
         return rsm;
     }
 
-    public void setRsm(List<BannerItem> rsm) {
+    public void setRsm(ArrayList<BannerItem> rsm) {
         this.rsm = rsm;
     }
 

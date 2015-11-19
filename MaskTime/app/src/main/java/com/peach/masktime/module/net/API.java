@@ -14,6 +14,7 @@ public class API {
     private static final String TEST_MODE = "/masktime0123456789";
     private static final String DOMAIN = "http://mask.cloudsdee.com/?";
     private static final String TEST_DOMAIN = "http://113.107.245.39:92";
+    private static final String GET_PICTURE = "http://mask.cloudsdee.com/uploads/kshop/";
 
     public static final String SHOP_GET_GOODS = "/api/shop/get_goods/?";
 
@@ -33,5 +34,9 @@ public class API {
 
     public static String getUrl(String urlPath) {
         return domain(isTestMode()) + urlPath;
+    }
+
+    public static String getPicUrl(String urlPath) {
+        return GET_PICTURE + urlPath;
     }
 }
