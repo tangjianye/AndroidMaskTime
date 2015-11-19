@@ -1,0 +1,18 @@
+2.pic.jpg，这个就是点击“社区”后跳转的第一个界面，3-14.pic.jpg都是社区里面的再跳转的界面
+15.pic.jpg,这个是点击“心得”后跳转的第一个界面，
+17.pic.jpg，这个是“商城”后跳转的第一个界面，
+21.pic.jpg，这个是“设置”后跳转的第一个界面。
+
+你试试yoyo1 870914
+
+http://mask.cloudsdee.com/
+
+
+http://mask.cloudsdee.com/?/api/shop/get_goods/category_id=7&page=1
+http://mask.cloudsdee.com/?/api/shop/get_goods/category_id=8&page=1
+
+category_id=7是顶部的广告 8是下面的列表数据。
+page从1开始，列表加载更多就page++
+
+http://mask.cloudsdee.com/?/api/shop/get_goods/?category_id=7&page=1
+http://mask.cloudsdee.com/?/api/shop/get_goods/?category_id=8&page=1
