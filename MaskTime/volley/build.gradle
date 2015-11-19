@@ -1,0 +1,53 @@
+// NOTE: The only changes that belong in this file are the definitions
+// of tool versions (gradle plugin, compile SDK, build tools), so that
+// Volley can be built via gradle as a standalone project.
+//
+// Any other changes to the build config belong in rules.gradle, which
+// is used by projects that depend on Volley but define their own
+// tools versions across all dependencies to ensure a consistent build.
+apply plugin: 'com.android.library'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.0'
+    }
+}
+
+//def makeJar(String target,String classDir) {
+//    exec{
+//        executable "jar"   //调用jar
+//        args "cvf",target
+//        args "-C", classDir
+//        args "","."
+//
+//    }
+//
+//    //新建一个task,名为buildLib,依赖build(build是一个自带的task)
+//task buildLib(dependsOn:['build'])<< {
+//        makeJar("volley.jar","build/intermediates/classes/release")
+//    }
+//}
+
+//task clearJar(type: Delete) {
+//    delete 'build/outputs/volley.jar'
+//}
+//
+//task makeJar(type: Copy) {
+//    from('build/intermediates/bundles/release/')
+//    into('build/outputs/')
+//    include('classes.jar')
+//    rename ('classes.jar', 'volley.jar')
+//}
+//
+//makeJar.dependsOn(clearJar, ['build'])
+
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion = '21.1.2'
+}
+
+//apply from: 'rules.gradle'
