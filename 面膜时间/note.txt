@@ -16,3 +16,6 @@ page从1开始，列表加载更多就page++
 
 http://mask.cloudsdee.com/?/api/shop/get_goods/?category_id=7&page=1
 http://mask.cloudsdee.com/?/api/shop/get_goods/?category_id=8&page=1
+
+图片地址
+http://mask.cloudsdee.com/uploads/kshop/cd0cc6a01750f2de0bd5963c8355bb7b.jpg
