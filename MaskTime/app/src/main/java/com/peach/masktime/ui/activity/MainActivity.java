@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
                 openActivity(RecordActivity.class);
                 break;
             case R.id.txt_store:
-                openActivity(StoreActivity.class);
+                openActivity(AlbumActivity.class);
                 break;
             case R.id.txt_setting:
                 openActivity(SettingActivity.class);

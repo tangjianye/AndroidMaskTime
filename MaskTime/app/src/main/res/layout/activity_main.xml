@@ -66,7 +66,7 @@
             android:layout_weight="1.0"
             android:drawableTop="@drawable/selector_btn_store"
             android:gravity="center"
-            android:text="@string/main_store" />
+            android:text="@string/main_album" />
 
         <TextView
             android:id="@+id/txt_setting"
