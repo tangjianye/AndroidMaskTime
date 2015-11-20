@@ -56,7 +56,7 @@ public class AlbumListAdapter extends BaseAdapter {
         }
 
         holder.title.setText(info.getTitle());
-        ComUtils.setImageUrl(mContext, holder.image, info.getUrl());
+        ComUtils.setImageUrl(mContext, holder.image, info.getCover());
         return convertView;
     }
 

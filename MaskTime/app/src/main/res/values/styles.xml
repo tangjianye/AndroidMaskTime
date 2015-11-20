@@ -58,18 +58,15 @@
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
 
-    <!-- Tab选项标签 -->
-    <style name="TabButtonStyle">
-        <item name="android:textSize">12.0dip</item>
-        <!--        <item name="android:textColor">@color/v3_maintab_btn_text_color</item>-->
-        <item name="android:gravity">center_horizontal|center_vertical</item>
-        <!--        <item name="android:background">@drawable/v3_maintabactivity_bottom_bg</item>-->
-        <item name="android:layout_width">0.0dip</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:layout_marginLeft">0.70000005dip</item>
-        <item name="android:layout_marginRight">0.70000005dip</item>
-        <item name="android:button">@null</item>
-        <item name="android:layout_weight">1.0</item>
+    <style name="BaseListViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/android_margin_micro</item>
+        <item name="android:layout_marginRight">@dimen/android_margin_micro</item>
+        <item name="android:layout_marginBottom">@dimen/android_margin_micro</item>
+        <item name="android:layout_marginTop">@dimen/android_margin_micro</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">@dimen/android_divider_height_normal</item>
     </style>
 
 </resources>
