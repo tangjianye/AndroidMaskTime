@@ -37,7 +37,7 @@
     <!-- 字体样式 End -->
 
     <style name="DefaultBgStyle">
-        <item name="android:background">@drawable/default_bg</item>
+        <item name="android:background">@drawable/bg_default</item>
     </style>
 
     <!--    <style name="AnimationPreview">

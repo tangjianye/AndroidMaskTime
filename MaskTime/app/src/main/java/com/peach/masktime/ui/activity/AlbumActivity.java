@@ -47,8 +47,9 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         initEvents();
 
         // request(API.SHOP_GET_GOODS, CATEGORY_BANNER, PAGE_BANNER);
-        request(API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
+        // request(API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
 
+        showLoadingDialog();
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 request(API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
@@ -113,6 +114,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
                     @Override
                     public void onResponse(String response) {
                         LogUtils.i(TAG, "response = " + response);
+                        dismissLoadingDialog();
                         if (null != response) {
                             Type type = new TypeToken<BannerSet>() {
                             }.getType();
@@ -124,6 +126,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                dismissLoadingDialog();
                 LogUtils.i(TAG, error.getMessage(), error);
             }
         });

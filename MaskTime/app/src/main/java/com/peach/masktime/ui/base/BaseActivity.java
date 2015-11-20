@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.peach.masktime.R;
-import com.peach.masktime.ui.view.LoadingDialog;
+import com.peach.masktime.ui.dialog.LoadingDialog;
 
 /**
  * Created by tangjy on 2015/10/24.
@@ -29,13 +29,13 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mLoadingDialog = new LoadingDialog(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        cancelToast();
+        dismissLoadingDialog();
     }
 
     @Override
@@ -72,21 +72,25 @@ public abstract class BaseActivity extends FragmentActivity {
     /**********************************************************************************************/
 
     /**********************************************************************************************/
-//    public void showLoadingDialog(final String text) {
-//        if (mLoadingDialog != null) {
-//            mLoadingDialog = null;
-//        }
-//        mLoadingDialog = new LoadingDialog(BaseActivity.this, text);
-//        mLoadingDialog.setCancelable(true);
-//        mLoadingDialog.show();
-//    }
-//
-//    public void dismissLoadingDialog() {
-//        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
-//            mLoadingDialog.dismiss();
-//        }
-//        mLoadingDialog = null;
-//    }
+    public void showLoadingDialog(final String text) {
+        if (mLoadingDialog != null) {
+            dismissLoadingDialog();
+        }
+        mLoadingDialog = new LoadingDialog(this, text);
+        mLoadingDialog.setCancelable(true);
+        mLoadingDialog.show();
+    }
+
+    public void showLoadingDialog() {
+        showLoadingDialog(getResources().getString(R.string.default_loading_tips));
+    }
+
+    public void dismissLoadingDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
+        mLoadingDialog = null;
+    }
 
     /**********************************************************************************************/
     public void showToast(int resId) {
