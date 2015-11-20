@@ -31,6 +31,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
     private static final int CATEGORY_BANNER = 7;
     private static final int CATEGORY_CONTENT = 8;
 
+    private View mLyContentTips;
     private ListView mListView;
     private AlbumListAdapter mListAdapter;
 
@@ -59,7 +60,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
 
     @Override
     protected void setContentLayer() {
-        setContentView(R.layout.activity_store);
+        setContentView(R.layout.activity_album);
     }
 
     @Override
@@ -88,8 +89,15 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         mTitleTips.setText(R.string.main_album);
     }
 
+    private void refreshContentTips(boolean visible) {
+        mLyContentTips.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
     @Override
     public void initViews() {
+        mLyContentTips = findViewById(R.id.ly_tips_content);
+        mLyContentTips.setVisibility(View.GONE);
+
         mListView = (ListView) findViewById(R.id.lv_content);
         mListAdapter = new AlbumListAdapter(this, mAlbumDataSet);
         mListView.setAdapter(mListAdapter);
@@ -142,12 +150,23 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
             if (CATEGORY_BANNER == category) {
 
             } else if (CATEGORY_CONTENT == category) {
+                refreshContentTips(isVisible(set));
                 for (BannerItem item : set.getRsm()) {
                     mAlbumDataSet.add(item);
                 }
                 mListAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    /**
+     * 判断是否可见
+     *
+     * @param set
+     * @return true可见
+     */
+    private boolean isVisible(BannerSet set) {
+        return null == set.getRsm();
     }
 }
 

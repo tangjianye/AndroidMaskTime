@@ -14,5 +14,5 @@
 
     <ListView
         android:id="@+id/lv_content"
-        style="@style/BaseListViewStyle" />
+        style="@style/DefaultListViewStyle" />
 </LinearLayout>
