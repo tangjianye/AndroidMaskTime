@@ -3,7 +3,7 @@ package com.peach.masktime.module.net.response;
 /**
  * Created by Administrator on 2015/11/19 0019.
  */
-public class BannerItem {
+public class AlbumItem {
     private int id;
     private int typeid;
     private int uid;
@@ -152,7 +152,7 @@ public class BannerItem {
 
     @Override
     public String toString() {
-        return "BannerItem{" +
+        return "AlbumItem{" +
                 "allnum=" + allnum +
                 ", id=" + id +
                 ", typeid=" + typeid +

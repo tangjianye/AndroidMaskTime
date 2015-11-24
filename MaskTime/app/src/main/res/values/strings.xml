@@ -5,6 +5,8 @@
 
     <string name="default_loading_tips">加载中...</string>
     <string name="default_no_content">没有数据</string>
+    <string name="default_no_more_date">没有更多数据</string>
+    <string name="default_get_data_fail">获取数据失败</string>
 
     <string name="main_community">社区</string>
     <string name="main_record">心得</string>

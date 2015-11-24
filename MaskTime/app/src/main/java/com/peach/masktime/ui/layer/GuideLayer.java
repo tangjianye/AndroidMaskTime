@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.ui.adapter.BasePagerAdapter;
-import com.peach.masktime.ui.view.CustomViewPager;
+import com.peach.masktime.ui.view.ScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 public class GuideLayer extends RelativeLayout implements ICycle {
     // private Button mBtnEntry;
     private LinearLayout mIndicator;
-    private CustomViewPager mViewPager;
+    private ScrollViewPager mViewPager;
     private List<View> mBannerViewList;
 
     private int mGuidePageResId[] = {R.drawable.guide_page_1,
@@ -107,7 +107,7 @@ public class GuideLayer extends RelativeLayout implements ICycle {
     private void initView() {
         // mBtnEntry = (Button) findViewById(R.id.btn_entry);
         mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
-        mViewPager = (CustomViewPager) findViewById(R.id.view_pager);
+        mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
     }
 
 //    private OnClickListener mClickListener = new OnClickListener() {

@@ -11,7 +11,7 @@
 
         <include layout="@layout/include_base_title" />
 
-        <ListView
+        <com.peach.masktime.ui.widget.xlistview.XListView
             android:id="@+id/lv_content"
             style="@style/DefaultListViewStyle" />
     </LinearLayout>

@@ -14,7 +14,7 @@ import com.peach.masktime.ui.adapter.BaseFragmentPagerAdapter;
 import com.peach.masktime.ui.base.BaseActivity;
 import com.peach.masktime.ui.fragment.CommunityFragment;
 import com.peach.masktime.ui.fragment.ReadFragment;
-import com.peach.masktime.ui.view.CustomViewPager;
+import com.peach.masktime.ui.view.ScrollViewPager;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class CommunityActivity extends BaseActivity implements IInit, View.OnCli
     private TextView mCommunityView;
     private TextView mReadView;
 
-    private CustomViewPager mViewPager;
+    private ScrollViewPager mViewPager;
     private BaseFragmentPagerAdapter mPageAdapter;
 
 
@@ -82,7 +82,7 @@ public class CommunityActivity extends BaseActivity implements IInit, View.OnCli
         // 标题
         mCommunityView = (TextView) findViewById(R.id.title_community);
         mReadView = (TextView) findViewById(R.id.title_read);
-        mViewPager = (CustomViewPager) findViewById(R.id.view_pager);
+        mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
 
         // init
         setIndicatorSelected(SELECTED_ITEM_INDEX);

@@ -1,10 +1,8 @@
 package com.peach.masktime.ui.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,33 +13,38 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.common.manager.VolleyManager;
 import com.peach.masktime.module.net.API;
-import com.peach.masktime.module.net.response.BannerItem;
-import com.peach.masktime.module.net.response.BannerSet;
+import com.peach.masktime.module.net.response.AlbumItem;
+import com.peach.masktime.module.net.response.AlbumSet;
 import com.peach.masktime.ui.adapter.AlbumListAdapter;
 import com.peach.masktime.ui.base.BaseTitleActivity;
+import com.peach.masktime.ui.widget.xlistview.XListView;
+import com.peach.masktime.ui.widget.xlistview.XListView.IXListViewListener;
 import com.peach.masktime.utils.JsonUtils;
 import com.peach.masktime.utils.LogUtils;
+import com.peach.masktime.utils.TimeUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterView.OnItemClickListener {
+public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterView.OnItemClickListener, IXListViewListener {
     private static final String TAG = AlbumActivity.class.getSimpleName();
-    private static final int PAGE_BANNER = 1;
+    private static final int FRIST_PAGE = 1;
     private static final int CATEGORY_BANNER = 7;
     private static final int CATEGORY_CONTENT = 8;
+    private static final boolean IS_INIT = true;
 
     private View mLyContentTips;
-    private ListView mListView;
+    private XListView mListView;
     private AlbumListAdapter mListAdapter;
 
     private int mPage = 1;
-    private ArrayList<BannerItem> mBannerDataSet;
-    private ArrayList<BannerItem> mAlbumDataSet;
+    private ArrayList<AlbumItem> mBannerDataSet;
+    private ArrayList<AlbumItem> mAlbumDataSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initDatas();
         initTitles();
         initViews();
@@ -49,13 +52,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
 
         // request(API.SHOP_GET_GOODS, CATEGORY_BANNER, PAGE_BANNER);
         // request(API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
-
-        showLoadingDialog();
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                request(API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
-            }
-        }, 5000);
+        request(IS_INIT, API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
     }
 
     @Override
@@ -80,8 +77,8 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
 
     @Override
     public void initDatas() {
-        mBannerDataSet = new ArrayList<BannerItem>();
-        mAlbumDataSet = new ArrayList<BannerItem>();
+        mBannerDataSet = new ArrayList<AlbumItem>();
+        mAlbumDataSet = new ArrayList<AlbumItem>();
     }
 
     @Override
@@ -98,7 +95,8 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         mLyContentTips = findViewById(R.id.ly_tips_content);
         mLyContentTips.setVisibility(View.GONE);
 
-        mListView = (ListView) findViewById(R.id.lv_content);
+        mListView = (XListView) findViewById(R.id.lv_content);
+        mListView.setPullLoadEnable(true);
         mListAdapter = new AlbumListAdapter(this, mAlbumDataSet);
         mListView.setAdapter(mListAdapter);
     }
@@ -106,6 +104,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
     @Override
     public void initEvents() {
         mListView.setOnItemClickListener(this);
+        mListView.setXListViewListener(this);
     }
 
     @Override
@@ -113,28 +112,76 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         LogUtils.i(TAG, "onItemClick");
     }
 
-    private void request(String func, final int category, int page) {
+    @Override
+    public void onLoadMore() {
+        mPage++;
+        LogUtils.i(TAG, "onLoadMore: mPage = " + mPage);
+        request(!IS_INIT, API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
+    }
+
+    @Override
+    public void onRefresh() {
+        mAlbumDataSet.clear();
+        mListAdapter.notifyDataSetChanged();
+        request(!IS_INIT, API.SHOP_GET_GOODS, CATEGORY_CONTENT, FRIST_PAGE);
+    }
+
+    private void onLoad() {
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
+        mListView.setRefreshTime(TimeUtils.getCurrentTimeInString());
+    }
+
+    private void resetNetUI() {
+        dismissLoadingDialog();
+        onLoad();
+    }
+
+    private void refreshNetUI(boolean isInit) {
+        if (isInit) {
+            refreshContentTips(true);
+        } else {
+            showToast(R.string.default_no_more_date);
+        }
+    }
+
+    private void refreshNetFail(boolean isInit) {
+        resetNetUI();
+        if (!isInit) {
+            showToast(R.string.default_get_data_fail);
+        }
+    }
+
+    private void request(final boolean isInit, final String func, final int category, int page) {
         String url = API.getUrl(func) + "category_id=" + category + "&page=" + page;
         LogUtils.i(TAG, "request url = " + url);
+        if (isInit) {
+            showLoadingDialog();
+        }
 
         StringRequest stringRequest = new StringRequest(url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         LogUtils.i(TAG, "response = " + response);
-                        dismissLoadingDialog();
+                        resetNetUI();
+
                         if (null != response) {
-                            Type type = new TypeToken<BannerSet>() {
+                            Type type = new TypeToken<AlbumSet>() {
                             }.getType();
-                            BannerSet set = JsonUtils.parseJson(response, type);
+                            AlbumSet set = JsonUtils.parseJson(response, type);
                             LogUtils.i(TAG, "set = " + set);
-                            response(category, set);
+                            if (null != set && set.getRsm() != null && set.getRsm().size() > 0) {
+                                response(category, set);
+                            } else {
+                                refreshNetUI(isInit);
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dismissLoadingDialog();
+                refreshNetFail(isInit);
                 LogUtils.i(TAG, error.getMessage(), error);
             }
         });
@@ -145,28 +192,17 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         rq.start();
     }
 
-    private void response(final int category, final BannerSet set) {
+    private void response(final int category, final AlbumSet set) {
         if (null != set) {
             if (CATEGORY_BANNER == category) {
 
             } else if (CATEGORY_CONTENT == category) {
-                refreshContentTips(isVisible(set));
-                for (BannerItem item : set.getRsm()) {
+                for (AlbumItem item : set.getRsm()) {
                     mAlbumDataSet.add(item);
                 }
                 mListAdapter.notifyDataSetChanged();
             }
         }
-    }
-
-    /**
-     * 判断是否可见
-     *
-     * @param set
-     * @return true可见
-     */
-    private boolean isVisible(BannerSet set) {
-        return null == set.getRsm();
     }
 }
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
-import com.peach.masktime.module.net.response.BannerItem;
+import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.utils.ComUtils;
 
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ import java.util.ArrayList;
  */
 public class AlbumListAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<BannerItem> mList;
+    private ArrayList<AlbumItem> mList;
 
-    public AlbumListAdapter(Context ctx, ArrayList<BannerItem> list) {
+    public AlbumListAdapter(Context ctx, ArrayList<AlbumItem> list) {
         this.mContext = ctx;
         this.mList = list;
     }
@@ -43,7 +43,7 @@ public class AlbumListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final BannerItem info = mList.get(position);
+        final AlbumItem info = mList.get(position);
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();

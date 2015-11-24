@@ -4,11 +4,11 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
-public class CustomViewPager extends ViewPager {
+public class ScrollViewPager extends ViewPager {
 
     private boolean mScrollable = true;
 
-    public CustomViewPager(Context context, AttributeSet attrs) {
+    public ScrollViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
