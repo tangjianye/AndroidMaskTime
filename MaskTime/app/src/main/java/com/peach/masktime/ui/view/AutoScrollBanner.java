@@ -67,13 +67,13 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     }
 
     @Override
-    public void show(boolean isAnimte) {
+    public void show(Object obj) {
         setVisibility(VISIBLE);
         updateData();
     }
 
     @Override
-    public void hide(boolean isAnimte) {
+    public void hide(Object obj) {
         setVisibility(GONE);
     }
 

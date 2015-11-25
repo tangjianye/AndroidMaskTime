@@ -55,13 +55,13 @@ public class GuideLayer extends RelativeLayout implements ICycle {
     }
 
     @Override
-    public void show(boolean isAnimte) {
+    public void show(Object obj) {
         updateData();
         setVisibility(VISIBLE);
     }
 
     @Override
-    public void hide(boolean isAnimte) {
+    public void hide(Object obj) {
         setVisibility(GONE);
     }
 

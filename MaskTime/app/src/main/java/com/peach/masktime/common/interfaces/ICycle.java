@@ -3,9 +3,9 @@ package com.peach.masktime.common.interfaces;
 public interface ICycle {
     void init();
 
-    void show(boolean isAnimte);
+    void show(Object obj);
 
-    void hide(boolean isAnimte);
+    void hide(Object obj);
 
     void refresh();
 

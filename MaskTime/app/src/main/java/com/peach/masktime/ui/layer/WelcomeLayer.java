@@ -48,7 +48,7 @@ public class WelcomeLayer extends RelativeLayout implements ICycle {
     }
 
     @Override
-    public void show(boolean isAnimte) {
+    public void show(Object obj) {
         setVisibility(VISIBLE);
 //        if (isAnimte) {
 //            zoomAnimate();
@@ -59,7 +59,7 @@ public class WelcomeLayer extends RelativeLayout implements ICycle {
     }
 
     @Override
-    public void hide(boolean isAnimte) {
+    public void hide(Object obj) {
         setVisibility(GONE);
     }
 
