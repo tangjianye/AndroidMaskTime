@@ -1,6 +1,7 @@
 package com.peach.masktime.ui.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
 import com.peach.masktime.module.net.response.AlbumItem;
+import com.peach.masktime.ui.layer.BannerLayer;
 import com.peach.masktime.ui.view.AutoScrollBanner;
 import com.peach.masktime.utils.ComUtils;
 
@@ -24,21 +26,21 @@ public class AlbumListAdapter extends BaseAdapter {
     private static final int TYPE_ALBUM = 1;
     private static final int TYPE_COUNT = 2;
 
-    private ArrayList<AlbumItem> mList;
+    private ArrayList<AlbumItem> mAlbumList;
 
     public AlbumListAdapter(Context ctx, ArrayList<AlbumItem> list) {
         this.mContext = ctx;
-        this.mList = list;
+        this.mAlbumList = list;
     }
 
     @Override
     public int getCount() {
-        return (null == mList) ? 0 : mList.size();
+        return (null == mAlbumList) ? 0 : mAlbumList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return (null == mList) ? null : mList.get(position);
+        return (null == mAlbumList) ? null : mAlbumList.get(position);
     }
 
     @Override
@@ -62,7 +64,7 @@ public class AlbumListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final AlbumItem info = mList.get(position);
+        final AlbumItem info = mAlbumList.get(position);
         int type = getItemViewType(position);
 
         switch (type) {
@@ -71,11 +73,13 @@ public class AlbumListAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new BannerViewHolder();
                     convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_banner, null);
-                    holder.banner = (AutoScrollBanner) convertView.findViewById(R.id.bv_auto);
+                    // holder.banner = (AutoScrollBanner) convertView.findViewById(R.id.bv_auto);
                     convertView.setTag(holder);
                 } else {
                     holder = (BannerViewHolder) convertView.getTag();
                 }
+                //holder.banner.show(getAlbumItems(info));
+                ((BannerLayer) convertView).show(null);
                 break;
             }
 
@@ -100,6 +104,16 @@ public class AlbumListAdapter extends BaseAdapter {
                 break;
         }
         return convertView;
+    }
+
+    @NonNull
+    private ArrayList<AlbumItem> getAlbumItems(AlbumItem info) {
+        ArrayList<AlbumItem> list = new ArrayList<>();
+        list.add(info);
+        list.add(info);
+        list.add(info);
+        list.add(info);
+        return list;
     }
 
     static class BannerViewHolder {

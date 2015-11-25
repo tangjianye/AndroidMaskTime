@@ -29,8 +29,6 @@ import java.util.ArrayList;
 public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterView.OnItemClickListener, IXListViewListener {
     private static final String TAG = AlbumActivity.class.getSimpleName();
     private static final int FRIST_PAGE = 1;
-    private static final int CATEGORY_BANNER = 7;
-    private static final int CATEGORY_CONTENT = 8;
     private static final boolean IS_INIT = true;
 
     private View mLyContentTips;
@@ -50,9 +48,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         initViews();
         initEvents();
 
-        // request(API.SHOP_GET_GOODS, CATEGORY_BANNER, PAGE_BANNER);
-        // request(API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
-        request(IS_INIT, API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
+        request(IS_INIT, API.SHOP_GET_GOODS, API.CATEGORY_CONTENT, mPage);
     }
 
     @Override
@@ -116,14 +112,14 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
     public void onLoadMore() {
         mPage++;
         LogUtils.i(TAG, "onLoadMore: mPage = " + mPage);
-        request(!IS_INIT, API.SHOP_GET_GOODS, CATEGORY_CONTENT, mPage);
+        request(!IS_INIT, API.SHOP_GET_GOODS, API.CATEGORY_CONTENT, mPage);
     }
 
     @Override
     public void onRefresh() {
         mAlbumDataSet.clear();
         mListAdapter.notifyDataSetChanged();
-        request(!IS_INIT, API.SHOP_GET_GOODS, CATEGORY_CONTENT, FRIST_PAGE);
+        request(!IS_INIT, API.SHOP_GET_GOODS, API.CATEGORY_CONTENT, FRIST_PAGE);
     }
 
     private void onLoad() {
@@ -172,7 +168,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
                             AlbumSet set = JsonUtils.parseJson(response, type);
                             LogUtils.i(TAG, "set = " + set);
                             if (null != set && set.getRsm() != null && set.getRsm().size() > 0) {
-                                response(category, set);
+                                response(category, set.getRsm());
                             } else {
                                 refreshNetUI(isInit);
                             }
@@ -192,16 +188,17 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         rq.start();
     }
 
-    private void response(final int category, final AlbumSet set) {
-        if (null != set) {
-            if (CATEGORY_BANNER == category) {
-
-            } else if (CATEGORY_CONTENT == category) {
-                for (AlbumItem item : set.getRsm()) {
-                    mAlbumDataSet.add(item);
-                }
-                mListAdapter.notifyDataSetChanged();
+    private void response(final int category, final ArrayList<AlbumItem> list) {
+        if (API.CATEGORY_BANNER == category) {
+            ;
+        } else if (API.CATEGORY_CONTENT == category) {
+            // 创建一个假广告占位数据
+            AlbumItem banner = new AlbumItem();
+            mAlbumDataSet.add(banner);
+            for (AlbumItem item : list) {
+                mAlbumDataSet.add(item);
             }
+            mListAdapter.notifyDataSetChanged();
         }
     }
 }

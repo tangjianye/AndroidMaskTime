@@ -18,6 +18,9 @@ public class API {
 
     public static final String SHOP_GET_GOODS = "/api/shop/get_goods/?";
 
+    public static final int PAGE_BANNER = 1;
+    public static final int CATEGORY_BANNER = 7;
+    public static final int CATEGORY_CONTENT = 8;
 
     /**
      * 获取后台接口
