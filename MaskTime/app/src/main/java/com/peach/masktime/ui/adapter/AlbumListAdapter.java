@@ -19,6 +19,10 @@ import java.util.ArrayList;
  */
 public class AlbumListAdapter extends BaseAdapter {
     private Context mContext;
+    private static final int TYPE_BANNER = 0;
+    private static final int TYPE_ALBUM = 1;
+    private static final int TYPE_COUNT = 2;
+
     private ArrayList<AlbumItem> mList;
 
     public AlbumListAdapter(Context ctx, ArrayList<AlbumItem> list) {
@@ -42,21 +46,66 @@ public class AlbumListAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if ((null == mList)) {
+            return super.getItemViewType(position);
+        } else {
+            if (0 == position) {
+                return TYPE_BANNER;
+            } else {
+                return TYPE_ALBUM;
+            }
+        }
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        if ((null == mList)) {
+            return super.getViewTypeCount();
+        } else {
+            return TYPE_COUNT;
+        }
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final AlbumItem info = mList.get(position);
         ViewHolder holder;
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_album_content, null);
-            holder.image = (NetworkImageView) convertView.findViewById(R.id.nt_image);
-            holder.title = (TextView) convertView.findViewById(R.id.txt_title);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+        int type = getItemViewType(position);
+        switch (type) {
+            case TYPE_BANNER:
+                // ViewHolder holder;
+                if (convertView == null) {
+                    holder = new ViewHolder();
+                    convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_album, null);
+                    holder.image = (NetworkImageView) convertView.findViewById(R.id.nt_image);
+                    holder.title = (TextView) convertView.findViewById(R.id.txt_title);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
 
-        holder.title.setText(info.getTitle());
-        ComUtils.setImageUrl(mContext, holder.image, info.getCover());
+                holder.title.setText("我是第一项");
+                ComUtils.setImageUrl(mContext, holder.image, info.getCover());
+                break;
+            case TYPE_ALBUM:
+                // ViewHolder holder;
+                if (convertView == null) {
+                    holder = new ViewHolder();
+                    convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_album, null);
+                    holder.image = (NetworkImageView) convertView.findViewById(R.id.nt_image);
+                    holder.title = (TextView) convertView.findViewById(R.id.txt_title);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+
+                holder.title.setText(info.getTitle());
+                ComUtils.setImageUrl(mContext, holder.image, info.getCover());
+                break;
+            default:
+                break;
+        }
         return convertView;
     }
 

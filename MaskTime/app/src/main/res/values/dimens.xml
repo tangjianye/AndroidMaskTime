@@ -19,6 +19,9 @@
     <dimen name="android_width_normal">32dp</dimen>
     <dimen name="android_width_small">16dp</dimen>
 
+    <dimen name="android_height_huge">240dp</dimen>
+    <dimen name="android_height_xlarge">180dp</dimen>
+    <dimen name="android_height_large">120dp</dimen>
     <dimen name="android_height_big">60dp</dimen>
     <dimen name="android_height_middle">48dp</dimen>
     <dimen name="android_height_normal">32dp</dimen>

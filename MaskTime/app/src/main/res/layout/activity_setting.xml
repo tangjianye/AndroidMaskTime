@@ -6,4 +6,8 @@
 
     <include layout="@layout/include_base_title" />
 
+    <com.peach.masktime.ui.view.AutoScrollBanner
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/android_height_xlarge" />
+
 </LinearLayout>

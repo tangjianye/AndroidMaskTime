@@ -14,11 +14,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/11/3 0003.
  */
-public class BasePagerAdapter extends PagerAdapter {
+public class GuidePagerAdapter extends PagerAdapter {
     private Context mContext;
     private List<View> mList;
 
-    public BasePagerAdapter(Context context, List<View> list) {
+    public GuidePagerAdapter(Context context, List<View> list) {
         this.mContext = context;
         this.mList = list;
     }
