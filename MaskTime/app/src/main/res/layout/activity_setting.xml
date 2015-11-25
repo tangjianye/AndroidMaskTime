@@ -6,8 +6,15 @@
 
     <include layout="@layout/include_base_title" />
 
-    <com.peach.masktime.ui.view.AutoScrollBanner
+    <!--    <com.peach.masktime.ui.view.AutoScrollBanner
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/android_height_xlarge" />-->
+
+<!--    <com.peach.masktime.ui.view.AutoScrollBanner
+        android:id="@+id/bv_auto"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/android_height_xlarge" />
+        android:layout_height="@dimen/android_height_xlarge" />-->
+
+    <include layout="@layout/listitem_banner" />
 
 </LinearLayout>

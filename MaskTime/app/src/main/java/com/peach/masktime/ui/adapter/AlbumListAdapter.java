@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
 import com.peach.masktime.module.net.response.AlbumItem;
+import com.peach.masktime.ui.view.AutoScrollBanner;
 import com.peach.masktime.utils.ComUtils;
 
 import java.util.ArrayList;
@@ -47,69 +48,65 @@ public class AlbumListAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if ((null == mList)) {
-            return super.getItemViewType(position);
+        if (0 == position) {
+            return TYPE_BANNER;
         } else {
-            if (0 == position) {
-                return TYPE_BANNER;
-            } else {
-                return TYPE_ALBUM;
-            }
+            return TYPE_ALBUM;
         }
     }
 
     @Override
     public int getViewTypeCount() {
-        if ((null == mList)) {
-            return super.getViewTypeCount();
-        } else {
-            return TYPE_COUNT;
-        }
+        return TYPE_COUNT;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final AlbumItem info = mList.get(position);
-        ViewHolder holder;
         int type = getItemViewType(position);
-        switch (type) {
-            case TYPE_BANNER:
-                // ViewHolder holder;
-                if (convertView == null) {
-                    holder = new ViewHolder();
-                    convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_album, null);
-                    holder.image = (NetworkImageView) convertView.findViewById(R.id.nt_image);
-                    holder.title = (TextView) convertView.findViewById(R.id.txt_title);
-                    convertView.setTag(holder);
-                } else {
-                    holder = (ViewHolder) convertView.getTag();
-                }
 
-                holder.title.setText("我是第一项");
-                ComUtils.setImageUrl(mContext, holder.image, info.getCover());
-                break;
-            case TYPE_ALBUM:
-                // ViewHolder holder;
+        switch (type) {
+            case TYPE_BANNER: {
+                BannerViewHolder holder;
                 if (convertView == null) {
-                    holder = new ViewHolder();
+                    holder = new BannerViewHolder();
+                    convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_banner, null);
+                    holder.banner = (AutoScrollBanner) convertView.findViewById(R.id.bv_auto);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (BannerViewHolder) convertView.getTag();
+                }
+                break;
+            }
+
+            case TYPE_ALBUM: {
+                AlbumViewHolder holder;
+                if (convertView == null) {
+                    holder = new AlbumViewHolder();
                     convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_album, null);
                     holder.image = (NetworkImageView) convertView.findViewById(R.id.nt_image);
                     holder.title = (TextView) convertView.findViewById(R.id.txt_title);
                     convertView.setTag(holder);
                 } else {
-                    holder = (ViewHolder) convertView.getTag();
+                    holder = (AlbumViewHolder) convertView.getTag();
                 }
 
                 holder.title.setText(info.getTitle());
                 ComUtils.setImageUrl(mContext, holder.image, info.getCover());
                 break;
+            }
+
             default:
                 break;
         }
         return convertView;
     }
 
-    static class ViewHolder {
+    static class BannerViewHolder {
+        public AutoScrollBanner banner;
+    }
+
+    static class AlbumViewHolder {
         public NetworkImageView image;
         public TextView title;
     }

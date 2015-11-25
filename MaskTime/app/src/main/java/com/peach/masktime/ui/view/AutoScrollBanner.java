@@ -21,7 +21,6 @@ import java.util.List;
  * Created by Administrator on 2015/11/25 0025.
  */
 public class AutoScrollBanner extends RelativeLayout implements ICycle {
-    // private Button mBtnEntry;
     private LinearLayout mIndicator;
     private ScrollViewPager mViewPager;
     private List<View> mViews;
@@ -48,6 +47,17 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
 //    protected void onFinishInflate() {
 //        super.onFinishInflate();
 //    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        show(null);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+    }
 
     @Override
     public void init() {
@@ -117,11 +127,9 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     }
 
     private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.listitem_banner, this);
+        LayoutInflater.from(context).inflate(R.layout.auto_scroll_banner, this);
         mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
         mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
-
-        show(false);
     }
 
     private class GuidePageChangeListener implements ViewPager.OnPageChangeListener {
