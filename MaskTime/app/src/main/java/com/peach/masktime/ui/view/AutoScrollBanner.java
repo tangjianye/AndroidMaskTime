@@ -124,7 +124,9 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     @NonNull
     private ArrayList<AlbumItem> getFakeAlbumList(ArrayList<AlbumItem> list) {
         ArrayList<AlbumItem> fakeList = new ArrayList<>();
+        // 起码保证有4个item
         if (1 == list.size()) {
+            fakeList.add(list.get(0));
             fakeList.add(list.get(0));
             fakeList.add(list.get(0));
             fakeList.add(list.get(0));
@@ -133,6 +135,13 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
             fakeList.add(list.get(1));
             fakeList.add(list.get(0));
             fakeList.add(list.get(1));
+        } else if (3 == list.size()) {
+            fakeList.add(list.get(0));
+            fakeList.add(list.get(1));
+            fakeList.add(list.get(2));
+            fakeList.add(list.get(0));
+            fakeList.add(list.get(1));
+            fakeList.add(list.get(2));
         } else {
             fakeList = list;
         }
@@ -157,7 +166,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
 
         mBannerAdapter = new BannerPagerAdapter(getContext(), mViews);
         mViewPager.setAdapter(mBannerAdapter);
-        if (1 == realCount) {
+        if (1 == mRealCount) {
             mViewPager.setScanScroll(false);
         }
         // int curr = ((Integer.MAX_VALUE / mCount) >> 1) * mCount;

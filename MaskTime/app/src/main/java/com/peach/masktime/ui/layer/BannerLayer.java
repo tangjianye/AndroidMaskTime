@@ -1,6 +1,7 @@
 package com.peach.masktime.ui.layer;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -13,14 +14,12 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.common.manager.VolleyManager;
 import com.peach.masktime.module.net.API;
-import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.module.net.response.AlbumSet;
 import com.peach.masktime.ui.view.AutoScrollBanner;
 import com.peach.masktime.utils.JsonUtils;
 import com.peach.masktime.utils.LogUtils;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2015/11/25 0025.
@@ -37,12 +36,11 @@ public class BannerLayer extends LinearLayout implements ICycle {
         super(context, attrs);
     }
 
-
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         LogUtils.i(TAG, "onAttachedToWindow");
-        request(API.SHOP_GET_GOODS, API.CATEGORY_BANNER, API.PAGE_BANNER);
+        request(getUrl());
     }
 
     @Override
@@ -92,10 +90,7 @@ public class BannerLayer extends LinearLayout implements ICycle {
 
     }
 
-    private void request(final String func, final int category, int page) {
-        String url = API.getUrl(func) + "category_id=" + category + "&page=" + page;
-        LogUtils.i(TAG, "request url = " + url);
-
+    private void request(final String url) {
         StringRequest stringRequest = new StringRequest(url,
                 new Response.Listener<String>() {
                     @Override
@@ -108,11 +103,7 @@ public class BannerLayer extends LinearLayout implements ICycle {
                             AlbumSet set = JsonUtils.parseJson(response, type);
                             LogUtils.i(TAG, "set = " + set);
                             if (null != set && set.getRsm() != null && set.getRsm().size() > 0) {
-                                ArrayList<AlbumItem> list = new ArrayList<>();
-                                list.add(set.getRsm().get(0));
-                                mAutoBanner.show(list);
-
-                                // mAutoBanner.show(set.getRsm());
+                                mAutoBanner.show(set.getRsm());
                             } else {
                                 LogUtils.i(TAG, "广告数据为空");
                             }
@@ -127,7 +118,12 @@ public class BannerLayer extends LinearLayout implements ICycle {
 
         RequestQueue rq = VolleyManager.getInstance(getContext()).getRequestQueue();
         rq.add(stringRequest);
-        stringRequest.setTag(func);
+        stringRequest.setTag(url);
         rq.start();
+    }
+
+    @NonNull
+    private String getUrl() {
+        return API.getCategoryUrl(API.CATEGORY_BANNER, API.PAGE_BANNER);
     }
 }

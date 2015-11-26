@@ -106,16 +106,6 @@ public class AlbumListAdapter extends BaseAdapter {
         return convertView;
     }
 
-//    @NonNull
-//    private ArrayList<AlbumItem> getAlbumItems(AlbumItem info) {
-//        ArrayList<AlbumItem> list = new ArrayList<>();
-//        list.add(info);
-//        list.add(info);
-//        list.add(info);
-//        list.add(info);
-//        return list;
-//    }
-
     static class BannerViewHolder {
         public AutoScrollBanner banner;
     }

@@ -1,6 +1,7 @@
 package com.peach.masktime.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -35,9 +36,14 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
     private XListView mListView;
     private AlbumListAdapter mListAdapter;
 
-    private int mPage = 1;
-    // private ArrayList<AlbumItem> mBannerDataSet;
+    private int mPage = FRIST_PAGE;
     private ArrayList<AlbumItem> mAlbumDataSet;
+
+    // 加载方式
+    private enum Status {
+        LordMore,
+        Refresh,
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         initViews();
         initEvents();
 
-        request(IS_INIT, API.SHOP_GET_GOODS, API.CATEGORY_CONTENT, mPage);
+        request(IS_INIT, getUrl(FRIST_PAGE), Status.LordMore);
     }
 
     @Override
@@ -73,8 +79,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
 
     @Override
     public void initDatas() {
-        // mBannerDataSet = new ArrayList<AlbumItem>();
-        mAlbumDataSet = new ArrayList<AlbumItem>();
+        mAlbumDataSet = new ArrayList<>();
     }
 
     @Override
@@ -112,14 +117,12 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
     public void onLoadMore() {
         mPage++;
         LogUtils.i(TAG, "onLoadMore: mPage = " + mPage);
-        request(!IS_INIT, API.SHOP_GET_GOODS, API.CATEGORY_CONTENT, mPage);
+        request(!IS_INIT, getUrl(mPage), Status.LordMore);
     }
 
     @Override
     public void onRefresh() {
-        mAlbumDataSet.clear();
-        mListAdapter.notifyDataSetChanged();
-        request(!IS_INIT, API.SHOP_GET_GOODS, API.CATEGORY_CONTENT, FRIST_PAGE);
+        request(!IS_INIT, getUrl(FRIST_PAGE), Status.Refresh);
     }
 
     private void onLoad() {
@@ -148,9 +151,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         }
     }
 
-    private void request(final boolean isInit, final String func, final int category, int page) {
-        String url = API.getUrl(func) + "category_id=" + category + "&page=" + page;
-        LogUtils.i(TAG, "request url = " + url);
+    private void request(final boolean isInit, final String url, final Status mode) {
         if (isInit) {
             showLoadingDialog();
         }
@@ -168,7 +169,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
                             AlbumSet set = JsonUtils.parseJson(response, type);
                             LogUtils.i(TAG, "set = " + set);
                             if (null != set && set.getRsm() != null && set.getRsm().size() > 0) {
-                                response(category, set.getRsm());
+                                response(mode, set.getRsm());
                             } else {
                                 refreshNetUI(isInit);
                             }
@@ -184,22 +185,27 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
 
         RequestQueue rq = VolleyManager.getInstance(this).getRequestQueue();
         rq.add(stringRequest);
-        stringRequest.setTag(func);
+        stringRequest.setTag(url);
         rq.start();
     }
 
-    private void response(final int category, final ArrayList<AlbumItem> list) {
-        if (API.CATEGORY_BANNER == category) {
-            ;
-        } else if (API.CATEGORY_CONTENT == category) {
-            // 创建一个假广告占位数据
-            AlbumItem banner = new AlbumItem();
-            mAlbumDataSet.add(banner);
-            for (AlbumItem item : list) {
-                mAlbumDataSet.add(item);
-            }
-            mListAdapter.notifyDataSetChanged();
+    @NonNull
+    private String getUrl(int page) {
+        return API.getCategoryUrl(API.CATEGORY_CONTENT, page);
+    }
+
+    private void response(final Status mode, final ArrayList<AlbumItem> list) {
+        if (Status.Refresh == mode) {
+            mAlbumDataSet.clear();
         }
+
+        // 创建一个假广告占位数据
+        AlbumItem banner = new AlbumItem();
+        mAlbumDataSet.add(banner);
+        for (AlbumItem item : list) {
+            mAlbumDataSet.add(item);
+        }
+        mListAdapter.notifyDataSetChanged();
     }
 }
 
