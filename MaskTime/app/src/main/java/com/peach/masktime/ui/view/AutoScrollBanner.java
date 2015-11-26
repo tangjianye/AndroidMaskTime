@@ -5,14 +5,16 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.ui.adapter.BannerPagerAdapter;
+import com.peach.masktime.utils.ComUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     private static final String TAG = AutoScrollBanner.class.getSimpleName();
     private int mCount;
 
+    private Context mContext;
     private LinearLayout mIndicator;
     private ScrollViewPager mViewPager;
     private List<View> mViews;
@@ -61,8 +64,10 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
 
     }
 
-    private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.auto_scroll_banner, this);
+    private void initView(Context ctx) {
+        mContext = ctx;
+
+        LayoutInflater.from(mContext).inflate(R.layout.auto_scroll_banner, this);
         mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
         mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
         mViewPager.setOnPageChangeListener(new PageChangeListener());
@@ -108,7 +113,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         }
 
         mCount = mList.size();
-        initBanner(mCount);
+        initBanner(mList);
         initIndicator(mCount);
         mBannerAdapter.notifyDataSetChanged();
     }
@@ -128,17 +133,30 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
 
     }
 
-    private void initBanner(int count) {
+    /**
+     * 初始化广告页的内容
+     *
+     * @param list
+     */
+    private void initBanner(ArrayList<AlbumItem> list) {
         // 初始化引导页
-        ImageView imageView;
+        View view = null;
         mViews.clear();
-        for (int i = 0; i < count; i++) {
-            imageView = new ImageView(getContext());
-            imageView.setImageResource(R.drawable.guide_page_1);
-            mViews.add(imageView);
+        for (AlbumItem info : list) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.item_banner, null);
+            NetworkImageView image = (NetworkImageView) view.findViewById(R.id.nt_image);
+            TextView title = (TextView) view.findViewById(R.id.txt_title);
+            title.setText(info.getTitle());
+            ComUtils.setImageUrl(mContext, image, info.getCover());
+            mViews.add(view);
         }
     }
 
+    /**
+     * 初始化广告栏下面的指示点
+     *
+     * @param count
+     */
     private void initIndicator(int count) {
         // 初始化引导点indicator
         LinearLayout.LayoutParams params;

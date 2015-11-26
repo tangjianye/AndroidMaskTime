@@ -36,7 +36,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
     private AlbumListAdapter mListAdapter;
 
     private int mPage = 1;
-    private ArrayList<AlbumItem> mBannerDataSet;
+    // private ArrayList<AlbumItem> mBannerDataSet;
     private ArrayList<AlbumItem> mAlbumDataSet;
 
     @Override
@@ -73,7 +73,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
 
     @Override
     public void initDatas() {
-        mBannerDataSet = new ArrayList<AlbumItem>();
+        // mBannerDataSet = new ArrayList<AlbumItem>();
         mAlbumDataSet = new ArrayList<AlbumItem>();
     }
 
