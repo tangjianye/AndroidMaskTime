@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
+import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.common.manager.VolleyManager;
 import com.peach.masktime.module.net.API;
@@ -110,7 +111,12 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        LogUtils.i(TAG, "onItemClick");
+        AlbumItem info = mAlbumDataSet.get(i);
+        LogUtils.i(TAG, "onItemClick i = " + i + " ; info = " + info);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.BUNDLE_URL, info.getUrl());
+        openActivity(WebViewActivity.class, bundle);
     }
 
     @Override

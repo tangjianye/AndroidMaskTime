@@ -1,6 +1,7 @@
 package com.peach.masktime.ui.view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -13,10 +14,14 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
+import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.module.net.response.AlbumItem;
+import com.peach.masktime.ui.activity.WebViewActivity;
 import com.peach.masktime.ui.adapter.BannerPagerAdapter;
+import com.peach.masktime.ui.base.BaseActivity;
 import com.peach.masktime.utils.ComUtils;
+import com.peach.masktime.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -218,7 +223,14 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
             image.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    AlbumItem info = (AlbumItem) view.getTag();
+                    LogUtils.i(TAG, "onClick info = " + info);
 
+                    if (null != info) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constants.BUNDLE_URL, info.getUrl());
+                        ((BaseActivity) getContext()).openActivity(WebViewActivity.class, bundle);
+                    }
                 }
             });
 
