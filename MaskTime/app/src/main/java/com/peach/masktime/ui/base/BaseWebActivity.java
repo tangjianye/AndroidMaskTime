@@ -18,7 +18,7 @@ import com.peach.masktime.utils.StringUtils;
  *
  * @author tangjy
  */
-public  class BaseWebActivity extends BaseActivity {
+public class BaseWebActivity extends BaseTitleActivity {
     private static final String TAG = BaseWebActivity.class.getSimpleName();
     protected WebView mWebView = null;
     protected String mUrl = null;
@@ -26,7 +26,7 @@ public  class BaseWebActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_web);
+        // setContentView(R.layout.activity_base_web);
         initViews();
         initEvents();
     }
@@ -36,6 +36,10 @@ public  class BaseWebActivity extends BaseActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void setContentLayer() {
+        setContentView(R.layout.activity_base_web);
+    }
 
     private void initViews() {
         mWebView = (WebView) findViewById(R.id.web_container);

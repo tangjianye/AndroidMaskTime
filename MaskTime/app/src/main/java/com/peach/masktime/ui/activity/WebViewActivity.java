@@ -2,6 +2,7 @@ package com.peach.masktime.ui.activity;
 
 import android.os.Bundle;
 
+import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.ui.base.BaseWebActivity;
 
