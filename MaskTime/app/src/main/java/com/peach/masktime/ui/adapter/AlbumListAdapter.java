@@ -1,7 +1,6 @@
 package com.peach.masktime.ui.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,16 +68,17 @@ public class AlbumListAdapter extends BaseAdapter {
 
         switch (type) {
             case TYPE_BANNER: {
-                BannerViewHolder holder;
-                if (convertView == null) {
-                    holder = new BannerViewHolder();
-                    convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_banner, null);
-                    // holder.banner = (AutoScrollBanner) convertView.findViewById(R.id.bv_auto);
-                    convertView.setTag(holder);
-                } else {
-                    holder = (BannerViewHolder) convertView.getTag();
-                }
-                //holder.banner.show(getAlbumItems(info));
+//                BannerViewHolder holder;
+//                if (convertView == null) {
+//                    holder = new BannerViewHolder();
+//                    convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_banner, null);
+//                    holder.banner = (AutoScrollBanner) convertView.findViewById(R.id.bv_auto);
+//                    convertView.setTag(holder);
+//                } else {
+//                    holder = (BannerViewHolder) convertView.getTag();
+//                }
+//                holder.banner.show(getAlbumItems(info));
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_banner, null);
                 ((BannerLayer) convertView).show(null);
                 break;
             }
@@ -106,15 +106,15 @@ public class AlbumListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    @NonNull
-    private ArrayList<AlbumItem> getAlbumItems(AlbumItem info) {
-        ArrayList<AlbumItem> list = new ArrayList<>();
-        list.add(info);
-        list.add(info);
-        list.add(info);
-        list.add(info);
-        return list;
-    }
+//    @NonNull
+//    private ArrayList<AlbumItem> getAlbumItems(AlbumItem info) {
+//        ArrayList<AlbumItem> list = new ArrayList<>();
+//        list.add(info);
+//        list.add(info);
+//        list.add(info);
+//        list.add(info);
+//        return list;
+//    }
 
     static class BannerViewHolder {
         public AutoScrollBanner banner;

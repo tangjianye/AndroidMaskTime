@@ -7,5 +7,5 @@
     <com.peach.masktime.ui.view.AutoScrollBanner
         android:id="@+id/bv_auto"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/android_height_xlarge" />
+        android:layout_height="wrap_content" />
 </com.peach.masktime.ui.layer.BannerLayer>

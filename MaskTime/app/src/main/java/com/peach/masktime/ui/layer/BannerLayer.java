@@ -109,10 +109,7 @@ public class BannerLayer extends LinearLayout implements ICycle {
                             LogUtils.i(TAG, "set = " + set);
                             if (null != set && set.getRsm() != null && set.getRsm().size() > 0) {
                                 ArrayList<AlbumItem> list = new ArrayList<>();
-                                for (AlbumItem item : set.getRsm()) {
-                                    list.add(item);
-                                    list.add(item);
-                                }
+                                list.add(set.getRsm().get(0));
                                 mAutoBanner.show(list);
 
                                 // mAutoBanner.show(set.getRsm());

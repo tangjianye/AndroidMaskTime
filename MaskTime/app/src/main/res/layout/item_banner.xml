@@ -11,9 +11,16 @@
         android:scaleType="fitXY"
         android:src="@drawable/place_holder" />
 
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/place_holder" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            style="@style/DefualtTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="dfasdfgdgfdg" />-->
 
 </LinearLayout>

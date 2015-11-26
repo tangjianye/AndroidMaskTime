@@ -1,13 +1,15 @@
 package com.peach.masktime.ui.view;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
@@ -24,15 +26,22 @@ import java.util.List;
  */
 public class AutoScrollBanner extends RelativeLayout implements ICycle {
     private static final String TAG = AutoScrollBanner.class.getSimpleName();
+    private static final long TIME_INTERVAL = 3000;
+    private static final int PAGE_OFFSET = 10000;
     private int mCount;
+    private int mRealCount;
 
     private Context mContext;
+    // private TextView mTips;
     private LinearLayout mIndicator;
     private ScrollViewPager mViewPager;
     private List<View> mViews;
 
     private BannerPagerAdapter mBannerAdapter;
     private ArrayList<AlbumItem> mList;
+
+    private Handler mHandler;
+    private Runnable mRunnable;
 
     public AutoScrollBanner(Context context) {
         super(context);
@@ -57,6 +66,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        stopBanner();
     }
 
     @Override
@@ -68,13 +78,23 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         mContext = ctx;
 
         LayoutInflater.from(mContext).inflate(R.layout.auto_scroll_banner, this);
+        // mTips = (TextView) findViewById(R.id.txt_title);
         mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
         mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
         mViewPager.setOnPageChangeListener(new PageChangeListener());
 
         mViews = new ArrayList<>();
-        mBannerAdapter = new BannerPagerAdapter(getContext(), mViews);
-        mViewPager.setAdapter(mBannerAdapter);
+        mHandler = new Handler(Looper.getMainLooper());
+        mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mViewPager.getScanScroll()) {
+                    int curr = mViewPager.getCurrentItem();
+                    mViewPager.setCurrentItem(curr + 1);
+                    mHandler.postDelayed(this, TIME_INTERVAL);
+                }
+            }
+        };
     }
 
     private class PageChangeListener implements ViewPager.OnPageChangeListener {
@@ -88,7 +108,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
 
         @Override
         public void onPageSelected(int pageIndex) {
-            setIndicatorEnabled(pageIndex);
+            setIndicatorEnabled(pageIndex % mRealCount);
         }
     }
 
@@ -97,11 +117,29 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         setVisibility(VISIBLE);
         ArrayList<AlbumItem> list = (ArrayList<AlbumItem>) obj;
         if (null != list && list.size() > 0) {
-            updateUI(list);
+            updateUI(getFakeAlbumList(list), list.size());
         }
     }
 
-    private void updateUI(ArrayList<AlbumItem> list) {
+    @NonNull
+    private ArrayList<AlbumItem> getFakeAlbumList(ArrayList<AlbumItem> list) {
+        ArrayList<AlbumItem> fakeList = new ArrayList<>();
+        if (1 == list.size()) {
+            fakeList.add(list.get(0));
+            fakeList.add(list.get(0));
+            fakeList.add(list.get(0));
+        } else if (2 == list.size()) {
+            fakeList.add(list.get(0));
+            fakeList.add(list.get(1));
+            fakeList.add(list.get(0));
+            fakeList.add(list.get(1));
+        } else {
+            fakeList = list;
+        }
+        return fakeList;
+    }
+
+    private void updateUI(ArrayList<AlbumItem> list, int realCount) {
         if (null == mList) {
             mList = list;
         } else {
@@ -111,11 +149,32 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
                 mList = list;
             }
         }
-
+        mRealCount = realCount;
         mCount = mList.size();
+
+        initIndicator(mRealCount);
         initBanner(mList);
-        initIndicator(mCount);
+
+        mBannerAdapter = new BannerPagerAdapter(getContext(), mViews);
+        mViewPager.setAdapter(mBannerAdapter);
+        if (1 == realCount) {
+            mViewPager.setScanScroll(false);
+        }
+        // int curr = ((Integer.MAX_VALUE / mCount) >> 1) * mCount;
+        // LogUtils.i(TAG, "Integer.MAX_VALUE = " + Integer.MAX_VALUE + " ;curr = " + curr);
+        mViewPager.setCurrentItem(mCount * PAGE_OFFSET);
         mBannerAdapter.notifyDataSetChanged();
+
+        startBanner();
+    }
+
+    private void startBanner() {
+        mHandler.removeCallbacks(mRunnable);
+        mHandler.postDelayed(mRunnable, TIME_INTERVAL);
+    }
+
+    private void stopBanner() {
+        mHandler.removeCallbacks(mRunnable);
     }
 
     @Override
@@ -144,9 +203,17 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         mViews.clear();
         for (AlbumItem info : list) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_banner, null);
+            // TextView title = (TextView) view.findViewById(R.id.txt_title);
             NetworkImageView image = (NetworkImageView) view.findViewById(R.id.nt_image);
-            TextView title = (TextView) view.findViewById(R.id.txt_title);
-            title.setText(info.getTitle());
+            image.setTag(info);
+            image.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
+            // title.setText(info.getTitle());
             ComUtils.setImageUrl(mContext, image, info.getCover());
             mViews.add(view);
         }
@@ -176,7 +243,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     }
 
     private void setIndicatorEnabled(int pos) {
-        for (int i = 0; i < mCount; i++) {
+        for (int i = 0; i < mIndicator.getChildCount(); i++) {
             mIndicator.getChildAt(i).setEnabled(false);
         }
         mIndicator.getChildAt(pos).setEnabled(true);

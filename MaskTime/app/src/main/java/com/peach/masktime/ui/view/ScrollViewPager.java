@@ -16,6 +16,10 @@ public class ScrollViewPager extends ViewPager {
         this.mScrollable = scrollable;
     }
 
+    public boolean getScanScroll() {
+        return mScrollable;
+    }
+
     @Override
     public void scrollTo(int x, int y) {
         if (mScrollable) {

@@ -22,7 +22,8 @@ public class BannerPagerAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return mList.size();
+        // return mList.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -32,8 +33,9 @@ public class BannerPagerAdapter extends PagerAdapter {
     }
 
     public View instantiateItem(View arg0, final int arg1) {
-        ((ViewPager) arg0).addView(mList.get(arg1));
-        return mList.get(arg1);
+        int pos = arg1 % mList.size();
+        ((ViewPager) arg0).addView(mList.get(pos));
+        return mList.get(pos);
     }
 
     @Override
