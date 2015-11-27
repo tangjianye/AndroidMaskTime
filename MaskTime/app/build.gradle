@@ -10,7 +10,30 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [CHANNEL_VALUE: "default_channel"]
     }
+
+    productFlavors {
+        default_channel {}
+        wandoujia {}
+        xiaomi {}
+        baidu {}
+        huawei {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('E:/appKey/keyStore.jks')
+            storePassword 'tztt0746'
+            keyAlias 'key'
+            keyPassword 'tztt0731'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

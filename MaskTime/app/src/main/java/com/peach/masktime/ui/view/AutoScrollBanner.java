@@ -20,7 +20,7 @@ import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.ui.activity.WebViewActivity;
 import com.peach.masktime.ui.adapter.BannerPagerAdapter;
 import com.peach.masktime.ui.base.BaseActivity;
-import com.peach.masktime.utils.ComUtils;
+import com.peach.masktime.utils.CommUtils;
 import com.peach.masktime.utils.LogUtils;
 
 import java.util.ArrayList;
@@ -235,7 +235,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
             });
 
             // title.setText(info.getTitle());
-            ComUtils.setImageUrl(mContext, image, info.getCover());
+            CommUtils.setImageUrl(mContext, image, info.getCover());
             mViews.add(view);
         }
     }

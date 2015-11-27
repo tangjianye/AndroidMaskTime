@@ -5,12 +5,15 @@ package com.peach.masktime.config;
  */
 public class GlobalSetting {
     private static final String DATABASE_NAME = "[com.peach.masktime]";
+    // private static final String CHANNEL = "CHANNEL";
+
     /**
      * 当前app的运行模式
      */
     public final boolean DEBUG = true;
+
     /**
      * 当前app的是否写Log
      */
-    private boolean mIsLogined = false;
+    public boolean mIsLogined = false;
 }

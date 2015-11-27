@@ -12,7 +12,7 @@ import com.peach.masktime.R;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.ui.layer.BannerLayer;
 import com.peach.masktime.ui.view.AutoScrollBanner;
-import com.peach.masktime.utils.ComUtils;
+import com.peach.masktime.utils.CommUtils;
 
 import java.util.ArrayList;
 
@@ -96,7 +96,7 @@ public class AlbumListAdapter extends BaseAdapter {
                 }
 
                 holder.title.setText(info.getTitle());
-                ComUtils.setImageUrl(mContext, holder.image, info.getCover());
+                CommUtils.setImageUrl(mContext, holder.image, info.getCover());
                 break;
             }
 
