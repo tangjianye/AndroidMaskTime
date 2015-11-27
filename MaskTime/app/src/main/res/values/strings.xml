@@ -23,4 +23,6 @@
     <string name="setting_feedback">意见反馈</string>
     <string name="setting_favorable">赏个好评</string>
     <string name="setting_share">要求好友</string>
+    <string name="notice_sound">提醒声音</string>
+
 </resources>

@@ -1,6 +1,10 @@
 package com.peach.masktime.ui.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,11 +13,12 @@ import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.ui.base.BaseTitleActivity;
 
 public class SettingActivity extends BaseTitleActivity implements IInit, View.OnClickListener {
-    private static final String TAG = "CommunityActivity";
+    private static final String TAG = SettingActivity.class.getSimpleName();
+
+    private Dialog mDialog;
     private TextView mTvSoundType;
 
     private String[] mSoundTypes;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,9 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (null != mDialog && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
     }
 
     @Override
@@ -77,7 +85,7 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
                 // openActivity(CommunityActivity.class);
                 break;
             case R.id.ly_sound:
-
+                builderDialog(getString(R.string.notice_sound), mSoundTypes);
                 break;
             case R.id.ly_favorable:
 
@@ -91,5 +99,42 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
             default:
                 break;
         }
+    }
+
+    protected void builderDialog(final String title, final String[] items) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_dialog_list, null);
+        TextView dialogTitle = (TextView) view.findViewById(R.id.txt_dialog_title);
+        dialogTitle.setText(title);
+//        ImageView cancel = (ImageView) view.findViewById(R.id.cancel);
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mDialog.dismiss();
+//            }
+//        });
+        builder.setCustomTitle(view);
+
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                switch (which) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        break;
+                }
+                mTvSoundType.setText(items[which]);
+            }
+        });
+
+        mDialog = builder.create();
+        mDialog.show();
     }
 }
