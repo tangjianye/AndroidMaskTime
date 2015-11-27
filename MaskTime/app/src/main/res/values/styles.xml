@@ -36,14 +36,26 @@
     </style>
     <!-- 字体样式 End -->
 
-    <style name="DefualtTextStyle" parent="BaseText.Small">
+    <style name="DefTextStyle" parent="BaseText.Small">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/gray</item>
     </style>
 
-    <style name="DefaultBgStyle">
+    <style name="SettingTextStyle" parent="BaseText.Medium.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="DefBgStyle">
         <item name="android:background">@drawable/bg_default</item>
+    </style>
+
+    <style name="DefDividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/android_divider_height_middle</item>
+        <item name="android:background">@color/gray</item>
     </style>
 
     <!--    <style name="AnimationPreview">
@@ -64,7 +76,7 @@
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
 
-    <style name="DefaultListViewStyle">
+    <style name="DefListViewStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/android_margin_normal</item>
@@ -73,6 +85,13 @@
         <item name="android:layout_marginTop">@dimen/android_margin_normal</item>
         <item name="android:divider">@android:color/transparent</item>
         <item name="android:dividerHeight">@dimen/android_divider_height_normal</item>
+    </style>
+
+    <style name="SettingBlockStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/android_height_middle</item>
+        <item name="android:paddingLeft">@dimen/android_padding_middle</item>
+        <item name="android:paddingRight">@dimen/android_padding_middle</item>
     </style>
 
 </resources>

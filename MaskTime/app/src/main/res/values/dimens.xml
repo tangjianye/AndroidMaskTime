@@ -62,6 +62,7 @@
     <dimen name="android_edit_width_middle">60dp</dimen>
     <dimen name="android_edit_height_middle">40dp</dimen>
 
+    <dimen name="android_divider_height_middle">2dp</dimen>
     <dimen name="android_divider_height_normal">1dp</dimen>
     <dimen name="android_divider_height_micro">1px</dimen>
     <!-- 其他 -->

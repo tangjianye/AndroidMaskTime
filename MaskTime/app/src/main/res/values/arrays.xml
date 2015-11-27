@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sound_type">
+        <item>空山鸟语</item>
+        <item>超萌皮卡丘</item>
+        <item>回梦游仙</item>
+        <item>雪千寻</item>
+    </string-array>
+</resources>

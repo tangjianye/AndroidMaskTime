@@ -6,15 +6,144 @@
 
     <include layout="@layout/include_base_title" />
 
-    <!--    <com.peach.masktime.ui.view.AutoScrollBanner
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/android_height_xlarge" />-->
-
-<!--    <com.peach.masktime.ui.view.AutoScrollBanner
-        android:id="@+id/bv_auto"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/android_height_xlarge" />-->
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/set_header" />
 
-    <include layout="@layout/listitem_banner" />
+    <RelativeLayout
+        android:id="@+id/ly_plan"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            style="@style/SettingTextStyle"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/facial_cycle"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_plan" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+
+        <View
+            style="@style/DefDividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ly_sound"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            style="@style/SettingTextStyle"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/set_notice_time"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_sound" />
+
+        <!--        <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right_noraml" />-->
+
+        <TextView
+            android:id="@+id/txt_sound_type"
+            style="@style/SettingTextStyle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:drawableRight="@drawable/arrow_right_noraml"
+            android:gravity="center" />
+
+        <View
+            style="@style/DefDividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ly_feedback"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            style="@style/SettingTextStyle"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/feedback"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_feedback" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+
+        <View
+            style="@style/DefDividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ly_favorable"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            style="@style/SettingTextStyle"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/give_commont"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_favorable" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+
+        <View
+            style="@style/DefDividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ly_share"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            style="@style/SettingTextStyle"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/share_friend"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_share" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+
+        <View
+            style="@style/DefDividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
 
 </LinearLayout>
