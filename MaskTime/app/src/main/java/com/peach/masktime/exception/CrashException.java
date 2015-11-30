@@ -5,7 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.peach.masktime.common.manager.AppManager;
+import com.peach.masktime.BaseApplication;
 import com.peach.masktime.ui.activity.SplashActivity;
 import com.peach.masktime.utils.LogUtils;
 
@@ -68,9 +68,9 @@ public class CrashException implements UncaughtExceptionHandler {
                 PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pIntent);
-        // ((BaseApplication) mContext.getApplicationContext()).exitApp(true);
-        AppManager.getInstance().appExit(mContext, true);
 
+        ((BaseApplication) mContext.getApplicationContext()).exitApp(true);
+        // AppManager.getInstance().appExit(mContext, true);
         return true;
     }
 

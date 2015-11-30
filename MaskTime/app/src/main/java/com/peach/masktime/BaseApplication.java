@@ -2,6 +2,7 @@ package com.peach.masktime;
 
 import android.app.Application;
 
+import com.peach.masktime.common.manager.AppManager;
 import com.peach.masktime.utils.CommUtils;
 
 public class BaseApplication extends Application {
@@ -20,9 +21,9 @@ public class BaseApplication extends Application {
         CommUtils.getChannel(this);
     }
 
-//    public void exitApp(boolean isKillProcess) {
-//        mAppManager.appExit(this, isKillProcess);
-//    }
+    public void exitApp(boolean isKillProcess) {
+        AppManager.getInstance().appExit(this, isKillProcess);
+    }
 
     @Override
     public void onTerminate() {
