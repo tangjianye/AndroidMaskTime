@@ -75,7 +75,15 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     }
 
     @Override
-    public void init() {
+    public void refresh(Object obj) {
+        ArrayList<AlbumItem> list = (ArrayList<AlbumItem>) obj;
+        if (null != list && list.size() > 0) {
+            updateUI(getFakeAlbumList(list), list.size());
+        }
+    }
+
+    @Override
+    public void resume() {
 
     }
 
@@ -114,15 +122,6 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         @Override
         public void onPageSelected(int pageIndex) {
             setIndicatorEnabled(pageIndex % mRealCount);
-        }
-    }
-
-    @Override
-    public void show(Object obj) {
-        setVisibility(VISIBLE);
-        ArrayList<AlbumItem> list = (ArrayList<AlbumItem>) obj;
-        if (null != list && list.size() > 0) {
-            updateUI(getFakeAlbumList(list), list.size());
         }
     }
 
@@ -191,21 +190,6 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         mHandler.removeCallbacks(mRunnable);
     }
 
-    @Override
-    public void hide(Object obj) {
-        setVisibility(GONE);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
     /**
      * 初始化广告页的内容
      *
@@ -268,15 +252,5 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
             mIndicator.getChildAt(i).setEnabled(false);
         }
         mIndicator.getChildAt(pos).setEnabled(true);
-    }
-
-    @Override
-    public void refresh() {
-
-    }
-
-    @Override
-    public void resume() {
-
     }
 }

@@ -37,11 +37,6 @@ public class GuideLayer extends RelativeLayout implements ICycle {
         initView();
     }
 
-    @Override
-    public void init() {
-
-    }
-
     public void updateData() {
         initData();
         initIndicator(getContext(), mIndicator);
@@ -55,23 +50,12 @@ public class GuideLayer extends RelativeLayout implements ICycle {
     }
 
     @Override
-    public void show(Object obj) {
+    public void refresh(Object obj) {
         updateData();
-        setVisibility(VISIBLE);
     }
 
     @Override
-    public void hide(Object obj) {
-        setVisibility(GONE);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void destroy() {
+    public void resume() {
 
     }
 
@@ -151,15 +135,5 @@ public class GuideLayer extends RelativeLayout implements ICycle {
             mIndicator.getChildAt(i).setEnabled(false);
         }
         mIndicator.getChildAt(pos).setEnabled(true);
-    }
-
-    @Override
-    public void refresh() {
-
-    }
-
-    @Override
-    public void resume() {
-
     }
 }

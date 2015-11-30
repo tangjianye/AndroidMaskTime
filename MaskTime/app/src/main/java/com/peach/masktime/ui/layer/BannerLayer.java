@@ -56,37 +56,12 @@ public class BannerLayer extends LinearLayout implements ICycle {
     }
 
     @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void show(Object obj) {
-
-    }
-
-    @Override
-    public void hide(Object obj) {
-
-    }
-
-    @Override
-    public void refresh() {
+    public void refresh(Object obj) {
 
     }
 
     @Override
     public void resume() {
-
-    }
-
-    @Override
-    public void pause() {
 
     }
 
@@ -103,7 +78,7 @@ public class BannerLayer extends LinearLayout implements ICycle {
                             AlbumSet set = JsonUtils.parseJson(response, type);
                             LogUtils.i(TAG, "set = " + set);
                             if (null != set && set.getRsm() != null && set.getRsm().size() > 0) {
-                                mAutoBanner.show(set.getRsm());
+                                mAutoBanner.refresh(set.getRsm());
                             } else {
                                 LogUtils.i(TAG, "广告数据为空");
                             }

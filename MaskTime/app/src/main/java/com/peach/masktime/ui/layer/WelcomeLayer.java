@@ -1,9 +1,8 @@
 package com.peach.masktime.ui.layer;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
-import android.os.Message;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
@@ -12,27 +11,29 @@ import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.ui.activity.MainActivity;
 import com.peach.masktime.ui.activity.SplashActivity;
 import com.peach.masktime.ui.base.BaseActivity;
+import com.peach.masktime.utils.LogUtils;
 
 public class WelcomeLayer extends RelativeLayout implements ICycle {
     private static final String TAG = "WelcomeLayer";
     private final int DELAY_TIME = 1000;
     private final int ENTRY_TO_WALLPAPER_ACTIVITY = 1;
     private Animation mAnimator = null;
+    private Handler mHandler;
 
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case ENTRY_TO_WALLPAPER_ACTIVITY:
-                    ((BaseActivity) getContext()).openActivity(MainActivity.class);
-                    break;
-                default:
-                    break;
-            }
-            ((SplashActivity) getContext()).finish();
-            super.handleMessage(msg);
-        }
-    };
+//    @SuppressLint("HandlerLeak")
+//    private Handler mHandler = new Handler() {
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case ENTRY_TO_WALLPAPER_ACTIVITY:
+//                    ((BaseActivity) getContext()).openActivity(MainActivity.class);
+//                    break;
+//                default:
+//                    break;
+//            }
+//            ((SplashActivity) getContext()).finish();
+//            super.handleMessage(msg);
+//        }
+//    };
 
     public WelcomeLayer(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -41,36 +42,43 @@ public class WelcomeLayer extends RelativeLayout implements ICycle {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        mHandler = new Handler(Looper.getMainLooper());
     }
 
     @Override
-    public void init() {
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        LogUtils.i(TAG, "onAttachedToWindow");
     }
 
     @Override
-    public void show(Object obj) {
-        setVisibility(VISIBLE);
-//        if (isAnimte) {
-//            zoomAnimate();
-//        } else {
-//            entryWallpaperActivity(DELAY_TIME);
-//        }
-        entryWallpaperActivity(DELAY_TIME);
-    }
-
-    @Override
-    public void hide(Object obj) {
-        setVisibility(GONE);
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void destroy() {
+    protected void onDetachedFromWindow() {
+        LogUtils.i(TAG, "onDetachedFromWindow");
+        super.onDetachedFromWindow();
         cancelAnimate();
         mHandler.removeCallbacksAndMessages(null);
+    }
+
+//    @Override
+//    public void show(Object obj) {
+//        setVisibility(VISIBLE);
+////        if (isAnimte) {
+////            zoomAnimate();
+////        } else {
+////            entryMainActivity(DELAY_TIME);
+////        }
+//        entryMainActivity(DELAY_TIME);
+//    }
+
+
+    @Override
+    public void refresh(Object obj) {
+        entryMainActivity(DELAY_TIME);
+    }
+
+    @Override
+    public void resume() {
+
     }
 
     private void cancelAnimate() {
@@ -80,72 +88,16 @@ public class WelcomeLayer extends RelativeLayout implements ICycle {
         }
     }
 
-//    private void zoomAnimate() {
-//        View first = this.findViewById(R.id.first);
-//        first.setAlpha(1f);
-//        View second = this.findViewById(R.id.second);
-//        second.setAlpha(1f);
-//        View third = this.findViewById(R.id.third);
-//        third.setAlpha(1f);
-//
-//        AnimatorSet set = AnimatorUtils.createAnimatorSet();
-//        set.setDuration(800);
-//        Animator a1 = AnimatorUtils.ofFloat(first, "alpha", 1f, 0f);
-//        Animator a2 = AnimatorUtils.ofFloat(second, "alpha", 1f, 0f);
-//        Animator a3 = AnimatorUtils.ofFloat(third, "alpha", 1f, 0f);
-//        set.addListener(new AnimatorListener() {
-//            private boolean isCanceled = false;
-//
-//            @Override
-//            public void onAnimationStart(Animator animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animator animation) {
-//                LogUtils.d(TAG, "onAnimationEnd: " + isCanceled);
-//                if (isCanceled) {
-//                    return;
-//                }
-//                entryWallpaperActivity(0);
-//            }
-//
-//            @Override
-//            public void onAnimationCancel(Animator animation) {
-//                LogUtils.d(TAG, "onAnimationCancel");
-//                isCanceled = true;
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animator animation) {
-//
-//            }
-//
-//        });
-//        set.setStartDelay(350);
-//        set.play(a2).before(a3);
-//        set.play(a2).after(a1);
-//        set.start();
-//    }
-
-    private void entryWallpaperActivity(int duration) {
+    private void entryMainActivity(int duration) {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Message message = Message.obtain();
-                message.what = ENTRY_TO_WALLPAPER_ACTIVITY;
-                mHandler.sendMessage(message);
+//                Message message = Message.obtain();
+//                message.what = ENTRY_TO_WALLPAPER_ACTIVITY;
+//                mHandler.sendMessage(message);
+                ((BaseActivity) getContext()).openActivity(MainActivity.class);
+                ((SplashActivity) getContext()).finish();
             }
         }, duration);
-    }
-
-    @Override
-    public void refresh() {
-
-    }
-
-    @Override
-    public void resume() {
-
     }
 }

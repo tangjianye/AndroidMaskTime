@@ -79,7 +79,7 @@ public class AlbumListAdapter extends BaseAdapter {
 //                }
 //                holder.banner.show(getAlbumItems(info));
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_banner, null);
-                ((BannerLayer) convertView).show(null);
+                ((BannerLayer) convertView).refresh(null);
                 break;
             }
 
