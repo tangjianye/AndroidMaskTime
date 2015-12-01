@@ -12,6 +12,8 @@ import com.peach.masktime.utils.SPUtils;
 
 public class SplashActivity extends BaseActivity {
     private static final String TAG = SplashActivity.class.getSimpleName();
+    private WelcomeLayer mWelcomeLayer = null;
+    private GuideLayer mGuideLayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,13 @@ public class SplashActivity extends BaseActivity {
         if (havedShowGuide) {
             ViewStub stub = (ViewStub) findViewById(R.id.vs_welcome);
             stub.inflate();
-            WelcomeLayer welcomeLayer = (WelcomeLayer) findViewById(R.id.in_welcome);
-            welcomeLayer.refresh(null);
+            mWelcomeLayer = (WelcomeLayer) findViewById(R.id.in_welcome);
+            mWelcomeLayer.refresh(null);
         } else {
             ViewStub stub = (ViewStub) findViewById(R.id.vs_guide);
             stub.inflate();
-            GuideLayer guideLayer = (GuideLayer) findViewById(R.id.in_guide);
-            guideLayer.refresh(null);
+            mGuideLayer = (GuideLayer) findViewById(R.id.in_guide);
+            mGuideLayer.refresh(null);
 
             SPUtils.put(this, Constants.HAVED_SHOW_GUIDE, true);
         }
@@ -59,5 +61,11 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (null != mWelcomeLayer) {
+            mWelcomeLayer.destroy();
+        }
+        if (null != mGuideLayer) {
+            mGuideLayer.destroy();
+        }
     }
 }

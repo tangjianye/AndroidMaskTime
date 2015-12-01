@@ -27,6 +27,10 @@ public class GuideLayer extends RelativeLayout implements ICycle {
     private int mGuidePageResId[] = {R.drawable.guide_page_1,
             R.drawable.guide_page_2, R.drawable.guide_page_3};
 
+    public GuideLayer(Context context) {
+        super(context);
+    }
+
     public GuideLayer(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -34,7 +38,7 @@ public class GuideLayer extends RelativeLayout implements ICycle {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        initView();
+        init();
     }
 
     public void updateData() {
@@ -57,6 +61,17 @@ public class GuideLayer extends RelativeLayout implements ICycle {
     @Override
     public void resume() {
 
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public void init() {
+        mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
+        mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
     }
 
     private void initData() {
@@ -88,11 +103,11 @@ public class GuideLayer extends RelativeLayout implements ICycle {
             layout.getChildAt(0).setEnabled(true);
     }
 
-    private void initView() {
-        // mBtnEntry = (Button) findViewById(R.id.btn_entry);
-        mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
-        mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
-    }
+//    private void initView() {
+//        // mBtnEntry = (Button) findViewById(R.id.btn_entry);
+//        mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
+//        mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
+//    }
 
 //    private OnClickListener mClickListener = new OnClickListener() {
 //        @Override

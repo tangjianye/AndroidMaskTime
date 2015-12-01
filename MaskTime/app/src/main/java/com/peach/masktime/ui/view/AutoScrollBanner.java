@@ -50,17 +50,17 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
 
     public AutoScrollBanner(Context context) {
         super(context);
-        initView(context);
+        init();
     }
 
     public AutoScrollBanner(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initView(context);
+        init();
     }
 
     public AutoScrollBanner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initView(context);
+        init();
     }
 
     @Override
@@ -71,7 +71,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        stopBanner();
+        destroy();
     }
 
     @Override
@@ -85,6 +85,16 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     @Override
     public void resume() {
 
+    }
+
+    @Override
+    public void destroy() {
+        stopBanner();
+    }
+
+    @Override
+    public void init() {
+        initView(getContext());
     }
 
     private void initView(Context ctx) {
@@ -182,12 +192,12 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     }
 
     private void startBanner() {
-        mHandler.removeCallbacks(mRunnable);
+        mHandler.removeCallbacksAndMessages(null);
         mHandler.postDelayed(mRunnable, TIME_INTERVAL);
     }
 
     private void stopBanner() {
-        mHandler.removeCallbacks(mRunnable);
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     /**

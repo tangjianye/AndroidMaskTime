@@ -1,7 +1,7 @@
 package com.peach.masktime.common.interfaces;
 
 public interface ICycle {
-    // void init();
+    void init();
 
     // void show(Object obj);
 
@@ -13,5 +13,5 @@ public interface ICycle {
 
     // void pause();
 
-    // void destroy();
+    void destroy();
 }

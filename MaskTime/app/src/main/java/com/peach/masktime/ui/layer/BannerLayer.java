@@ -65,6 +65,16 @@ public class BannerLayer extends LinearLayout implements ICycle {
 
     }
 
+    @Override
+    public void destroy() {
+        
+    }
+
+    @Override
+    public void init() {
+
+    }
+
     private void request(final String url) {
         StringRequest stringRequest = new StringRequest(url,
                 new Response.Listener<String>() {
