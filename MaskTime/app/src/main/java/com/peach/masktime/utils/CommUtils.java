@@ -3,7 +3,7 @@ package com.peach.masktime.utils;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
+import android.os.Bundle;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
@@ -22,6 +22,28 @@ public class CommUtils {
         view.setImageUrl(API.getPicUrl(url), VolleyManager.getInstance(context).getImageLoader());
     }
 
+
+    public static String getMetaValue(Context context, String metaKey) {
+        Bundle metaData = null;
+        String apiKey = null;
+        if (context == null || metaKey == null) {
+            return null;
+        }
+        try {
+            ApplicationInfo ai = context.getPackageManager()
+                    .getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            if (null != ai) {
+                metaData = ai.metaData;
+            }
+            if (null != metaData) {
+                apiKey = metaData.getString(metaKey);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        }
+        return apiKey;
+    }
+
     /**
      * 获取应用渠道ID
      *
@@ -29,16 +51,6 @@ public class CommUtils {
      * @return
      */
     public static String getChannel(Context context) {
-        ApplicationInfo appInfo = null;
-        String channel = null;
-        try {
-            appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(),
-                    PackageManager.GET_META_DATA);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        channel = appInfo.metaData.getString("CHANNEL");
-        Log.i(TAG, " channel == " + channel);
-        return channel;
+        return getMetaValue(context, "CHANNEL");
     }
 }
