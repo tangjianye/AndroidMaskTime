@@ -16,9 +16,6 @@ android {
     productFlavors {
         default_channel {}
         wandoujia {}
-        xiaomi {}
-        baidu {}
-        huawei {}
     }
 
     productFlavors.all { flavor ->
@@ -36,8 +33,40 @@ android {
 
     buildTypes {
         release {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    // 修改生成的apk名字
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def name = 'masktime' + '-' + variant.productFlavors[0].name
+            def version = 'V' + defaultConfig.versionName
+            def date = new Date().format('yyyyMMddHHmm')
+            def oldFile = output.outputFile
+
+            if (variant.buildType.name.equals('release')) {
+                // println(variant.productFlavors[0].name)
+                def releaseApkName = name + '.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
+
+            if (variant.buildType.name.equals('debug')) {
+                def releaseApkName = name + '-' + version + '-' + date + '-debug' + '.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
         }
     }
 }
