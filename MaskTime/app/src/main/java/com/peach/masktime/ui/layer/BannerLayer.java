@@ -12,7 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.ICycle;
-import com.peach.masktime.common.manager.VolleyManager;
+import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.response.AlbumSet;
 import com.peach.masktime.ui.view.AutoScrollBanner;

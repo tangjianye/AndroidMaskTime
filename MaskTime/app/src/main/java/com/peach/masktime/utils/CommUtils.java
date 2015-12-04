@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
-import com.peach.masktime.common.manager.VolleyManager;
+import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.API;
 
 /**

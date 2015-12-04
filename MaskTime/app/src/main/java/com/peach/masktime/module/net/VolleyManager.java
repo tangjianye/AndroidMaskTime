@@ -1,4 +1,4 @@
-package com.peach.masktime.common.manager;
+package com.peach.masktime.module.net;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -9,6 +9,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.peach.masktime.config.LruBitmapCache;
+import com.squareup.okhttp.OkHttpClient;
 
 /**
  * Volley网络通信单例管理类<br>
@@ -38,7 +39,7 @@ public class VolleyManager {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(sCtx.getApplicationContext());
+            mRequestQueue = Volley.newRequestQueue(sCtx.getApplicationContext(), new OkHttpStack(new OkHttpClient()));
 
             mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(LruBitmapCache.getCacheSize(sCtx)));
         }

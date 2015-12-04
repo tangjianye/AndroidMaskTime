@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
-import com.peach.masktime.common.manager.VolleyManager;
+import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.module.net.response.AlbumSet;

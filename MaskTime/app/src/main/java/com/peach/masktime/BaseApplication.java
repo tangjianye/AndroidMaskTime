@@ -2,7 +2,7 @@ package com.peach.masktime;
 
 import android.app.Application;
 
-import com.peach.masktime.common.manager.AppManager;
+import com.peach.masktime.common.AppManager;
 import com.peach.masktime.utils.CommUtils;
 
 public class BaseApplication extends Application {

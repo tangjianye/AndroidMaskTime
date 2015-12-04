@@ -1,4 +1,4 @@
-package com.peach.masktime.common.manager;
+package com.peach.masktime.common;
 
 import android.app.Activity;
 import android.content.Context;
