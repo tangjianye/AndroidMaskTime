@@ -10,6 +10,8 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.utils.LogUtils;
 
+import java.io.IOException;
+
 /**
  * Created by Administrator on 2015/12/4 0004.
  */
@@ -77,7 +79,7 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
 
         /* 初始化 */
         // mMediaPlayer = new MediaPlayer();
-        mMediaPlayer = MediaPlayer.create(this, R.raw.sky);
+        mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sky);
         /* 监听播放是否完成 */
         mMediaPlayer.setOnCompletionListener(this);
     }
@@ -116,7 +118,9 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
 //            TestMediaPlayer.audioSeekBar.setMax(PlayerService.mMediaPlayer
 //                    .getDuration());
 //            new Thread(this).start();
-        } catch (Exception e) {
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
