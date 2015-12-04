@@ -9,14 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@string/app_name" />
+
+        <Button
+            android:id="@+id/bt_play"
+            android:layout_width="@dimen/android_btn_width"
+            android:layout_height="@dimen/android_btn_height"
+            android:text="paly" />
+
+        <Button
+            android:id="@+id/bt_pause"
+            android:layout_width="@dimen/android_btn_width"
+            android:layout_height="@dimen/android_btn_height"
+            android:text="pause" />
+
+        <Button
+            android:id="@+id/bt_stop"
+            android:layout_width="@dimen/android_btn_width"
+            android:layout_height="@dimen/android_btn_height"
+            android:text="stop" />
     </LinearLayout>
 
     <LinearLayout
