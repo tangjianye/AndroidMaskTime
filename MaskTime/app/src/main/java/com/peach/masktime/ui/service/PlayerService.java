@@ -10,8 +10,6 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.utils.LogUtils;
 
-import java.io.IOException;
-
 /**
  * Created by Administrator on 2015/12/4 0004.
  */
@@ -105,22 +103,17 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
     public void playMusic() {
         try {
             /* 重置多媒体 */
-            mMediaPlayer.reset();
+            // mMediaPlayer.reset();
             /* 读取mp3文件 */
             // mMediaPlayer.setDataSource(this, R.raw.sky);
             /* 准备播放 */
-            mMediaPlayer.prepare();
+            // mMediaPlayer.prepare();
             /* 开始播放 */
             mMediaPlayer.start();
             /* 是否单曲循环 */
             mMediaPlayer.setLooping(sIsLoop);
             // 设置进度条最大值
-//            TestMediaPlayer.audioSeekBar.setMax(PlayerService.mMediaPlayer
-//                    .getDuration());
-//            new Thread(this).start();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

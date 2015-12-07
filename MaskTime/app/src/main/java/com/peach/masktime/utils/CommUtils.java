@@ -1,14 +1,17 @@
 package com.peach.masktime.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
-import com.peach.masktime.module.net.VolleyManager;
+import com.peach.masktime.common.Constants;
 import com.peach.masktime.module.net.API;
+import com.peach.masktime.module.net.VolleyManager;
+import com.peach.masktime.ui.service.PlayerService;
 
 /**
  * Created by Administrator on 2015/11/6 0006.
@@ -52,5 +55,17 @@ public class CommUtils {
      */
     public static String getChannel(Context context) {
         return getMetaValue(context, "CHANNEL");
+    }
+
+    /**
+     * @param ctx
+     * @param msg
+     * @return
+     */
+    public static Intent getPlayerIntent(Context ctx, int msg) {
+        Intent intent = new Intent();
+        intent.putExtra(Constants.PLAYER_MSG, msg);
+        intent.setClass(ctx, PlayerService.class);
+        return intent;
     }
 }
