@@ -46,7 +46,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     static {
         SELECTOR_MAP.put(Status.PLAY, R.drawable.selector_time_play);
         SELECTOR_MAP.put(Status.PAUSE, R.drawable.selector_time_pause);
-        SELECTOR_MAP.put(Status.STOP, R.drawable.selector_time_play);
+        SELECTOR_MAP.put(Status.STOP, R.drawable.selector_time_pause);
     }
 
     /**
@@ -97,7 +97,9 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         mTxtTime = (TextView) findViewById(R.id.txt_time);
 
         mTimeContrl.setOnClickListener(this);
-        setPlayStatus(Status.PLAY);
+
+        setTimeTips(TIME_MAX / TIME_INTERVAL);
+        setPlayStatus(Status.STOP);
     }
 
     @Override
@@ -105,10 +107,8 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_time_contrl:
                 if (Status.PLAY == mStatus) {
-                    stop();
                     setPlayStatus(Status.PAUSE);
-                } else if (Status.PAUSE == mStatus) {
-                    start();
+                } else if (Status.PAUSE == mStatus || Status.STOP == mStatus) {
                     setPlayStatus(Status.PLAY);
                 }
                 break;
@@ -122,37 +122,54 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         // mTimeContrl.setText(CONTENT_MAP.get(status));
         mTimeContrl.setText("");
         mTimeContrl.setBackgroundDrawable(getContext().getResources().getDrawable(SELECTOR_MAP.get(status)));
+
+        if (Status.PLAY == status) {
+            start();
+        } else if (Status.PAUSE == status) {
+            stop();
+        } else if (Status.STOP == status) {
+            stop();
+        }
     }
 
     private void start() {
-        mHandler.removeCallbacksAndMessages(null);
-        mHandler.post(this);
+        mHandler.removeCallbacks(this);
+        mHandler.postDelayed(this, TIME_INTERVAL);
     }
 
     private void stop() {
-        mHandler.removeCallbacksAndMessages(null);
+        mHandler.removeCallbacks(this);
     }
 
     @Override
     public void run() {
         // 单位是1秒钟
-        int mode = 0;
         int left = TIME_MAX / TIME_INTERVAL - mCount;
         if (left >= 0) {
-            int time1000 = left / (10 * 60);
-            mode = left % (10 * 60);
-            int time0100 = mode / 60;
-            mode = mode % 60;
-            int time0010 = mode / 10;
-            int time0001 = (time0010 > 0) ? mode % 10 : mode;
-            String time = Integer.toString(time1000) + Integer.toString(time0100)
-                    + ":" + Integer.toString(time0010) + Integer.toString(time0001);
-            LogUtils.i(TAG, "mCount = " + mCount + " ;left = " + left + " ;time = " + time);
-            mTxtTime.setText(time);
+            setTimeTips(left);
             mHandler.postDelayed(this, TIME_INTERVAL);
             mCount++;
         } else {
             stop();
         }
+    }
+
+    /**
+     * 剩余多少秒
+     *
+     * @param left
+     */
+    private void setTimeTips(int left) {
+        int mode = 0;
+        int time1000 = left / (10 * 60);
+        mode = left % (10 * 60);
+        int time0100 = mode / 60;
+        mode = mode % 60;
+        int time0010 = mode / 10;
+        int time0001 = (time0010 > 0) ? mode % 10 : mode;
+        String time = Integer.toString(time1000) + Integer.toString(time0100)
+                + ":" + Integer.toString(time0010) + Integer.toString(time0001);
+        LogUtils.i(TAG, "mCount = " + mCount + " ;left = " + left + " ;time = " + time);
+        mTxtTime.setText(time);
     }
 }

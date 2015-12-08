@@ -32,7 +32,7 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
     static {
         SELECTOR_MAP.put(Status.PLAY, R.drawable.selector_music_play);
         SELECTOR_MAP.put(Status.PAUSE, R.drawable.selector_music_pause);
-        SELECTOR_MAP.put(Status.STOP, R.drawable.selector_music_play);
+        SELECTOR_MAP.put(Status.STOP, R.drawable.selector_music_pause);
     }
 
     /**
@@ -68,7 +68,7 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
     private void init() {
         mPlayContrl = (Button) findViewById(R.id.btn_play_contrl);
         mPlayContrl.setOnClickListener(this);
-        setPlayStatus(Status.PLAY);
+        setPlayStatus(Status.STOP);
     }
 
     @Override
@@ -76,10 +76,8 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
         switch (view.getId()) {
             case R.id.btn_play_contrl:
                 if (Status.PLAY == mStatus) {
-                    getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PLAY));
                     setPlayStatus(Status.PAUSE);
-                } else if (Status.PAUSE == mStatus) {
-                    getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PAUSE));
+                } else if (Status.PAUSE == mStatus || Status.STOP == mStatus) {
                     setPlayStatus(Status.PLAY);
                 }
                 break;
@@ -93,5 +91,13 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
         // mPlayContrl.setText(CONTENT_MAP.get(status));
         mPlayContrl.setText("");
         mPlayContrl.setBackgroundDrawable(getContext().getResources().getDrawable(SELECTOR_MAP.get(status)));
+
+        if (Status.PLAY == status) {
+            getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PLAY));
+        } else if (Status.PAUSE == status) {
+            getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PAUSE));
+        } else if (Status.STOP == status) {
+            ;
+        }
     }
 }
