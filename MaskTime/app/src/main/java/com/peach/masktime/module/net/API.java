@@ -17,7 +17,8 @@ public class API {
      **********************************************************************************************/
     private static final String TEST_MODE = "/masktime0123456789";
     private static final String DOMAIN = "http://mask.cloudsdee.com/?";
-    private static final String TEST_DOMAIN = "http://113.107.245.39:92";
+    private static final String TEST_DOMAIN = "http://113.107.245.39:92?";
+
     private static final String GET_PICTURE = "http://mask.cloudsdee.com/uploads/kshop/";
     private static final String GET_GOODS = "/api/shop/get_goods/?";
 
@@ -29,8 +30,7 @@ public class API {
      * 获取后台接口
      **********************************************************************************************/
     public static boolean isTestMode() {
-        String sdcard = Environment.getExternalStorageDirectory()
-                .getAbsolutePath();
+        String sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
         return FileUtils.isFolderExist(sdcard + TEST_MODE);
     }
 
@@ -43,13 +43,15 @@ public class API {
     }
 
     public static String getPicUrl(String urlPath) {
-        return GET_PICTURE + urlPath;
+        String url = GET_PICTURE + urlPath;
+        LogUtils.i(TAG, "getPicUrl url = " + url);
+        return url;
     }
 
     @NonNull
     public static String getCategoryUrl(int category, int page) {
-        String url = API.getUrl(GET_GOODS) + "category_id=" + category + "&page=" + page;
-        LogUtils.i(TAG, "request url = " + url);
+        String url = getUrl(GET_GOODS) + "category_id=" + category + "&page=" + page;
+        LogUtils.i(TAG, "getCategoryUrl url = " + url);
         return url;
     }
 }

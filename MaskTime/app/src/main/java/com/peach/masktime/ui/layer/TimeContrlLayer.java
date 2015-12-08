@@ -53,6 +53,8 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
      * 显示状态
      */
     public enum Status {
+        /* 初始化 */
+        IDLE,
         /* 开始 */
         PLAY,
         /* 暂停 */

@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.utils.LogUtils;
 
@@ -15,11 +14,11 @@ import com.peach.masktime.utils.LogUtils;
  */
 public class PlayerService extends Service implements MediaPlayer.OnCompletionListener {
     private static final String TAG = PlayerService.class.getSimpleName();
-
+    private String mUrl = "http://mr7.doubanio.com/f63935bf4f023e7effbd31b65fbd04c1/1/fm/song/p721085_128k.mp4";
     /* 是否单曲循环 */
     private static final boolean sIsLoop = true;
     /* 播放器 */
-    public static MediaPlayer mMediaPlayer = null;
+    private static MediaPlayer mMediaPlayer = null;
     /* 用户操作 */
     private int mPlayerMsg;
 
@@ -76,8 +75,8 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
         stopMusic();
 
         /* 初始化 */
-        // mMediaPlayer = new MediaPlayer();
-        mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sky);
+        mMediaPlayer = new MediaPlayer();
+        // mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sky);
         /* 监听播放是否完成 */
         mMediaPlayer.setOnCompletionListener(this);
     }
@@ -103,11 +102,11 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
     public void playMusic() {
         try {
             /* 重置多媒体 */
-            // mMediaPlayer.reset();
+            mMediaPlayer.reset();
             /* 读取mp3文件 */
-            // mMediaPlayer.setDataSource(this, R.raw.sky);
+            mMediaPlayer.setDataSource(mUrl);
             /* 准备播放 */
-            // mMediaPlayer.prepare();
+            mMediaPlayer.prepare();
             /* 开始播放 */
             mMediaPlayer.start();
             /* 是否单曲循环 */

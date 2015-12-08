@@ -39,6 +39,8 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
      * 显示状态
      */
     public enum Status {
+        /* 初始化 */
+        IDLE,
         /* 开始播放 */
         PLAY,
         /* 暂停播放 */
