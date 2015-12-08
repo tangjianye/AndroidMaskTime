@@ -19,3 +19,10 @@ http://mask.cloudsdee.com/?/api/shop/get_goods/?category_id=8&page=1
 
 图片地址
 http://mask.cloudsdee.com/uploads/kshop/cd0cc6a01750f2de0bd5963c8355bb7b.jpg
+
+
+获取豆瓣所有音乐频道的id的url
+#define DOUBANCHANNELSURL @"http://douban.fm/j/explore/hot_channels
+
+频道id获取对应音乐列表
+#define DOUBANPLAYLISTURL @"http://douban.fm/j/mine/playlist 

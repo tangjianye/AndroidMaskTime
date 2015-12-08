@@ -111,7 +111,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                if (mViewPager.getScanScroll()) {
+                if (mViewPager.getScrollAble()) {
                     int curr = mViewPager.getCurrentItem();
                     mViewPager.setCurrentItem(curr + 1);
                     mHandler.postDelayed(this, TIME_INTERVAL);
@@ -181,7 +181,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         mBannerAdapter = new BannerPagerAdapter(getContext(), mViews);
         mViewPager.setAdapter(mBannerAdapter);
         if (1 == mRealCount) {
-            mViewPager.setScanScroll(false);
+            mViewPager.setScrollAble(false);
         }
         // int curr = ((Integer.MAX_VALUE / mCount) >> 1) * mCount;
         // LogUtils.i(TAG, "Integer.MAX_VALUE = " + Integer.MAX_VALUE + " ;curr = " + curr);

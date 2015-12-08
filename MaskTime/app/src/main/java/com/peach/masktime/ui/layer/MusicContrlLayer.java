@@ -1,4 +1,4 @@
-package com.peach.masktime.ui.view;
+package com.peach.masktime.ui.layer;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Created by Administrator on 2015/12/7 0007.
  */
-public class PlayContrl extends FrameLayout implements View.OnClickListener {
+public class MusicContrlLayer extends FrameLayout implements View.OnClickListener {
     private Button mPlayContrl;
 
     private Status mStatus;
@@ -30,9 +30,9 @@ public class PlayContrl extends FrameLayout implements View.OnClickListener {
     }
 
     static {
-        SELECTOR_MAP.put(Status.PLAY, R.drawable.selector_play);
-        SELECTOR_MAP.put(Status.PAUSE, R.drawable.selector_pause);
-        SELECTOR_MAP.put(Status.STOP, R.drawable.selector_play);
+        SELECTOR_MAP.put(Status.PLAY, R.drawable.selector_music_play);
+        SELECTOR_MAP.put(Status.PAUSE, R.drawable.selector_music_pause);
+        SELECTOR_MAP.put(Status.STOP, R.drawable.selector_music_play);
     }
 
     /**
@@ -47,15 +47,15 @@ public class PlayContrl extends FrameLayout implements View.OnClickListener {
         STOP,
     }
 
-    public PlayContrl(Context context) {
+    public MusicContrlLayer(Context context) {
         super(context);
     }
 
-    public PlayContrl(Context context, AttributeSet attrs) {
+    public MusicContrlLayer(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public PlayContrl(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MusicContrlLayer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -88,9 +88,10 @@ public class PlayContrl extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public void setPlayStatus(Status status) {
+    public void setPlayStatus(MusicContrlLayer.Status status) {
         mStatus = status;
-        mPlayContrl.setText(CONTENT_MAP.get(status));
+        // mPlayContrl.setText(CONTENT_MAP.get(status));
+        mPlayContrl.setText("");
         mPlayContrl.setBackgroundDrawable(getContext().getResources().getDrawable(SELECTOR_MAP.get(status)));
     }
 }

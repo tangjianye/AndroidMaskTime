@@ -1,8 +1,6 @@
 package com.peach.masktime.ui.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,33 +8,31 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.ui.base.BaseActivity;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class MainActivity extends BaseActivity implements IInit, View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     // private  static final
     private TextView mTxtTime;
-    private Timer mTimer;
-    private TimerTask mTimerTask;
-    private int count = 0;
 
-    private Handler doActionHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            int msgId = msg.what;
-            switch (msgId) {
-                case 1:
-                    Bundle bundle = msg.getData();
-                    String time = (String) bundle.get("time");
-                    mTxtTime.setText(time);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+//    private Timer mTimer;
+//    private TimerTask mTimerTask;
+//    private int count = 0;
+
+//    private Handler doActionHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            int msgId = msg.what;
+//            switch (msgId) {
+//                case 1:
+//                    Bundle bundle = msg.getData();
+//                    String time = (String) bundle.get("time");
+//                    mTxtTime.setText(time);
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,27 +46,27 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
 
     @Override
     public void initDatas() {
-        mTimer = new Timer();
-        mTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                count++;
-                System.out.println("---> count=" + count);
-                if (count == 15) {
-                    mTimer.cancel();
-                    System.out.println("---> 取消定时任务");
-                }
-
-                Message message = Message.obtain();
-                message.what = 1;
-                Bundle bundle = new Bundle();
-                bundle.putString("time", count + "");
-                message.setData(bundle);
-                doActionHandler.sendMessage(message);
-            }
-        };
-        //开始一个定时任务
-        mTimer.schedule(mTimerTask, 1000, 1000);
+//        mTimer = new Timer();
+//        mTimerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                count++;
+//                System.out.println("---> count=" + count);
+//                if (count == 15) {
+//                    mTimer.cancel();
+//                    System.out.println("---> 取消定时任务");
+//                }
+//
+//                Message message = Message.obtain();
+//                message.what = 1;
+//                Bundle bundle = new Bundle();
+//                bundle.putString("time", count + "");
+//                message.setData(bundle);
+//                doActionHandler.sendMessage(message);
+//            }
+//        };
+//        //开始一个定时任务
+//        mTimer.schedule(mTimerTask, 1000, 1000);
     }
 
     @Override
@@ -94,7 +90,7 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mTimer.cancel();
+        // mTimer.cancel();
     }
 
     @Override

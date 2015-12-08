@@ -12,11 +12,17 @@ public class ScrollViewPager extends ViewPager {
         super(context, attrs);
     }
 
-    public void setScanScroll(boolean scrollable) {
+    /**
+     * 设置viewpage是否可以滑动
+     *
+     * @param scrollable true 可以滑动
+     *                   false 禁止滑动
+     */
+    public void setScrollAble(boolean scrollable) {
         this.mScrollable = scrollable;
     }
 
-    public boolean getScanScroll() {
+    public boolean getScrollAble() {
         return mScrollable;
     }
 
