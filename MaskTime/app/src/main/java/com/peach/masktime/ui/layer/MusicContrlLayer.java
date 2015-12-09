@@ -8,6 +8,8 @@ import android.widget.FrameLayout;
 
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
+import com.peach.masktime.module.thirdparty.Douban;
+import com.peach.masktime.ui.base.BaseActivity;
 import com.peach.masktime.utils.CommUtils;
 
 import java.util.HashMap;
@@ -17,8 +19,8 @@ import java.util.HashMap;
  */
 public class MusicContrlLayer extends FrameLayout implements View.OnClickListener {
     private Button mPlayContrl;
-
     private Status mStatus;
+    private String mUrl;
 
     public static HashMap<Status, Integer> CONTENT_MAP = new HashMap<Status, Integer>();
     public static HashMap<Status, Integer> SELECTOR_MAP = new HashMap<Status, Integer>();
@@ -71,21 +73,45 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
         mPlayContrl = (Button) findViewById(R.id.btn_play_contrl);
         mPlayContrl.setOnClickListener(this);
         setPlayStatus(Status.STOP);
+
+        request();
+    }
+
+    private void request() {
+        Douban.getInstance().request(getContext(), new Douban.Listener() {
+            @Override
+            public void response(String url) {
+                mUrl = url;
+            }
+
+            @Override
+            public void error(String error) {
+
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_play_contrl:
-                if (Status.PLAY == mStatus) {
-                    setPlayStatus(Status.PAUSE);
-                } else if (Status.PAUSE == mStatus || Status.STOP == mStatus) {
-                    setPlayStatus(Status.PLAY);
+                if (isMusicDownloaded()) {
+                    if (Status.PLAY == mStatus) {
+                        setPlayStatus(Status.PAUSE);
+                    } else if (Status.PAUSE == mStatus || Status.STOP == mStatus) {
+                        setPlayStatus(Status.PLAY);
+                    }
+                } else {
+                    ((BaseActivity) getContext()).showToast(R.string.downloading);
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    private boolean isMusicDownloaded() {
+        return null != mUrl;
     }
 
     public void setPlayStatus(MusicContrlLayer.Status status) {
@@ -95,9 +121,9 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
         mPlayContrl.setBackgroundDrawable(getContext().getResources().getDrawable(SELECTOR_MAP.get(status)));
 
         if (Status.PLAY == status) {
-            getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PLAY));
+            getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PLAY, mUrl));
         } else if (Status.PAUSE == status) {
-            getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PAUSE));
+            getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PAUSE, mUrl));
         } else if (Status.STOP == status) {
             ;
         }

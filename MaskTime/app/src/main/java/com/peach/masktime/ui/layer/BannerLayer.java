@@ -12,8 +12,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.ICycle;
-import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.API;
+import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.response.AlbumSet;
 import com.peach.masktime.ui.view.AutoScrollBanner;
 import com.peach.masktime.utils.JsonUtils;
@@ -67,7 +67,7 @@ public class BannerLayer extends LinearLayout implements ICycle {
 
     @Override
     public void destroy() {
-        
+
     }
 
     @Override
@@ -76,7 +76,7 @@ public class BannerLayer extends LinearLayout implements ICycle {
     }
 
     private void request(final String url) {
-        StringRequest stringRequest = new StringRequest(url,
+        StringRequest request = new StringRequest(url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -102,8 +102,9 @@ public class BannerLayer extends LinearLayout implements ICycle {
         });
 
         RequestQueue rq = VolleyManager.getInstance(getContext()).getRequestQueue();
-        rq.add(stringRequest);
-        stringRequest.setTag(url);
+        request.setTag(url);
+        request.setRetryPolicy(VolleyManager.getInstance(getContext()).getRetryPolicy());
+        rq.add(request);
         rq.start();
     }
 

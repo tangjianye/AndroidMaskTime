@@ -1,13 +1,16 @@
 package com.peach.masktime.module.net;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.peach.masktime.common.Constants;
 import com.peach.masktime.config.LruBitmapCache;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -60,5 +63,10 @@ public class VolleyManager {
 
     public ImageLoader getImageLoader() {
         return mImageLoader;
+    }
+
+    @NonNull
+    public DefaultRetryPolicy getRetryPolicy() {
+        return new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_MS, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     }
 }

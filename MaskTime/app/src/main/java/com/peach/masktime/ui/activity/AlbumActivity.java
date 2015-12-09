@@ -162,7 +162,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
             showLoadingDialog();
         }
 
-        StringRequest stringRequest = new StringRequest(url,
+        StringRequest request = new StringRequest(url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -190,8 +190,9 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         });
 
         RequestQueue rq = VolleyManager.getInstance(this).getRequestQueue();
-        rq.add(stringRequest);
-        stringRequest.setTag(url);
+        request.setTag(url);
+        request.setRetryPolicy(VolleyManager.getInstance(this).getRetryPolicy());
+        rq.add(request);
         rq.start();
     }
 

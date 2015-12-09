@@ -62,9 +62,12 @@ public class CommUtils {
      * @param msg
      * @return
      */
-    public static Intent getPlayerIntent(Context ctx, int msg) {
+    public static Intent getPlayerIntent(Context ctx, int msg, String url) {
         Intent intent = new Intent();
-        intent.putExtra(Constants.PLAYER_MSG, msg);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.PLAYER_URL, url);
+        bundle.putInt(Constants.PLAYER_MSG, msg);
+        intent.putExtra(Constants.BUNDLE_KEY, bundle);
         intent.setClass(ctx, PlayerService.class);
         return intent;
     }

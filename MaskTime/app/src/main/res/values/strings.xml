@@ -8,6 +8,7 @@
     <string name="default_no_more_date">没有更多数据</string>
     <string name="default_get_data_fail">获取数据失败</string>
     <string name="default_url_invalid">地址为空，请重新输入</string>
+    <string name="downloading">下载中...</string>
 
     <!-- Others -->
     <string name="main_community">社区</string>
