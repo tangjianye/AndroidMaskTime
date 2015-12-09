@@ -3,6 +3,7 @@ package com.peach.masktime;
 import android.app.Application;
 
 import com.peach.masktime.common.AppManager;
+import com.peach.masktime.ui.notification.Notify;
 import com.peach.masktime.utils.CommUtils;
 
 public class BaseApplication extends Application {
@@ -18,6 +19,7 @@ public class BaseApplication extends Application {
     private void init() {
         // CrashException.getInstance().init(this);
         // mAppManager = AppManager.getInstance();
+        Notify.getInstance().init(this);
         CommUtils.getChannel(this);
     }
 

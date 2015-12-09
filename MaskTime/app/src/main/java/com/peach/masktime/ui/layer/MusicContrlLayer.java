@@ -26,12 +26,14 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
     public static HashMap<Status, Integer> SELECTOR_MAP = new HashMap<Status, Integer>();
 
     static {
+        CONTENT_MAP.put(Status.IDLE, R.string.pause);
         CONTENT_MAP.put(Status.PLAY, R.string.play);
         CONTENT_MAP.put(Status.PAUSE, R.string.pause);
-        CONTENT_MAP.put(Status.STOP, R.string.play);
+        CONTENT_MAP.put(Status.STOP, R.string.pause);
     }
 
     static {
+        SELECTOR_MAP.put(Status.IDLE, R.drawable.selector_music_pause);
         SELECTOR_MAP.put(Status.PLAY, R.drawable.selector_music_play);
         SELECTOR_MAP.put(Status.PAUSE, R.drawable.selector_music_pause);
         SELECTOR_MAP.put(Status.STOP, R.drawable.selector_music_pause);
@@ -72,7 +74,7 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
     private void init() {
         mPlayContrl = (Button) findViewById(R.id.btn_play_contrl);
         mPlayContrl.setOnClickListener(this);
-        setPlayStatus(Status.STOP);
+        setPlayStatus(Status.IDLE);
 
         request();
     }
@@ -98,7 +100,7 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
                 if (isMusicDownloaded()) {
                     if (Status.PLAY == mStatus) {
                         setPlayStatus(Status.PAUSE);
-                    } else if (Status.PAUSE == mStatus || Status.STOP == mStatus) {
+                    } else if (Status.PAUSE == mStatus || Status.STOP == mStatus || Status.IDLE == mStatus) {
                         setPlayStatus(Status.PLAY);
                     }
                 } else {
@@ -124,8 +126,6 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
             getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PLAY, mUrl));
         } else if (Status.PAUSE == status) {
             getContext().startService(CommUtils.getPlayerIntent(getContext(), Constants.PlayerMsg.PAUSE, mUrl));
-        } else if (Status.STOP == status) {
-            ;
         }
     }
 }

@@ -38,6 +38,8 @@ public class Constants {
      * 播放控制msg
      */
     public static class PlayerMsg {
+        /* 初始化状态 */
+        public static final int IDLE = 0;
         /* 开始播放 */
         public static final int PLAY = 1;
         /* 暂停播放 */

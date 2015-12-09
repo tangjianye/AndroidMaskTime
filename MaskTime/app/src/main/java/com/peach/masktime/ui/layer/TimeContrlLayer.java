@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.peach.masktime.R;
+import com.peach.masktime.ui.notification.Notify;
 import com.peach.masktime.utils.LogUtils;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     private static final String TAG = TimeContrlLayer.class.getSimpleName();
 
     /* 15分钟 */
-    private static final int TIME_MAX = 15 * 60 * 1000;
+    private static final int TIME_MAX = 1 * 60 * 1000;
 
     /* 1秒钟 */
     private static final int TIME_INTERVAL = 1000;
@@ -38,12 +39,14 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     public static HashMap<Status, Integer> SELECTOR_MAP = new HashMap<Status, Integer>();
 
     static {
+        CONTENT_MAP.put(Status.IDLE, R.string.pause);
         CONTENT_MAP.put(Status.PLAY, R.string.play);
         CONTENT_MAP.put(Status.PAUSE, R.string.pause);
-        CONTENT_MAP.put(Status.STOP, R.string.play);
+        CONTENT_MAP.put(Status.STOP, R.string.pause);
     }
 
     static {
+        SELECTOR_MAP.put(Status.IDLE, R.drawable.selector_time_pause);
         SELECTOR_MAP.put(Status.PLAY, R.drawable.selector_time_play);
         SELECTOR_MAP.put(Status.PAUSE, R.drawable.selector_time_pause);
         SELECTOR_MAP.put(Status.STOP, R.drawable.selector_time_pause);
@@ -101,7 +104,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         mTimeContrl.setOnClickListener(this);
 
         setTimeTips(TIME_MAX / TIME_INTERVAL);
-        setPlayStatus(Status.STOP);
+        setPlayStatus(Status.IDLE);
     }
 
     @Override
@@ -110,7 +113,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
             case R.id.btn_time_contrl:
                 if (Status.PLAY == mStatus) {
                     setPlayStatus(Status.PAUSE);
-                } else if (Status.PAUSE == mStatus || Status.STOP == mStatus) {
+                } else if (Status.PAUSE == mStatus || Status.STOP == mStatus || Status.IDLE == mStatus) {
                     setPlayStatus(Status.PLAY);
                 }
                 break;
@@ -127,9 +130,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
 
         if (Status.PLAY == status) {
             start();
-        } else if (Status.PAUSE == status) {
-            stop();
-        } else if (Status.STOP == status) {
+        } else if (Status.PAUSE == status || Status.STOP == status || Status.IDLE == status) {
             stop();
         }
     }
@@ -152,6 +153,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
             mHandler.postDelayed(this, TIME_INTERVAL);
             mCount++;
         } else {
+            Notify.getInstance().timeUp(getContext());
             stop();
         }
     }
