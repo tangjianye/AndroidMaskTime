@@ -8,7 +8,7 @@ import android.content.Intent;
 
 import com.peach.masktime.BaseApplication;
 import com.peach.masktime.R;
-import com.peach.masktime.ui.activity.SplashActivity;
+import com.peach.masktime.ui.activity.MainActivity;
 
 /**
  * Created by Administrator on 2015/12/9 0009.
@@ -52,9 +52,10 @@ public class Notify {
      * @param context
      */
     public void timeUp(Context context) {
-        Intent intent = new Intent(context, SplashActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+//        Intent intent = new Intent(context, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
         // 下面需兼容Android 2.x版本是的处理方式
         // Notification notify1 = new Notification(R.drawable.message,
         // "TickerText:" + "您有新短消息，请注意查收！", System.currentTimeMillis());
