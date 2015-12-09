@@ -3,6 +3,7 @@
     <string name="app_name">面膜时间</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="exit_app">再按一次退出程序</string>
     <string name="default_loading_tips">加载中...</string>
     <string name="default_no_content">没有数据</string>
     <string name="default_no_more_date">没有更多数据</string>

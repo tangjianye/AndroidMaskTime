@@ -52,7 +52,9 @@ public class Notify {
      * @param context
      */
     public void timeUp(Context context) {
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, SplashActivity.class), 0);
+        Intent intent = new Intent(context, SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         // 下面需兼容Android 2.x版本是的处理方式
         // Notification notify1 = new Notification(R.drawable.message,
         // "TickerText:" + "您有新短消息，请注意查收！", System.currentTimeMillis());
