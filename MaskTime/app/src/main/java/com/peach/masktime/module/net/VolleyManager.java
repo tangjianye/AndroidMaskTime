@@ -7,12 +7,12 @@ import android.text.TextUtils;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.peach.masktime.BaseApplication;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.config.LruBitmapCache;
+import com.peach.masktime.utils.LogUtils;
 import com.squareup.okhttp.OkHttpClient;
 
 /**
@@ -20,13 +20,12 @@ import com.squareup.okhttp.OkHttpClient;
  * Created by tangjy on 2015/3/2.
  */
 public class VolleyManager {
-
     private static final String TAG = VolleyManager.class.getSimpleName();
 
     private static Context sCtx;
     private static VolleyManager sINSTANTCE;
-    private RequestQueue mRequestQueue;
-    private ImageLoader mImageLoader;
+    private static RequestQueue mRequestQueue;
+    private static ImageLoader mImageLoader;
 
     private VolleyManager() {
     }
@@ -42,24 +41,40 @@ public class VolleyManager {
         if (!(context instanceof BaseApplication)) {
             throw new AssertionError();
         }
-        sCtx = context;
-    }
 
-    public RequestQueue getRequestQueue() {
+        sCtx = context;
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
             mRequestQueue = Volley.newRequestQueue(sCtx.getApplicationContext(), new OkHttpStack(new OkHttpClient()));
-
+        }
+        if (mImageLoader == null) {
             mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(LruBitmapCache.getCacheSize(sCtx)));
         }
-        return mRequestQueue;
     }
 
-    public <T> void addToRequestQueue(Request<T> req, String tag) {
+//    public RequestQueue getRequestQueue() {
+//        if (mRequestQueue == null) {
+//            // getApplicationContext() is key, it keeps you from leaking the
+//            // Activity or BroadcastReceiver if someone passes one in.
+//            mRequestQueue = Volley.newRequestQueue(sCtx.getApplicationContext(), new OkHttpStack(new OkHttpClient()));
+//
+//            mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(LruBitmapCache.getCacheSize(sCtx)));
+//        }
+//        return mRequestQueue;
+//    }
+
+    @NonNull
+    private DefaultRetryPolicy getRetryPolicy() {
+        return new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_MS, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    }
+
+    public <T> RequestQueue addToRequestQueue(Request<T> req, String tag) {
+        req.setRetryPolicy(getRetryPolicy());
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
-        VolleyLog.d("Adding request to queue: %s", req.getUrl());
-        getRequestQueue().add(req);
+        LogUtils.i(TAG, "Adding request to queue = " + req.getUrl());
+        mRequestQueue.add(req);
+        return mRequestQueue;
     }
 
     public void cancelAll(String tag) {
@@ -68,12 +83,11 @@ public class VolleyManager {
         }
     }
 
-    public ImageLoader getImageLoader() {
-        return mImageLoader;
+    public RequestQueue getRequestQueue() {
+        return mRequestQueue;
     }
 
-    @NonNull
-    public DefaultRetryPolicy getRetryPolicy() {
-        return new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_MS, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    public ImageLoader getImageLoader() {
+        return mImageLoader;
     }
 }

@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -13,8 +12,8 @@ import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
-import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.API;
+import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.module.net.response.AlbumSet;
 import com.peach.masktime.ui.adapter.AlbumListAdapter;
@@ -189,11 +188,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
             }
         });
 
-        RequestQueue rq = VolleyManager.getInstance().getRequestQueue();
-        request.setTag(url);
-        request.setRetryPolicy(VolleyManager.getInstance().getRetryPolicy());
-        rq.add(request);
-        rq.start();
+        VolleyManager.getInstance().addToRequestQueue(request, url).start();
     }
 
     @NonNull

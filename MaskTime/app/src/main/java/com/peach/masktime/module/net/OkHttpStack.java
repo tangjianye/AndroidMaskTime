@@ -46,6 +46,7 @@ import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.message.BasicStatusLine;
 
 import java.io.IOException;
+import java.net.Proxy;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +55,7 @@ import java.util.concurrent.TimeUnit;
  * use okhttp-urlconnection
  */
 public class OkHttpStack implements HttpStack {
+    private static final String TAG = OkHttpStack.class.getSimpleName();
     private final OkHttpClient mClient;
 
     public OkHttpStack(OkHttpClient client) {
@@ -66,7 +68,8 @@ public class OkHttpStack implements HttpStack {
 
         OkHttpClient client = mClient.clone();
         int timeoutMs = request.getTimeoutMs();
-        LogUtils.i("tangjy", "timeoutMs = " + timeoutMs);
+        LogUtils.i(TAG, "timeoutMs = " + timeoutMs);
+        client.setProxy(Proxy.NO_PROXY);
         client.setConnectTimeout(timeoutMs, TimeUnit.MILLISECONDS);
         client.setReadTimeout(timeoutMs, TimeUnit.MILLISECONDS);
         client.setWriteTimeout(timeoutMs, TimeUnit.MILLISECONDS);

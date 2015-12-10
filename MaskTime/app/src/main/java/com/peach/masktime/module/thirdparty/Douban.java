@@ -2,7 +2,6 @@ package com.peach.masktime.module.thirdparty;
 
 import android.content.Context;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -101,11 +100,7 @@ public class Douban {
             }
         });
 
-        RequestQueue rq = VolleyManager.getInstance().getRequestQueue();
-        request.setTag(url);
-        request.setRetryPolicy(VolleyManager.getInstance().getRetryPolicy());
-        rq.add(request);
-        rq.start();
+        VolleyManager.getInstance().addToRequestQueue(request, url).start();
     }
 
     private void requestList(Context context, String url, final Listener listener) {
@@ -137,11 +132,7 @@ public class Douban {
             }
         });
 
-        RequestQueue rq = VolleyManager.getInstance().getRequestQueue();
-        request.setTag(url);
-        request.setRetryPolicy(VolleyManager.getInstance().getRetryPolicy());
-        rq.add(request);
-        rq.start();
+        VolleyManager.getInstance().addToRequestQueue(request, url).start();
     }
 
     public interface Listener {

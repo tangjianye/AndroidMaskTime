@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -101,11 +100,7 @@ public class BannerLayer extends LinearLayout implements ICycle {
             }
         });
 
-        RequestQueue rq = VolleyManager.getInstance().getRequestQueue();
-        request.setTag(url);
-        request.setRetryPolicy(VolleyManager.getInstance().getRetryPolicy());
-        rq.add(request);
-        rq.start();
+        VolleyManager.getInstance().addToRequestQueue(request, url).start();
     }
 
     @NonNull
