@@ -17,7 +17,7 @@
         style="@style/SettingBlockStyle">
 
         <TextView
-            style="@style/SettingTextStyle"
+            style="@style/TextStyle.Setting"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/facial_cycle"
@@ -33,7 +33,7 @@
             android:src="@drawable/arrow_right_noraml" />
 
         <View
-            style="@style/DefDividerStyle"
+            style="@style/DividerStyle"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
@@ -42,7 +42,7 @@
         style="@style/SettingBlockStyle">
 
         <TextView
-            style="@style/SettingTextStyle"
+            style="@style/TextStyle.Setting"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/set_notice_time"
@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/txt_sound_type"
-            style="@style/SettingTextStyle"
+            style="@style/TextStyle.Setting"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawablePadding="@dimen/android_padding_normal"
@@ -67,7 +67,7 @@
             android:gravity="center" />
 
         <View
-            style="@style/DefDividerStyle"
+            style="@style/DividerStyle"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
@@ -76,7 +76,7 @@
         style="@style/SettingBlockStyle">
 
         <TextView
-            style="@style/SettingTextStyle"
+            style="@style/TextStyle.Setting"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/feedback"
@@ -92,7 +92,7 @@
             android:src="@drawable/arrow_right_noraml" />
 
         <View
-            style="@style/DefDividerStyle"
+            style="@style/DividerStyle"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
@@ -101,7 +101,7 @@
         style="@style/SettingBlockStyle">
 
         <TextView
-            style="@style/SettingTextStyle"
+            style="@style/TextStyle.Setting"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/give_commont"
@@ -117,7 +117,7 @@
             android:src="@drawable/arrow_right_noraml" />
 
         <View
-            style="@style/DefDividerStyle"
+            style="@style/DividerStyle"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
@@ -126,7 +126,7 @@
         style="@style/SettingBlockStyle">
 
         <TextView
-            style="@style/SettingTextStyle"
+            style="@style/TextStyle.Setting"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/share_friend"
@@ -142,7 +142,7 @@
             android:src="@drawable/arrow_right_noraml" />
 
         <View
-            style="@style/DefDividerStyle"
+            style="@style/DividerStyle"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
 

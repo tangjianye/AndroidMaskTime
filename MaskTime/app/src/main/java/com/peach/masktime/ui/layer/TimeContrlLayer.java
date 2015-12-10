@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.peach.masktime.R;
+import com.peach.masktime.ui.notification.Notify;
 import com.peach.masktime.utils.LogUtils;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     private static final String TAG = TimeContrlLayer.class.getSimpleName();
 
     /* 15分钟 */
-    private static final int TIME_MAX = 1 * 60 * 1000;
+    private static final int TIME_MAX = 15 * 60 * 1000;
 
     /* 1秒钟 */
     private static final int TIME_INTERVAL = 1000;
@@ -152,7 +153,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
             mHandler.postDelayed(this, TIME_INTERVAL);
             mCount++;
         } else {
-            // Notify.getInstance().timeUp(getContext());
+            Notify.getInstance().timeUp(getContext());
             stop();
         }
     }

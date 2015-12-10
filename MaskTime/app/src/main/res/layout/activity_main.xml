@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/DefBgStyle"
+    style="@style/MainBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,7 +13,8 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/DefTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/android_margin_middle"
@@ -61,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:drawablePadding="@dimen/android_padding_normal"
             android:drawableTop="@drawable/selector_btn_community"
             android:gravity="center"
             android:text="@string/main_community" />
@@ -70,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:drawablePadding="@dimen/android_padding_normal"
             android:drawableTop="@drawable/selector_btn_record"
             android:gravity="center"
             android:text="@string/main_record" />
@@ -79,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:drawablePadding="@dimen/android_padding_normal"
             android:drawableTop="@drawable/selector_btn_store"
             android:gravity="center"
             android:text="@string/main_album" />
@@ -88,6 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:drawablePadding="@dimen/android_padding_normal"
             android:drawableTop="@drawable/selector_btn_setting"
             android:gravity="center"
             android:text="@string/main_setting" />

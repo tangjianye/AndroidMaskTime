@@ -3,6 +3,7 @@
     <integer name="animate_rotate_duration">1000</integer>
     <integer name="animate_activity_duration">300</integer>
     <integer name="animate_zoom_in_duration">300</integer>
+    <integer name="input_length_micro">4</integer>
     <integer name="input_length_small">8</integer>
     <integer name="input_length_medium">20</integer>
     <integer name="input_length_large">100</integer>

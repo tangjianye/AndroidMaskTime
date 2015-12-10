@@ -6,7 +6,8 @@
 
     <TextView
         android:id="@+id/txt_no_content"
-        style="@style/DefTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/default_no_content" />
 </com.peach.masktime.ui.view.ContentTips>

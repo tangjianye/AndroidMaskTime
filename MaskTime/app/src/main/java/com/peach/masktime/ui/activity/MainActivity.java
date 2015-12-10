@@ -8,7 +8,6 @@ import com.peach.masktime.BaseApplication;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.ui.base.BaseActivity;
-import com.peach.masktime.ui.notification.Notify;
 
 public class MainActivity extends BaseActivity implements IInit, View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -67,8 +66,7 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txt_community:
-                // openActivity(CommunityActivity.class);
-                Notify.getInstance().timeUp(this);
+                openActivity(CommunityActivity.class);
                 break;
             case R.id.txt_record:
                 openActivity(RecordActivity.class);

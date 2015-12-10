@@ -1,61 +1,53 @@
 <resources>
 
     <!-- Application theme. -->
-    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar"></style>
+    <style name="BaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar" />
 
     <!-- Dialog -->
     <style name="BaseDailog" parent="@android:style/Theme.Light.NoTitleBar" />
 
     <!-- 字体样式 Start -->
-    <style name="BaseText">
-        <item name="android:textColor">@color/black</item>
-    </style>
+    <!--    <style name="BaseText">
+            <item name="android:textColor">@color/black</item>
+        </style>
 
-    <style name="BaseText.Micro" parent="BaseText">
-        <item name="android:textSize">@dimen/font_size_micro</item>
-    </style>
+        <style name="BaseText.Micro" parent="BaseText">
+            <item name="android:textSize">@dimen/font_size_micro</item>
+        </style>
 
-    <style name="BaseText.Small" parent="BaseText">
-        <item name="android:textSize">@dimen/font_size_small</item>
-    </style>
+        <style name="BaseText.Small" parent="BaseText">
+            <item name="android:textSize">@dimen/font_size_small</item>
+        </style>
 
-    <style name="BaseText.Medium.Small" parent="BaseText">
-        <item name="android:textSize">@dimen/font_size_middle</item>
-    </style>
+        <style name="BaseText.Medium.Small" parent="BaseText">
+            <item name="android:textSize">@dimen/font_size_middle</item>
+        </style>
 
-    <style name="BaseText.Medium" parent="BaseText">
-        <item name="android:textSize">@dimen/font_size_medium</item>
-    </style>
+        <style name="BaseText.Medium" parent="BaseText">
+            <item name="android:textSize">@dimen/font_size_medium</item>
+        </style>
 
-    <style name="BaseText.Large" parent="BaseText">
-        <item name="android:textSize">@dimen/font_size_large</item>
-    </style>
+        <style name="BaseText.Large" parent="BaseText">
+            <item name="android:textSize">@dimen/font_size_large</item>
+        </style>
 
-    <style name="BaseText.xLarge" parent="BaseText">
-        <item name="android:textSize">@dimen/font_size_xlarge</item>
-    </style>
+        <style name="BaseText.xLarge" parent="BaseText">
+            <item name="android:textSize">@dimen/font_size_xlarge</item>
+        </style>-->
     <!-- 字体样式 End -->
 
-    <style name="DefTextStyle" parent="BaseText.Small">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/gray</item>
+    <style name="AppBaseTheme" parent="BaseTheme">
+        <item name="@android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:textSize">@dimen/font_size_middle</item>
+        <item name="android:textColor">@color/black</item>
+        <!--        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>-->
     </style>
 
-    <style name="SettingTextStyle" parent="BaseText.Medium.Small">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/gray</item>
-    </style>
-
-    <style name="DefBgStyle">
-        <item name="android:background">@drawable/bg_default</item>
-    </style>
-
-    <style name="DefDividerStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/android_divider_height_middle</item>
-        <item name="android:background">@color/gray</item>
+    <style name="AnimationActivity">
+        <item name="android:activityOpenEnterAnimation">@anim/push_left_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/push_static</item>
+        <item name="android:activityCloseEnterAnimation">@anim/push_static</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
     </style>
 
     <!--    <style name="AnimationPreview">
@@ -76,7 +68,29 @@
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
 
-    <style name="DefListViewStyle">
+    <style name="MainBg">
+        <item name="android:background">@drawable/bg_default</item>
+    </style>
+
+    <style name="TextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextStyle.Setting" parent="TextStyle" />
+
+    <style name="TextStyle.Title" parent="TextStyle">
+        <item name="android:textSize">@dimen/font_size_large</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="DividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/android_divider_height_middle</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+
+    <style name="ListViewStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/android_margin_normal</item>
