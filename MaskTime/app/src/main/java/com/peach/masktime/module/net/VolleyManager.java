@@ -10,6 +10,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.peach.masktime.BaseApplication;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.config.LruBitmapCache;
 import com.squareup.okhttp.OkHttpClient;
@@ -27,15 +28,21 @@ public class VolleyManager {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
-    private VolleyManager(Context context) {
-        sCtx = context;
+    private VolleyManager() {
     }
 
-    public static synchronized VolleyManager getInstance(Context context) {
+    public static synchronized VolleyManager getInstance() {
         if (sINSTANTCE == null) {
-            sINSTANTCE = new VolleyManager(context);
+            sINSTANTCE = new VolleyManager();
         }
         return sINSTANTCE;
+    }
+
+    public void init(Context context) {
+        if (!(context instanceof BaseApplication)) {
+            throw new AssertionError();
+        }
+        sCtx = context;
     }
 
     public RequestQueue getRequestQueue() {

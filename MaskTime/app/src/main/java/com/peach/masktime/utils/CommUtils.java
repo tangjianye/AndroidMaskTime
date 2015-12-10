@@ -22,9 +22,8 @@ public class CommUtils {
     public static void setImageUrl(Context context, NetworkImageView view, String url) {
         view.setDefaultImageResId(R.drawable.place_holder);
         view.setErrorImageResId(R.drawable.place_holder);
-        view.setImageUrl(API.getPicUrl(url), VolleyManager.getInstance(context).getImageLoader());
+        view.setImageUrl(API.getPicUrl(url), VolleyManager.getInstance().getImageLoader());
     }
-
 
     public static String getMetaValue(Context context, String metaKey) {
         Bundle metaData = null;

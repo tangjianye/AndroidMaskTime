@@ -101,9 +101,9 @@ public class BannerLayer extends LinearLayout implements ICycle {
             }
         });
 
-        RequestQueue rq = VolleyManager.getInstance(getContext()).getRequestQueue();
+        RequestQueue rq = VolleyManager.getInstance().getRequestQueue();
         request.setTag(url);
-        request.setRetryPolicy(VolleyManager.getInstance(getContext()).getRetryPolicy());
+        request.setRetryPolicy(VolleyManager.getInstance().getRetryPolicy());
         rq.add(request);
         rq.start();
     }

@@ -189,9 +189,9 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
             }
         });
 
-        RequestQueue rq = VolleyManager.getInstance(this).getRequestQueue();
+        RequestQueue rq = VolleyManager.getInstance().getRequestQueue();
         request.setTag(url);
-        request.setRetryPolicy(VolleyManager.getInstance(this).getRetryPolicy());
+        request.setRetryPolicy(VolleyManager.getInstance().getRetryPolicy());
         rq.add(request);
         rq.start();
     }

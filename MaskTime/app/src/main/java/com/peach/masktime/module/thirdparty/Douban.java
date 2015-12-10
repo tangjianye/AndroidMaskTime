@@ -101,9 +101,9 @@ public class Douban {
             }
         });
 
-        RequestQueue rq = VolleyManager.getInstance(context).getRequestQueue();
+        RequestQueue rq = VolleyManager.getInstance().getRequestQueue();
         request.setTag(url);
-        request.setRetryPolicy(VolleyManager.getInstance(context).getRetryPolicy());
+        request.setRetryPolicy(VolleyManager.getInstance().getRetryPolicy());
         rq.add(request);
         rq.start();
     }
@@ -137,9 +137,9 @@ public class Douban {
             }
         });
 
-        RequestQueue rq = VolleyManager.getInstance(context).getRequestQueue();
+        RequestQueue rq = VolleyManager.getInstance().getRequestQueue();
         request.setTag(url);
-        request.setRetryPolicy(VolleyManager.getInstance(context).getRetryPolicy());
+        request.setRetryPolicy(VolleyManager.getInstance().getRetryPolicy());
         rq.add(request);
         rq.start();
     }
