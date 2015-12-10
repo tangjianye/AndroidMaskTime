@@ -1,5 +1,8 @@
 package com.peach.masktime.utils;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -13,11 +16,14 @@ import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.ui.service.PlayerService;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2015/11/6 0006.
  */
 public class CommUtils {
     private static final String TAG = CommUtils.class.getSimpleName();
+    private static final String CHANNEL = "CHANNEL";
 
     public static void setImageUrl(Context context, NetworkImageView view, String url) {
         view.setDefaultImageResId(R.drawable.place_holder);
@@ -47,13 +53,30 @@ public class CommUtils {
     }
 
     /**
+     * 获取当前activity
+     *
+     * @param context
+     * @return
+     */
+    public static String getTopActivity(Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Activity.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> taskInfo = manager.getRunningTasks(1);
+
+        if (taskInfo != null) {
+            ComponentName componentInfo = taskInfo.get(0).topActivity;
+            return componentInfo.getClassName();
+        }
+        return null;
+    }
+
+    /**
      * 获取应用渠道ID
      *
      * @param context 上下文
      * @return
      */
     public static String getChannel(Context context) {
-        return getMetaValue(context, "CHANNEL");
+        return getMetaValue(context, CHANNEL);
     }
 
     /**

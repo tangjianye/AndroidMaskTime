@@ -5,10 +5,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 
 import com.peach.masktime.BaseApplication;
 import com.peach.masktime.R;
 import com.peach.masktime.ui.activity.MainActivity;
+import com.peach.masktime.ui.activity.SplashActivity;
+import com.peach.masktime.utils.LogUtils;
 
 /**
  * Created by Administrator on 2015/12/9 0009.
@@ -52,10 +55,7 @@ public class Notify {
      * @param context
      */
     public void timeUp(Context context) {
-//        Intent intent = new Intent(context, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, getClickIntent(context), 0);
         // 下面需兼容Android 2.x版本是的处理方式
         // Notification notify1 = new Notification(R.drawable.message,
         // "TickerText:" + "您有新短消息，请注意查收！", System.currentTimeMillis());
@@ -70,5 +70,25 @@ public class Notify {
         // notify.sound = Uri.fromFile(new File("android.resource://" + context.getApplicationContext().getPackageName() + "/" + R.raw.point1sec));
 
         sManager.notify(TIME_UP_ID, notify);
+    }
+
+    @NonNull
+    private Intent getClickIntent(Context context, String activityName) {
+        LogUtils.i(TAG, "activityName = " + activityName);
+        Intent intent = null;
+        if (null != activityName && activityName.contains(MainActivity.class.getSimpleName())) {
+            intent = new Intent(context, MainActivity.class);
+        } else {
+            intent = new Intent(context, SplashActivity.class);
+        }
+        return intent;
+    }
+
+    @NonNull
+    private Intent getClickIntent(Context context) {
+        Intent intent = new Intent(context, SplashActivity.class);
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        return intent;
     }
 }
