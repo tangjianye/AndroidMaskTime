@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.peach.masktime.R;
+import com.peach.masktime.common.AppManager;
 import com.peach.masktime.ui.dialog.LoadingDialog;
 
 /**
@@ -29,11 +30,13 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppManager.getInstance().addActivity(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppManager.getInstance().killActivity(this);
         cancelToast();
         dismissLoadingDialog();
     }
