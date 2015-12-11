@@ -5,14 +5,14 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.module.net.API;
+import com.peach.masktime.module.net.GsonRequest;
 import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.module.net.response.AlbumSet;
@@ -20,11 +20,9 @@ import com.peach.masktime.ui.adapter.AlbumListAdapter;
 import com.peach.masktime.ui.base.BaseTitleActivity;
 import com.peach.masktime.ui.widget.xlistview.XListView;
 import com.peach.masktime.ui.widget.xlistview.XListView.IXListViewListener;
-import com.peach.masktime.utils.JsonUtils;
 import com.peach.masktime.utils.LogUtils;
 import com.peach.masktime.utils.TimeUtils;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterView.OnItemClickListener, IXListViewListener {
@@ -130,65 +128,48 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         request(!IS_INIT, getUrl(FRIST_PAGE), Status.Refresh);
     }
 
+    /**
+     * 重新设置xlistview的状态
+     */
     private void onLoad() {
         mListView.stopRefresh();
         mListView.stopLoadMore();
         mListView.setRefreshTime(TimeUtils.getCurrentTimeInString());
     }
 
-    private void resetNetUI() {
-        dismissLoadingDialog();
-        onLoad();
-    }
-
-    private void refreshNetUI(boolean isInit) {
-        if (isInit) {
-            refreshContentTips(true);
-        } else {
-            showToast(R.string.default_no_more_date);
-        }
-    }
-
-    private void refreshNetFail(boolean isInit) {
-        resetNetUI();
-        if (!isInit) {
-            showToast(R.string.default_get_data_fail);
-        }
-    }
-
     private void request(final boolean isInit, final String url, final Status mode) {
-        if (isInit) {
-            showLoadingDialog();
-        }
-
-        StringRequest request = new StringRequest(url,
-                new Response.Listener<String>() {
+        GsonRequest.GsonRequestBuilder<AlbumSet> builder = new GsonRequest.GsonRequestBuilder<>();
+        builder.setMethod(Request.Method.GET)
+                .setUrl(url)
+                .setBclass(AlbumSet.class)
+                .setDialog(isInit ? creatLoadingDialog() : null)
+                .setErrorListener(new Response.ErrorListener() {
                     @Override
-                    public void onResponse(String response) {
-                        LogUtils.i(TAG, "response = " + response);
-                        resetNetUI();
-
-                        if (null != response) {
-                            Type type = new TypeToken<AlbumSet>() {
-                            }.getType();
-                            AlbumSet set = JsonUtils.parseJson(response, type);
-                            LogUtils.i(TAG, "set = " + set);
-                            if (null != set && set.getRsm() != null && set.getRsm().size() > 0) {
-                                response(mode, set.getRsm());
+                    public void onErrorResponse(VolleyError error) {
+                        onLoad();
+                        if (!isInit) {
+                            showToast(R.string.default_get_data_fail);
+                        }
+                    }
+                })
+                .setListener(new Response.Listener<AlbumSet>() {
+                    @Override
+                    public void onResponse(AlbumSet response) {
+                        onLoad();
+                        if (null != response && response.getRsm() != null && response.getRsm().size() > 0) {
+                            response(mode, response.getRsm());
+                        } else {
+                            if (isInit) {
+                                refreshContentTips(true);
                             } else {
-                                refreshNetUI(isInit);
+                                showToast(R.string.default_no_more_date);
                             }
                         }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                refreshNetFail(isInit);
-                LogUtils.i(TAG, error.getMessage(), error);
-            }
-        });
+                });
 
-        VolleyManager.getInstance().addToRequestQueue(request, url).start();
+        GsonRequest<AlbumSet> request = builder.build();
+        VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 
     @NonNull

@@ -5,20 +5,17 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.module.net.API;
+import com.peach.masktime.module.net.GsonRequest;
 import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.response.AlbumSet;
 import com.peach.masktime.ui.view.AutoScrollBanner;
-import com.peach.masktime.utils.JsonUtils;
 import com.peach.masktime.utils.LogUtils;
-
-import java.lang.reflect.Type;
 
 /**
  * Created by Administrator on 2015/11/25 0025.
@@ -75,32 +72,26 @@ public class BannerLayer extends LinearLayout implements ICycle {
     }
 
     private void request(final String url) {
-        StringRequest request = new StringRequest(url,
-                new Response.Listener<String>() {
+        GsonRequest.GsonRequestBuilder<AlbumSet> builder = new GsonRequest.GsonRequestBuilder<>();
+        builder.setMethod(Request.Method.GET)
+                .setUrl(url)
+                .setBclass(AlbumSet.class)
+                .setErrorListener(new Response.ErrorListener() {
                     @Override
-                    public void onResponse(String response) {
-                        LogUtils.i(TAG, "response = " + response);
-
-                        if (null != response) {
-                            Type type = new TypeToken<AlbumSet>() {
-                            }.getType();
-                            AlbumSet set = JsonUtils.parseJson(response, type);
-                            LogUtils.i(TAG, "set = " + set);
-                            if (null != set && set.getRsm() != null && set.getRsm().size() > 0) {
-                                mAutoBanner.refresh(set.getRsm());
-                            } else {
-                                LogUtils.i(TAG, "广告数据为空");
-                            }
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                })
+                .setListener(new Response.Listener<AlbumSet>() {
+                    @Override
+                    public void onResponse(AlbumSet response) {
+                        if (null != response && response.getRsm() != null && response.getRsm().size() > 0) {
+                            mAutoBanner.refresh(response.getRsm());
                         }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtils.i(TAG, error.getMessage(), error);
-            }
-        });
+                });
 
-        VolleyManager.getInstance().addToRequestQueue(request, url).start();
+        GsonRequest<AlbumSet> request = builder.build();
+        VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 
     @NonNull

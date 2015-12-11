@@ -66,7 +66,7 @@ public class VolleyManager {
 
     @NonNull
     private DefaultRetryPolicy getRetryPolicy() {
-        return new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_MS, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        return new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     }
 
     public <T> RequestQueue addToRequestQueue(Request<T> req, String tag) {

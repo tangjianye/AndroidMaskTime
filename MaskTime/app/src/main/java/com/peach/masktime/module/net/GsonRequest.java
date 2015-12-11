@@ -18,7 +18,6 @@ package com.peach.masktime.module.net;
 
 import android.app.Dialog;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -28,7 +27,6 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
-import com.peach.masktime.common.Constants;
 import com.peach.masktime.utils.LogUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -130,8 +128,8 @@ public class GsonRequest<T> extends Request<T> {
     public GsonRequest(int method, String url, Class<T> clazz, Listener<T> listener,
                        ErrorListener errorListener) {
         super(method, url, errorListener);
-        setRetryPolicy(new DefaultRetryPolicy(
-                Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        setRetryPolicy(new DefaultRetryPolicy(
+//                Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         sGson = new Gson();
         mClass = clazz;
         mListener = listener;

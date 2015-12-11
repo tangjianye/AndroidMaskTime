@@ -17,7 +17,6 @@ import org.json.JSONObject;
  */
 public class Douban {
     private static final String TAG = Douban.class.getSimpleName();
-
     /**
      * 获取频道ID
      */
@@ -27,19 +26,9 @@ public class Douban {
      */
     private static final String DOUBAN_PLAY_LIST = "http://douban.fm/j/mine/playlist";
 
-    private static Douban sINSTANTCE;
+    private boolean isDestroy = false;
 
-//    private Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            switch (msg.what) {
-//                case 100:
-//                    requestList(context, getListUrl(1), listener);
-//                    break;
-//            }
-//        }
-//    };
+    private static Douban sINSTANTCE;
 
     private Douban() {
 
@@ -59,8 +48,7 @@ public class Douban {
     }
 
     public void request(final Context context, final Douban.Listener listener) {
-        // requestChannel(context, DOUBAN_CHANNELS, listener);
-        requestList(context, getListUrl(1), listener);
+        requestChannel(context, DOUBAN_CHANNELS, listener);
     }
 
     private void requestChannel(final Context context, String url, final Listener listener) {
@@ -79,13 +67,8 @@ public class Douban {
                                 JSONObject channel = (JSONObject) channels.get(0);
                                 id = channel.getInt("id");
 
-//                                android.os.Handler handler = new android.os.Handler(context.getMainLooper());
-//                                handler.postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        requestList(context, getListUrl(1), listener);
-//                                    }
-//                                }, 100);
+                                // 获取音乐列表
+                                isRequestPlayList(context, id, listener);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -100,7 +83,13 @@ public class Douban {
             }
         });
 
-        VolleyManager.getInstance().addToRequestQueue(request, url).start();
+        VolleyManager.getInstance().addToRequestQueue(request, url);
+    }
+
+    private void isRequestPlayList(final Context context, int id, final Listener listener) {
+        if (!isDestroy()) {
+            requestList(context, getListUrl(id), listener);
+        }
     }
 
     private void requestList(Context context, String url, final Listener listener) {
@@ -132,7 +121,15 @@ public class Douban {
             }
         });
 
-        VolleyManager.getInstance().addToRequestQueue(request, url).start();
+        VolleyManager.getInstance().addToRequestQueue(request, url);
+    }
+
+    public boolean isDestroy() {
+        return isDestroy;
+    }
+
+    public void setIsDestroy(boolean isDestroy) {
+        this.isDestroy = isDestroy;
     }
 
     public interface Listener {

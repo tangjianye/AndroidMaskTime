@@ -71,6 +71,17 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
         init();
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        Douban.getInstance().setIsDestroy(true);
+    }
+
     private void init() {
         mPlayContrl = (Button) findViewById(R.id.btn_play_contrl);
         mPlayContrl.setOnClickListener(this);
@@ -80,6 +91,7 @@ public class MusicContrlLayer extends FrameLayout implements View.OnClickListene
     }
 
     private void request() {
+        Douban.getInstance().setIsDestroy(false);
         Douban.getInstance().request(getContext(), new Douban.Listener() {
             @Override
             public void response(String url) {
