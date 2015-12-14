@@ -53,17 +53,6 @@ public class VolleyManager {
         }
     }
 
-//    public RequestQueue getRequestQueue() {
-//        if (mRequestQueue == null) {
-//            // getApplicationContext() is key, it keeps you from leaking the
-//            // Activity or BroadcastReceiver if someone passes one in.
-//            mRequestQueue = Volley.newRequestQueue(sCtx.getApplicationContext(), new OkHttpStack(new OkHttpClient()));
-//
-//            mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(LruBitmapCache.getCacheSize(sCtx)));
-//        }
-//        return mRequestQueue;
-//    }
-
     @NonNull
     private DefaultRetryPolicy getRetryPolicy() {
         return new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);

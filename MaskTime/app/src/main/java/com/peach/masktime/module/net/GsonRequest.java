@@ -146,7 +146,7 @@ public class GsonRequest<T> extends Request<T> {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
             LogUtils.i(TAG, "parseNetworkResponse jsonString = " + jsonString);
-//            Type type = new TypeToken<T>() {}.getType();
+            // Type type = new TypeToken<T>() {}.getType();
             return Response.success(sGson.fromJson(jsonString, mClass),
                     HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {

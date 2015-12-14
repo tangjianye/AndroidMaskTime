@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.utils.LogUtils;
 
@@ -19,7 +18,7 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
     /**
      * 在线播放音乐列表
      */
-    private String mUrl = "http://mr7.doubanio.com/f63935bf4f023e7effbd31b65fbd04c1/1/fm/song/p721085_128k.mp4";
+    private String mUrl = "http://mr7.doubanio.com//1d624289165da693288499428d624165//0//fm//song//p1772376_128k.mp4";
     /**
      * 用户操作
      */
@@ -96,8 +95,8 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
         stopMusic();
 
         /* 初始化 */
-//        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sky);
+        mMediaPlayer = new MediaPlayer();
+        // mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sky);
         /* 监听播放是否完成 */
         mMediaPlayer.setOnCompletionListener(this);
     }
@@ -122,12 +121,12 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
      */
     public void playMusic() {
         try {
-//            /* 重置多媒体 */
-//            mMediaPlayer.reset();
-//            /* 读取mp3文件 */
-//            mMediaPlayer.setDataSource(mUrl);
-//            /* 准备播放 */
-//            mMediaPlayer.prepare();
+            /* 重置多媒体 */
+            mMediaPlayer.reset();
+            /* 读取mp3文件 */
+            mMediaPlayer.setDataSource(mUrl);
+            /* 准备播放 */
+            mMediaPlayer.prepare();
             /* 开始播放 */
             mMediaPlayer.start();
             /* 是否单曲循环 */
