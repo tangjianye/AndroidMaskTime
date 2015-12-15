@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.peach.masktime.R;
 import com.peach.masktime.ui.notification.Notify;
+import com.peach.masktime.ui.view.RoundProgressBar;
 import com.peach.masktime.utils.LogUtils;
 
 import java.util.HashMap;
@@ -27,6 +28,10 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     /* 1秒钟 */
     private static final int TIME_INTERVAL = 1000;
 
+    /* 进度条起点 */
+    private static final int PROGRESS_START = 50;
+
+    private RoundProgressBar mRoundPgbar;
     private Button mTimeContrl;
     private TextView mTxtTime;
 
@@ -98,11 +103,13 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     private void init() {
         mHandler = new Handler(Looper.getMainLooper());
 
+        mRoundPgbar = (RoundProgressBar) findViewById(R.id.round_progressbar);
         mTimeContrl = (Button) findViewById(R.id.btn_time_contrl);
         mTxtTime = (TextView) findViewById(R.id.txt_time);
 
         mTimeContrl.setOnClickListener(this);
 
+        mRoundPgbar.setProgress(PROGRESS_START);
         setTimeTips(TIME_MAX / TIME_INTERVAL);
         setPlayStatus(Status.IDLE);
     }
@@ -147,15 +154,34 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     @Override
     public void run() {
         // 单位是1秒钟
-        int left = TIME_MAX / TIME_INTERVAL - mCount;
+        int sencondMax = TIME_MAX / TIME_INTERVAL;
+        int left = sencondMax - mCount;
         if (left >= 0) {
             setTimeTips(left);
+            setProgress(sencondMax, left);
             mHandler.postDelayed(this, TIME_INTERVAL);
             mCount++;
         } else {
             Notify.getInstance().timeUp(getContext());
             stop();
         }
+    }
+
+    private void setProgress(int max, int left) {
+        int progress = 0;
+        if (0 == left) {
+            progress = 0;
+        } else if (max == left) {
+            progress = PROGRESS_START;
+        } else {
+            int percent = (int) (((float) left / (float) max) * 100) + 1;
+            progress = ((percent * PROGRESS_START) / 100);
+        }
+
+        if (progress < 0) {
+            progress = 0;
+        }
+        mRoundPgbar.setProgress(progress);
     }
 
     /**
