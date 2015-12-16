@@ -5,16 +5,27 @@
     android:layout_height="match_parent"
     android:padding="@dimen/android_padding_middle">
 
-    <com.peach.masktime.ui.view.CircleProgressBar
-        android:id="@+id/round_progressbar"
+    <!--    <com.peach.masktime.ui.view.CircleProgressBar
+            android:id="@+id/round_progressbar"
+            android:layout_width="@dimen/android_width_xlarge"
+            android:layout_height="@dimen/android_height_xlarge"
+            android:layout_centerInParent="true"
+            android_custom:roundColor="@color/white"
+            android_custom:roundProgressColor="@color/pink"
+            android_custom:roundWidth="@dimen/android_width_normal"
+            android_custom:style="STROKE"
+            android_custom:textIsDisplayable="false" />-->
+
+    <com.peach.masktime.ui.view.CircleSeekBar
+        android:id="@+id/circle_seekbar"
         android:layout_width="@dimen/android_width_xlarge"
         android:layout_height="@dimen/android_height_xlarge"
         android:layout_centerInParent="true"
-        android_custom:roundColor="@color/white"
-        android_custom:roundProgressColor="@color/pink"
-        android_custom:roundWidth="@dimen/android_width_normal"
-        android_custom:style="STROKE"
-        android_custom:textIsDisplayable="false" />
+        android:thumb="@drawable/thumb_circle_skbar"
+        android_custom:progress_background="@color/white"
+        android_custom:progress_front="@color/pink"
+        android_custom:progress_width="@dimen/android_width_normal"
+        android_custom:show_progress_text="false" />
 
     <Button
         android:id="@+id/btn_time_contrl"

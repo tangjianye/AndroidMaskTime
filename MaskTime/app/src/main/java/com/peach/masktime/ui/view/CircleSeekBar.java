@@ -26,6 +26,7 @@ import com.peach.masktime.R;
 
 public class CircleSeekBar extends View {
     private static final String TAG = "CircleSeekBar";
+    private static final float START_DEGREE = -0.0F;
     private final boolean DEBUG = true;
 
     private Context mContext = null;
@@ -90,15 +91,17 @@ public class CircleSeekBar extends View {
     }
 
     private void initViewAttrs(AttributeSet attrs) {
-        if (DEBUG) Log.d(TAG, "initView");
+        if (DEBUG) Log.d(TAG, "initViewAttrs");
         TypedArray localTypedArray = mContext.obtainStyledAttributes(attrs, R.styleable.CircleSeekBar);
 
         //thumb的属性是使用android:thumb属性进行设置的
         //返回的Drawable为一个StateListDrawable类型，即可以实现选中效果的drawable list
         //mThumbNormal和mThumbPressed则是用于设置不同状态的效果，当点击thumb时设置mThumbPressed，否则设置mThumbNormal
         mThumbDrawable = localTypedArray.getDrawable(R.styleable.CircleSeekBar_android_thumb);
-        mThumbWidth = mThumbDrawable.getIntrinsicWidth();
-        mThumbHeight = mThumbDrawable.getIntrinsicHeight();
+        if (null != mThumbDrawable) {
+            mThumbWidth = mThumbDrawable.getIntrinsicWidth();
+            mThumbHeight = mThumbDrawable.getIntrinsicHeight();
+        }
 
         mThumbNormal = new int[]{-android.R.attr.state_focused, -android.R.attr.state_pressed,
                 -android.R.attr.state_selected, -android.R.attr.state_checked};
@@ -209,7 +212,8 @@ public class CircleSeekBar extends View {
     protected synchronized void onDraw(Canvas canvas) {
         canvas.drawCircle(mSeekBarCenterX, mSeekBarCenterY, mSeekBarRadius,
                 mSeekBarBackgroundPaint);
-        canvas.drawArc(this.mArcRectF, 0.0F, mSeekBarDegree, false, mSeekbarProgressPaint);
+        // canvas.drawArc(this.mArcRectF, 0.0F, mSeekBarDegree, false, mSeekbarProgressPaint);
+        canvas.drawArc(this.mArcRectF, START_DEGREE, mSeekBarDegree, false, mSeekbarProgressPaint);
         drawThumbBitmap(canvas);
         drawProgressText(canvas);
 

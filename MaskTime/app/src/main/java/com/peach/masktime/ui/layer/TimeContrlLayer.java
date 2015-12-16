@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.peach.masktime.R;
 import com.peach.masktime.ui.notification.Notify;
-import com.peach.masktime.ui.view.CircleProgressBar;
+import com.peach.masktime.ui.view.CircleSeekBar;
 import com.peach.masktime.utils.LogUtils;
 
 import java.util.HashMap;
@@ -31,7 +31,8 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     /* 进度条起点 */
     private static final int PROGRESS_START = 50;
 
-    private CircleProgressBar mRoundPgbar;
+    // private CircleProgressBar mRoundPgbar;
+    private CircleSeekBar mCircleSeekBar;
     private Button mTimeContrl;
     private TextView mTxtTime;
 
@@ -103,13 +104,15 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     private void init() {
         mHandler = new Handler(Looper.getMainLooper());
 
-        mRoundPgbar = (CircleProgressBar) findViewById(R.id.round_progressbar);
+        // mRoundPgbar = (CircleProgressBar) findViewById(R.id.round_progressbar);
+        mCircleSeekBar = (CircleSeekBar) findViewById(R.id.circle_seekbar);
         mTimeContrl = (Button) findViewById(R.id.btn_time_contrl);
         mTxtTime = (TextView) findViewById(R.id.txt_time);
 
         mTimeContrl.setOnClickListener(this);
+        mCircleSeekBar.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
 
-        mRoundPgbar.setProgress(PROGRESS_START);
+        mCircleSeekBar.setProgress(PROGRESS_START);
         setTimeTips(TIME_MAX / TIME_INTERVAL);
         setPlayStatus(Status.IDLE);
     }
@@ -181,7 +184,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         if (progress < 0) {
             progress = 0;
         }
-        mRoundPgbar.setProgress(progress);
+        mCircleSeekBar.setProgress(progress);
     }
 
     /**
@@ -201,5 +204,23 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
                 + ":" + Integer.toString(time0010) + Integer.toString(time0001);
         LogUtils.i(TAG, "mCount = " + mCount + " ;left = " + left + " ;time = " + time);
         mTxtTime.setText(time);
+    }
+
+    private class CircleSeekBarOnChangeListener implements CircleSeekBar.OnSeekBarChangeListener {
+
+        @Override
+        public void onProgressChanged(int progress) {
+            LogUtils.i(TAG, "onProgressChanged progress = " + progress);
+        }
+
+        @Override
+        public void onStartTrackingTouch() {
+            LogUtils.i(TAG, "onStartTrackingTouch");
+        }
+
+        @Override
+        public void onStopTrackingTouch() {
+            LogUtils.i(TAG, "onStopTrackingTouch");
+        }
     }
 }

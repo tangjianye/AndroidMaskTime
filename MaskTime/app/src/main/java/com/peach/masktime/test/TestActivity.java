@@ -1,10 +1,7 @@
 package com.peach.masktime.test;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.widget.RelativeLayout;
 
 import com.peach.masktime.R;
 import com.peach.masktime.ui.base.BaseActivity;
@@ -23,12 +20,10 @@ public class TestActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        RelativeLayout mainLayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.activity_test, null);
-        setContentView(mainLayout);
 
         CircleSeekBar circleSeekBar = (CircleSeekBar) findViewById(R.id.circle_seekbar);
-        circleSeekBar.setProgress(100);
-        circleSeekBar.setProgressFrontColor(Color.RED);
+        // circleSeekBar.setProgressMax(100);
+        circleSeekBar.setProgress(10);
         circleSeekBar.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
 
 //        CircleSeekBar circleSeekBar2 = new CircleSeekBar(this);

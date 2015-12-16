@@ -61,12 +61,13 @@ android {
 
             if (variant.buildType.name.equals('release')) {
                 // println(variant.productFlavors[0].name)
-                def releaseApkName = name + '.apk'
+                def releaseApkName = name + '-release' + '.apk'
                 output.outputFile = new File(oldFile.parent, releaseApkName)
             }
 
             if (variant.buildType.name.equals('debug')) {
-                def releaseApkName = name + '-' + version + '-' + date + '-debug' + '.apk'
+                // def releaseApkName = name + '-' + version + '-' + date + '-debug' + '.apk'
+                def releaseApkName = name + '-' + version + '-debug' + '.apk'
                 output.outputFile = new File(oldFile.parent, releaseApkName)
             }
         }
