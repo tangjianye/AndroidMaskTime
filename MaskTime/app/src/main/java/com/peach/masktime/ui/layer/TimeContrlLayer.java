@@ -39,7 +39,9 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     private Handler mHandler;
 
     private Status mStatus;
-    private int mCount = 0;
+
+    /* 当前时间单位毫秒 */
+    private int mCurrTime;
 
     public static HashMap<Status, Integer> CONTENT_MAP = new HashMap<Status, Integer>();
     public static HashMap<Status, Integer> SELECTOR_MAP = new HashMap<Status, Integer>();
@@ -93,15 +95,18 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        LogUtils.i(TAG, "onAttachedToWindow");
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stop();
+        LogUtils.i(TAG, "onDetachedFromWindow");
     }
 
     private void init() {
+        mCurrTime = (TIME_MAX * PROGRESS_START) / 100;
         mHandler = new Handler(Looper.getMainLooper());
 
         // mRoundPgbar = (CircleProgressBar) findViewById(R.id.round_progressbar);
@@ -113,7 +118,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         mCircleSeekBar.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
 
         mCircleSeekBar.setProgress(PROGRESS_START);
-        setTimeTips(TIME_MAX / TIME_INTERVAL);
+        setTimeTips(mCurrTime);
         setPlayStatus(Status.IDLE);
     }
 
@@ -156,14 +161,11 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
 
     @Override
     public void run() {
-        // 单位是1秒钟
-        int sencondMax = TIME_MAX / TIME_INTERVAL;
-        int left = sencondMax - mCount;
-        if (left >= 0) {
-            setTimeTips(left);
-            setProgress(sencondMax, left);
+        mCurrTime = mCurrTime - TIME_INTERVAL;
+        if (mCurrTime >= 0) {
+            setTimeTips(mCurrTime);
+            setProgress(TIME_MAX, mCurrTime);
             mHandler.postDelayed(this, TIME_INTERVAL);
-            mCount++;
         } else {
             Notify.getInstance().timeUp(getContext());
             stop();
@@ -174,25 +176,25 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         int progress = 0;
         if (0 == left) {
             progress = 0;
-        } else if (max == left) {
-            progress = PROGRESS_START;
         } else {
-            int percent = (int) (((float) left / (float) max) * 100) + 1;
-            progress = ((percent * PROGRESS_START) / 100);
+            progress = (int) (((float) left / (float) max) * 100) + 1;
         }
 
         if (progress < 0) {
             progress = 0;
+        } else if (progress > 100) {
+            progress = 100;
         }
         mCircleSeekBar.setProgress(progress);
     }
 
     /**
-     * 剩余多少秒
+     * 当前时间单位毫秒
      *
-     * @param left
+     * @param ms
      */
-    private void setTimeTips(int left) {
+    private void setTimeTips(int ms) {
+        int left = ms / TIME_INTERVAL;
         int mode = 0;
         int time1000 = left / (10 * 60);
         mode = left % (10 * 60);
@@ -202,7 +204,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         int time0001 = (time0010 > 0) ? mode % 10 : mode;
         String time = Integer.toString(time1000) + Integer.toString(time0100)
                 + ":" + Integer.toString(time0010) + Integer.toString(time0001);
-        LogUtils.i(TAG, "mCount = " + mCount + " ;left = " + left + " ;time = " + time);
+        LogUtils.i(TAG, "left = " + left + " ;time = " + time);
         mTxtTime.setText(time);
     }
 
@@ -211,16 +213,23 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         @Override
         public void onProgressChanged(int progress) {
             LogUtils.i(TAG, "onProgressChanged progress = " + progress);
+            int max = mCircleSeekBar.getProgressMax();
+            mCurrTime = (TIME_MAX * progress) / max;
+            setTimeTips(mCurrTime);
         }
 
         @Override
         public void onStartTrackingTouch() {
             LogUtils.i(TAG, "onStartTrackingTouch");
+            stop();
+            setPlayStatus(Status.STOP);
         }
 
         @Override
         public void onStopTrackingTouch() {
             LogUtils.i(TAG, "onStopTrackingTouch");
+            start();
+            setPlayStatus(Status.PLAY);
         }
     }
 }

@@ -27,7 +27,7 @@ import com.peach.masktime.R;
 public class CircleSeekBar extends View {
     private static final String TAG = "CircleSeekBar";
     private static final float START_DEGREE = -0.0F;
-    private final boolean DEBUG = true;
+    private final boolean DEBUG = false;
 
     private Context mContext = null;
 
@@ -98,10 +98,8 @@ public class CircleSeekBar extends View {
         //返回的Drawable为一个StateListDrawable类型，即可以实现选中效果的drawable list
         //mThumbNormal和mThumbPressed则是用于设置不同状态的效果，当点击thumb时设置mThumbPressed，否则设置mThumbNormal
         mThumbDrawable = localTypedArray.getDrawable(R.styleable.CircleSeekBar_android_thumb);
-        if (null != mThumbDrawable) {
-            mThumbWidth = mThumbDrawable.getIntrinsicWidth();
-            mThumbHeight = mThumbDrawable.getIntrinsicHeight();
-        }
+        mThumbWidth = mThumbDrawable.getIntrinsicWidth();
+        mThumbHeight = mThumbDrawable.getIntrinsicHeight();
 
         mThumbNormal = new int[]{-android.R.attr.state_focused, -android.R.attr.state_pressed,
                 -android.R.attr.state_selected, -android.R.attr.state_checked};
