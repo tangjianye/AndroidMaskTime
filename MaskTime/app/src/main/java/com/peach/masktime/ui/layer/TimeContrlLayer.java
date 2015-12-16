@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.peach.masktime.R;
 import com.peach.masktime.ui.notification.Notify;
-import com.peach.masktime.ui.view.RoundProgressBar;
+import com.peach.masktime.ui.view.CircleProgressBar;
 import com.peach.masktime.utils.LogUtils;
 
 import java.util.HashMap;
@@ -31,7 +31,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     /* 进度条起点 */
     private static final int PROGRESS_START = 50;
 
-    private RoundProgressBar mRoundPgbar;
+    private CircleProgressBar mRoundPgbar;
     private Button mTimeContrl;
     private TextView mTxtTime;
 
@@ -103,7 +103,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     private void init() {
         mHandler = new Handler(Looper.getMainLooper());
 
-        mRoundPgbar = (RoundProgressBar) findViewById(R.id.round_progressbar);
+        mRoundPgbar = (CircleProgressBar) findViewById(R.id.round_progressbar);
         mTimeContrl = (Button) findViewById(R.id.btn_time_contrl);
         mTxtTime = (TextView) findViewById(R.id.txt_time);
 

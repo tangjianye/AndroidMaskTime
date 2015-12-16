@@ -10,11 +10,13 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
-        manifestPlaceholders = [CHANNEL_VALUE: "default_channel"]
+        manifestPlaceholders = [CHANNEL_VALUE: "default"]
     }
 
     productFlavors {
+        "default" {}
         baidu {}
+        "360" {}
     }
 
     productFlavors.all { flavor ->
@@ -37,7 +39,7 @@ android {
             shrinkResources true
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
 
         debug {
@@ -50,25 +52,25 @@ android {
     }
 
     // Rename APP
-//    applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            def name = 'masktime' + '-' + variant.productFlavors[0].name
-//            def version = 'V' + defaultConfig.versionName
-//            def date = new Date().format('yyyyMMddHHmm')
-//            def oldFile = output.outputFile
-//
-//            if (variant.buildType.name.equals('release')) {
-//                // println(variant.productFlavors[0].name)
-//                def releaseApkName = name + '.apk'
-//                output.outputFile = new File(oldFile.parent, releaseApkName)
-//            }
-//
-//            if (variant.buildType.name.equals('debug')) {
-//                def releaseApkName = name + '-' + version + '-' + date + '-debug' + '.apk'
-//                output.outputFile = new File(oldFile.parent, releaseApkName)
-//            }
-//        }
-//    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def name = 'masktime' + '-' + variant.productFlavors[0].name
+            def version = 'V' + defaultConfig.versionName
+            def date = new Date().format('yyyyMMddHHmm')
+            def oldFile = output.outputFile
+
+            if (variant.buildType.name.equals('release')) {
+                // println(variant.productFlavors[0].name)
+                def releaseApkName = name + '.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
+
+            if (variant.buildType.name.equals('debug')) {
+                def releaseApkName = name + '-' + version + '-' + date + '-debug' + '.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
+        }
+    }
 
     // Something wrong with the http* libs
     packagingOptions {
@@ -89,14 +91,14 @@ android {
     }
 
     // Start emulator with x86 Accelerated (HAXM)
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'x86', 'armeabi-v7a'
-            universalApk true
-        }
-    }
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include 'x86', 'armeabi-v7a'
+//            universalApk true
+//        }
+//    }
 }
 
 dependencies {

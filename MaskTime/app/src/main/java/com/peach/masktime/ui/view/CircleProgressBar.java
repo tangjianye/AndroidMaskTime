@@ -18,7 +18,7 @@ import com.peach.masktime.R;
  *
  * @author xiaanming
  */
-public class RoundProgressBar extends View {
+public class CircleProgressBar extends View {
     /**
      * 画笔对象的引用
      */
@@ -71,28 +71,28 @@ public class RoundProgressBar extends View {
     public static final int STROKE = 0;
     public static final int FILL = 1;
 
-    public RoundProgressBar(Context context) {
+    public CircleProgressBar(Context context) {
         this(context, null);
     }
 
-    public RoundProgressBar(Context context, AttributeSet attrs) {
+    public CircleProgressBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RoundProgressBar(Context context, AttributeSet attrs, int defStyle) {
+    public CircleProgressBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         paint = new Paint();
-        TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.RoundProgressBar);
+        TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressBar);
 
         //获取自定义属性和默认值
-        roundColor = mTypedArray.getColor(R.styleable.RoundProgressBar_roundColor, Color.RED);
-        roundProgressColor = mTypedArray.getColor(R.styleable.RoundProgressBar_roundProgressColor, Color.GREEN);
-        textColor = mTypedArray.getColor(R.styleable.RoundProgressBar_textColor, Color.GREEN);
-        textSize = mTypedArray.getDimension(R.styleable.RoundProgressBar_textSize, 15);
-        roundWidth = mTypedArray.getDimension(R.styleable.RoundProgressBar_roundWidth, 5);
-        max = mTypedArray.getInteger(R.styleable.RoundProgressBar_max, 100);
-        textIsDisplayable = mTypedArray.getBoolean(R.styleable.RoundProgressBar_textIsDisplayable, true);
-        style = mTypedArray.getInt(R.styleable.RoundProgressBar_style, 0);
+        roundColor = mTypedArray.getColor(R.styleable.CircleProgressBar_roundColor, Color.RED);
+        roundProgressColor = mTypedArray.getColor(R.styleable.CircleProgressBar_roundProgressColor, Color.GREEN);
+        textColor = mTypedArray.getColor(R.styleable.CircleProgressBar_textColor, Color.GREEN);
+        textSize = mTypedArray.getDimension(R.styleable.CircleProgressBar_textSize, 15);
+        roundWidth = mTypedArray.getDimension(R.styleable.CircleProgressBar_roundWidth, 5);
+        max = mTypedArray.getInteger(R.styleable.CircleProgressBar_max, 100);
+        textIsDisplayable = mTypedArray.getBoolean(R.styleable.CircleProgressBar_textIsDisplayable, true);
+        style = mTypedArray.getInt(R.styleable.CircleProgressBar_style, 0);
         mTypedArray.recycle();
     }
 

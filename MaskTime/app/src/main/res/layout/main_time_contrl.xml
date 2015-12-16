@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/android_padding_middle">
 
-    <com.peach.masktime.ui.view.RoundProgressBar
+    <com.peach.masktime.ui.view.CircleProgressBar
         android:id="@+id/round_progressbar"
         android:layout_width="@dimen/android_width_xlarge"
         android:layout_height="@dimen/android_height_xlarge"

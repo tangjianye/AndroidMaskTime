@@ -11,7 +11,13 @@
         android:icon="@mipmap/icon_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme">
-
+        // 测试文件
+        <activity
+            android:name=".test.TestActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ui.activity.SplashActivity"
             android:label="@string/app_name"
