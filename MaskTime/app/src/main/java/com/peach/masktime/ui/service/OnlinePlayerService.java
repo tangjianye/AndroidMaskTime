@@ -13,8 +13,8 @@ import com.peach.masktime.utils.LogUtils;
 /**
  * Created by Administrator on 2015/12/4 0004.
  */
-public class PlayerService extends Service implements MediaPlayer.OnCompletionListener {
-    private static final String TAG = PlayerService.class.getSimpleName();
+public class OnlinePlayerService extends Service implements MediaPlayer.OnCompletionListener {
+    private static final String TAG = OnlinePlayerService.class.getSimpleName();
     /**
      * 在线播放音乐列表
      */

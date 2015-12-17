@@ -90,7 +90,7 @@ public class BannerLayer extends LinearLayout implements ICycle {
                     }
                 });
 
-        GsonRequest<AlbumSet> request = builder.build();
+        GsonRequest<AlbumSet> request = builder.create();
         VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 

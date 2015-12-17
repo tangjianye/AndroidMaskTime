@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+// 版本发布名字
+def releaseName = 'masktime'
+
+// 版本发布时间
+def releaseTime = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("UTC"))
+
+// 版本发布版本号
+def releaseCode = new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
@@ -8,6 +17,7 @@ android {
         applicationId "com.peach.masktime"
         minSdkVersion 15
         targetSdkVersion 21
+        // versionCode Integer.valueOf(releaseCode)
         versionCode 1
         versionName "1.0"
         manifestPlaceholders = [CHANNEL_VALUE: "default"]
@@ -54,9 +64,8 @@ android {
     // Rename APP
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            def name = 'masktime' + '-' + variant.productFlavors[0].name
+            def name = releaseName + '-' + variant.productFlavors[0].name
             def version = 'V' + defaultConfig.versionName
-            def date = new Date().format('yyyyMMddHHmm')
             def oldFile = output.outputFile
 
             if (variant.buildType.name.equals('release')) {
@@ -66,7 +75,7 @@ android {
             }
 
             if (variant.buildType.name.equals('debug')) {
-                // def releaseApkName = name + '-' + version + '-' + date + '-debug' + '.apk'
+                // def releaseApkName = name + '-' + version + '-' + releaseTime + '-debug' + '.apk'
                 def releaseApkName = name + '-' + version + '-debug' + '.apk'
                 output.outputFile = new File(oldFile.parent, releaseApkName)
             }

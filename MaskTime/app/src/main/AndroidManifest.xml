@@ -68,7 +68,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <service
-            android:name=".ui.service.PlayerService"
+            android:name=".ui.service.OnlinePlayerService"
             android:exported="true" />
 
         // 渠道信息

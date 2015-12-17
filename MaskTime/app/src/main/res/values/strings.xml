@@ -29,6 +29,10 @@
     <string name="setting_feedback">意见反馈</string>
     <string name="setting_favorable">赏个好评</string>
     <string name="setting_share">要求好友</string>
-    <string name="notice_sound">提醒声音</string>
+
+    <string name="setting_music_bird">空山鸟语</string>
+    <string name="setting_music_pkq">超萌皮卡丘</string>
+    <string name="setting_music_dream">回梦游仙</string>
+    <string name="setting_music_xqx">雪千寻</string>
 
 </resources>

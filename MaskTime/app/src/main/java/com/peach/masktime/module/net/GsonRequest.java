@@ -76,7 +76,7 @@ public class GsonRequest<T> extends Request<T> {
             return this;
         }
 
-        public GsonRequest build() {
+        public GsonRequest create() {
             if (null != dialog) {
                 dialog.show();
             }

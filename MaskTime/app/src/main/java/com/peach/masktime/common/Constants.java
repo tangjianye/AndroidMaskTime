@@ -40,6 +40,11 @@ public class Constants {
     public static final String PLAYER_URL = "player_url";
 
     /**
+     * bundle关键字
+     */
+    public static final String PLAYER_RES_ID = "res_id";
+
+    /**
      * 播放控制msg
      */
     public static class PlayerMsg {

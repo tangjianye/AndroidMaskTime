@@ -20,7 +20,9 @@ public class BaseApplication extends Application {
         // CrashException.getInstance().init(this);
         VolleyManager.getInstance().init(this);
         Notify.getInstance().init(this);
+
         CommUtils.getChannel(this);
+        CommUtils.getAppInfo(this);
     }
 
     public void exitApp(boolean isKillProcess) {

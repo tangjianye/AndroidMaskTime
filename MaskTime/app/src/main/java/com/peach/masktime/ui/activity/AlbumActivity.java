@@ -168,7 +168,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
                     }
                 });
 
-        GsonRequest<AlbumSet> request = builder.build();
+        GsonRequest<AlbumSet> request = builder.create();
         VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:padding="@dimen/android_padding_micro">
+
+        <TextView
+            android:id="@+id/txt_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/setting_sound" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ly_01"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            android:id="@+id/item_txt_01"
+            style="@style/TextStyle.Setting"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/facial_cycle"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_music_bird" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+
+        <View
+            style="@style/DividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ly_02"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            android:id="@+id/item_txt_02"
+            style="@style/TextStyle.Setting"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/facial_cycle"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_music_pkq" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+
+        <View
+            style="@style/DividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/ly_03"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            android:id="@+id/item_txt_03"
+            style="@style/TextStyle.Setting"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/facial_cycle"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_music_dream" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+
+        <View
+            style="@style/DividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ly_04"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            android:id="@+id/item_txt_04"
+            style="@style/TextStyle.Setting"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/facial_cycle"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_music_xqx" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+    </RelativeLayout>
+</LinearLayout>
