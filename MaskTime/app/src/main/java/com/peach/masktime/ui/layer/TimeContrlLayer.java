@@ -204,7 +204,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         int time0001 = (time0010 > 0) ? mode % 10 : mode;
         String time = Integer.toString(time1000) + Integer.toString(time0100)
                 + ":" + Integer.toString(time0010) + Integer.toString(time0001);
-        LogUtils.i(TAG, "left = " + left + " ;time = " + time);
+        // LogUtils.i(TAG, "left = " + left + " ;time = " + time);
         mTxtTime.setText(time);
     }
 

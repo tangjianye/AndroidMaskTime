@@ -68,6 +68,10 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <service
+            android:name=".ui.service.LocalPlayerService"
+            android:exported="true" />
+
+        <service
             android:name=".ui.service.OnlinePlayerService"
             android:exported="true" />
 

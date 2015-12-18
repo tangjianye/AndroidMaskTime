@@ -20,6 +20,11 @@ public class Constants {
     public static final String HAVED_SHOW_GUIDE = "haved_show_guide";
 
     /**
+     * intent关键字
+     */
+    public static final String INTENT_KEY = "intent_key";
+
+    /**
      * bundle关键字
      */
     public static final String BUNDLE_KEY = "bundle_key";
@@ -54,7 +59,11 @@ public class Constants {
         public static final int PLAY = 1;
         /* 暂停播放 */
         public static final int PAUSE = 2;
+        /* 下一首 */
+        public static final int NEXT = 4;
+        /* 上一首 */
+        public static final int PREV = 5;
         /* 停止播放 */
-        public static final int STOP = 3;
+        public static final int STOP = 6;
     }
 }

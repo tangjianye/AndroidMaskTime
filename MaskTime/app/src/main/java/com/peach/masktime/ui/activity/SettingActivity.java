@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.ui.base.BaseTitleActivity;
+import com.peach.masktime.utils.CommUtils;
 
 import java.util.HashMap;
 
@@ -18,8 +19,6 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
 
     private Dialog mDialog;
     private TextView mTvSoundType;
-
-    // private String[] mSoundTypes;
 
     public static HashMap<Integer, Integer> CONTENT_MAP = new HashMap<Integer, Integer>();
 
@@ -94,11 +93,10 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
                 // openActivity(CommunityActivity.class);
                 break;
             case R.id.ly_sound:
-                // builderDialog(getString(R.string.notice_sound), mSoundTypes);
                 builderDialog(R.string.setting_sound);
                 break;
             case R.id.ly_favorable:
-
+                CommUtils.palyAssetsMusic(SettingActivity.this, "hmyx.mp3");
                 break;
             case R.id.ly_feedback:
 
@@ -111,45 +109,8 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
         }
     }
 
-//    protected void builderDialog(final String title, final String[] items) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        View view = LayoutInflater.from(this).inflate(R.layout.layout_dialog_list, null);
-//        TextView dialogTitle = (TextView) view.findViewById(R.id.txt_dialog_title);
-//        dialogTitle.setText(title);
-////        ImageView cancel = (ImageView) view.findViewById(R.id.cancel);
-////        cancel.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                mDialog.dismiss();
-////            }
-////        });
-//        builder.setCustomTitle(view);
-//
-//        builder.setItems(items, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int which) {
-//                switch (which) {
-//                    case 0:
-//                        break;
-//                    case 1:
-//                        break;
-//                    case 2:
-//                        break;
-//                    case 3:
-//                        break;
-//                    default:
-//                        break;
-//                }
-//                mTvSoundType.setText(items[which]);
-//            }
-//        });
-//
-//        mDialog = builder.create();
-//        mDialog.show();
-//    }
 
     protected void builderDialog(int resId) {
-        DialogClickListener dialogListener = new DialogClickListener();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.layout_dialog_setting, null);
         TextView title = (TextView) view.findViewById(R.id.txt_dialog_title);
@@ -160,17 +121,17 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
         ((TextView) view.findViewById(R.id.item_txt_03)).setText(CONTENT_MAP.get(R.id.ly_03));
         ((TextView) view.findViewById(R.id.item_txt_04)).setText(CONTENT_MAP.get(R.id.ly_04));
 
-        view.findViewById(R.id.ly_01).setOnClickListener(dialogListener);
-        view.findViewById(R.id.ly_02).setOnClickListener(dialogListener);
-        view.findViewById(R.id.ly_03).setOnClickListener(dialogListener);
-        view.findViewById(R.id.ly_04).setOnClickListener(dialogListener);
+        view.findViewById(R.id.ly_01).setOnClickListener(mDialogListener);
+        view.findViewById(R.id.ly_02).setOnClickListener(mDialogListener);
+        view.findViewById(R.id.ly_03).setOnClickListener(mDialogListener);
+        view.findViewById(R.id.ly_04).setOnClickListener(mDialogListener);
 
         builder.setCustomTitle(view);
         mDialog = builder.create();
         mDialog.show();
     }
 
-    private class DialogClickListener implements View.OnClickListener {
+    private View.OnClickListener mDialogListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             mDialog.dismiss();
@@ -193,5 +154,5 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
                     break;
             }
         }
-    }
+    };
 }

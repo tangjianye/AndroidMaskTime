@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -15,8 +17,8 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.VolleyManager;
-import com.peach.masktime.ui.service.OnlinePlayerService;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -129,16 +131,62 @@ public class CommUtils {
      * 设置播放信息
      *
      * @param context
-     * @param msg
+     * @param bundle
+     * @param cls
      * @return
      */
-    public static Intent getPlayerIntent(Context context, int msg, String url) {
+    public static Intent getMaskIntent(Context context, Bundle bundle, Class<?> cls) {
         Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.PLAYER_URL, url);
-        bundle.putInt(Constants.PLAYER_MSG, msg);
-        intent.putExtra(Constants.BUNDLE_KEY, bundle);
-        intent.setClass(context, OnlinePlayerService.class);
+        intent.putExtra(Constants.INTENT_KEY, bundle);
+        // intent.putExtras(bundle);
+        intent.setClass(context.getApplicationContext(), cls);
         return intent;
+    }
+
+    /**
+     * 获取数据
+     *
+     * @param intent
+     * @return
+     */
+    public static Serializable getMaskSerializable(Intent intent) {
+        if (null != intent) {
+            Bundle bundle = intent.getBundleExtra(Constants.INTENT_KEY);
+            if (null != bundle) {
+                return bundle.getSerializable(Constants.BUNDLE_KEY);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 绑定数据
+     *
+     * @param value
+     * @return
+     */
+    public static Bundle getMaskBundle(Serializable value) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.BUNDLE_KEY, value);
+        return bundle;
+    }
+
+    /**
+     * 播放本地音乐文件
+     *
+     * @param context
+     * @param fileName
+     */
+    public static void palyAssetsMusic(Context context, String fileName) {
+        try {
+            AssetFileDescriptor fileDescriptor = context.getAssets().openFd(fileName);
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
+                    fileDescriptor.getStartOffset(), fileDescriptor.getLength());
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

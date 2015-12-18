@@ -3,11 +3,12 @@ package com.peach.masktime.ui.service;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.peach.masktime.common.Constants;
+import com.peach.masktime.ui.beans.PlayBean;
+import com.peach.masktime.utils.CommUtils;
 import com.peach.masktime.utils.LogUtils;
 
 /**
@@ -17,8 +18,9 @@ public class OnlinePlayerService extends Service implements MediaPlayer.OnComple
     private static final String TAG = OnlinePlayerService.class.getSimpleName();
     /**
      * 在线播放音乐列表
+     * Test: "http://mr7.doubanio.com//1d624289165da693288499428d624165//0//fm//song//p1772376_128k.mp4"
      */
-    private String mUrl = "http://mr7.doubanio.com//1d624289165da693288499428d624165//0//fm//song//p1772376_128k.mp4";
+    private String mPath = null;
     /**
      * 用户操作
      */
@@ -66,16 +68,13 @@ public class OnlinePlayerService extends Service implements MediaPlayer.OnComple
     }
 
     private void getData(Intent intent) {
-        if (null != intent) {
-            Bundle bundle = intent.getBundleExtra(Constants.BUNDLE_KEY);
-            if (null != bundle) {
-                mMsg = bundle.getInt(Constants.PLAYER_MSG);
-                mUrl = bundle.getString(Constants.PLAYER_URL);
-            }
+        PlayBean info = (PlayBean) CommUtils.getMaskSerializable(intent);
+        if (null != info) {
+            mMsg = info.getMsg();
+            mPath = info.getPath();
         }
-        LogUtils.i(TAG, "onStartCommand mMsg = " + mMsg + " ;mUrl = " + mUrl);
+        LogUtils.i(TAG, "onStartCommand info = " + info);
     }
-
 
     @Override
     public boolean onUnbind(Intent intent) {
@@ -96,7 +95,6 @@ public class OnlinePlayerService extends Service implements MediaPlayer.OnComple
 
         /* 初始化 */
         mMediaPlayer = new MediaPlayer();
-        // mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sky);
         /* 监听播放是否完成 */
         mMediaPlayer.setOnCompletionListener(this);
     }
@@ -124,7 +122,7 @@ public class OnlinePlayerService extends Service implements MediaPlayer.OnComple
             /* 重置多媒体 */
             mMediaPlayer.reset();
             /* 读取mp3文件 */
-            mMediaPlayer.setDataSource(mUrl);
+            mMediaPlayer.setDataSource(mPath);
             /* 准备播放 */
             mMediaPlayer.prepare();
             /* 开始播放 */

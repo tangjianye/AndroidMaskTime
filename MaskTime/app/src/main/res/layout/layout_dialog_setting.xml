@@ -32,12 +32,13 @@
             android:gravity="center"
             android:text="@string/setting_music_bird" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <include
+            android:id="@+id/item_contrl_01"
+            layout="@layout/local_music_contrl"
+            android:layout_width="@dimen/android_width_normal"
+            android:layout_height="@dimen/android_height_normal"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right_noraml" />
+            android:layout_centerVertical="true" />
 
         <View
             style="@style/DividerStyle"
@@ -58,12 +59,13 @@
             android:gravity="center"
             android:text="@string/setting_music_pkq" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <include
+            android:id="@+id/item_contrl_02"
+            layout="@layout/local_music_contrl"
+            android:layout_width="@dimen/android_width_normal"
+            android:layout_height="@dimen/android_height_normal"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right_noraml" />
+            android:layout_centerVertical="true" />
 
         <View
             style="@style/DividerStyle"
@@ -85,12 +87,13 @@
             android:gravity="center"
             android:text="@string/setting_music_dream" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <include
+            android:id="@+id/item_contrl_03"
+            layout="@layout/local_music_contrl"
+            android:layout_width="@dimen/android_width_normal"
+            android:layout_height="@dimen/android_height_normal"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right_noraml" />
+            android:layout_centerVertical="true" />
 
         <View
             style="@style/DividerStyle"
@@ -111,11 +114,12 @@
             android:gravity="center"
             android:text="@string/setting_music_xqx" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <include
+            android:id="@+id/item_contrl_04"
+            layout="@layout/local_music_contrl"
+            android:layout_width="@dimen/android_width_normal"
+            android:layout_height="@dimen/android_height_normal"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right_noraml" />
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 </LinearLayout>
