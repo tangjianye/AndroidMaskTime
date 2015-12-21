@@ -67,9 +67,9 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txt_community:
-                // openActivity(CommunityActivity.class);
-                //openActivity(TestActivity.class);
-                Notify.getInstance().timeUp(this);
+                openActivity(CommunityActivity.class);
+                // openActivity(TestActivity.class);
+                Notify.getInstance().show(this);
                 break;
             case R.id.txt_record:
                 openActivity(RecordActivity.class);

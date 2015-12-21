@@ -56,7 +56,7 @@ public class Notify {
      *
      * @param context
      */
-    public void timeUp(Context context) {
+    public void show(Context context) {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, getClickIntent(context), 0);
         // 下面需兼容Android 2.x版本是的处理方式
         // Notification notify1 = new Notification(R.drawable.message,

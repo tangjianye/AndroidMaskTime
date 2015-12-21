@@ -167,7 +167,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
             setProgress(TIME_MAX, mCurrTime);
             mHandler.postDelayed(this, TIME_INTERVAL);
         } else {
-            Notify.getInstance().timeUp(getContext());
+            Notify.getInstance().show(getContext());
             stop();
         }
     }
