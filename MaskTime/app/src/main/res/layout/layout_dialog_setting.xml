@@ -32,9 +32,16 @@
             android:gravity="center"
             android:text="@string/setting_music_bird" />
 
-        <include
+        <!--        <include
+                    android:id="@+id/item_contrl_01"
+                    layout="@layout/local_music_contrl"
+                    android:layout_width="@dimen/android_width_normal"
+                    android:layout_height="@dimen/android_height_normal"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />-->
+
+        <com.peach.masktime.ui.layer.RawMusicContrlLayer
             android:id="@+id/item_contrl_01"
-            layout="@layout/local_music_contrl"
             android:layout_width="@dimen/android_width_normal"
             android:layout_height="@dimen/android_height_normal"
             android:layout_alignParentRight="true"
@@ -59,9 +66,16 @@
             android:gravity="center"
             android:text="@string/setting_music_pkq" />
 
-        <include
+<!--        <include
             android:id="@+id/item_contrl_02"
             layout="@layout/local_music_contrl"
+            android:layout_width="@dimen/android_width_normal"
+            android:layout_height="@dimen/android_height_normal"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />-->
+
+        <com.peach.masktime.ui.layer.RawMusicContrlLayer
+            android:id="@+id/item_contrl_02"
             android:layout_width="@dimen/android_width_normal"
             android:layout_height="@dimen/android_height_normal"
             android:layout_alignParentRight="true"
@@ -87,14 +101,19 @@
             android:gravity="center"
             android:text="@string/setting_music_dream" />
 
-        <include
+<!--        <include
             android:id="@+id/item_contrl_03"
             layout="@layout/local_music_contrl"
             android:layout_width="@dimen/android_width_normal"
             android:layout_height="@dimen/android_height_normal"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />-->
+        <com.peach.masktime.ui.layer.RawMusicContrlLayer
+            android:id="@+id/item_contrl_03"
+            android:layout_width="@dimen/android_width_normal"
+            android:layout_height="@dimen/android_height_normal"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />
-
         <View
             style="@style/DividerStyle"
             android:layout_alignParentBottom="true" />
@@ -114,9 +133,16 @@
             android:gravity="center"
             android:text="@string/setting_music_xqx" />
 
-        <include
+<!--        <include
             android:id="@+id/item_contrl_04"
             layout="@layout/local_music_contrl"
+            android:layout_width="@dimen/android_width_normal"
+            android:layout_height="@dimen/android_height_normal"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />-->
+
+        <com.peach.masktime.ui.layer.RawMusicContrlLayer
+            android:id="@+id/item_contrl_04"
             android:layout_width="@dimen/android_width_normal"
             android:layout_height="@dimen/android_height_normal"
             android:layout_alignParentRight="true"

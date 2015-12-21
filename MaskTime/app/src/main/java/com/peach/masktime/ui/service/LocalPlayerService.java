@@ -18,6 +18,10 @@ import com.peach.masktime.utils.LogUtils;
 public class LocalPlayerService extends Service implements MediaPlayer.OnCompletionListener {
     private static final String TAG = LocalPlayerService.class.getSimpleName();
     /**
+     * 播放状态
+     */
+    // public static int sStatus;
+    /**
      * 本地播放音乐列表
      * Test: "http://mr7.doubanio.com//1d624289165da693288499428d624165//0//fm//song//p1772376_128k.mp4"
      */
@@ -25,11 +29,11 @@ public class LocalPlayerService extends Service implements MediaPlayer.OnComplet
     /**
      * 用户操作
      */
-    private int mMsg;
+    private static int mMsg;
     /**
      * 是否单曲循环
      */
-    private static final boolean IS_LOOP = true;
+    private static final boolean IS_LOOP = false;
     /**
      * 播放器
      */
@@ -64,7 +68,10 @@ public class LocalPlayerService extends Service implements MediaPlayer.OnComplet
             playMusic();
         } else if (mMsg == Constants.PlayerMsg.PAUSE) {
             pauseMusic();
-        }
+        } /*else if (mMsg == Constants.PlayerMsg.STOP) {
+            stopMusic();
+        }*/
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -80,19 +87,21 @@ public class LocalPlayerService extends Service implements MediaPlayer.OnComplet
     @Override
     public boolean onUnbind(Intent intent) {
         LogUtils.i(TAG, "onUnbind");
+        stopMusic();
         return super.onUnbind(intent);
     }
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        mMediaPlayer.release();
+        // mediaPlayer.release();
+        LogUtils.i(TAG, "onCompletion");
     }
 
     /**
      * 初始化
      */
     private void initMusic() {
-        stopMusic();
+        // stopMusic();
 
         /* 初始化 */
         mMediaPlayer = new MediaPlayer();
@@ -101,7 +110,7 @@ public class LocalPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     /**
-     * 暂停
+     * 暂停或者播放
      */
     private void pauseMusic() {
         try {
@@ -118,15 +127,15 @@ public class LocalPlayerService extends Service implements MediaPlayer.OnComplet
     /**
      * 播放
      */
-    public void playMusic() {
+    private void playMusic() {
         try {
             /* 重置多媒体 */
             mMediaPlayer.reset();
             /* 读取mp3文件 */
             // mMediaPlayer.setDataSource(mPath);
-            AssetFileDescriptor fileDescriptor = getAssets().openFd(mPath);
-            mMediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
-                    fileDescriptor.getStartOffset(), fileDescriptor.getLength());
+            AssetFileDescriptor fd = getAssets().openFd(mPath);
+            mMediaPlayer.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
+            LogUtils.i(TAG, "playMusic getStartOffset() = " + fd.getStartOffset() + " ;getLength()" + fd.getLength());
             /* 准备播放 */
             mMediaPlayer.prepare();
             /* 开始播放 */

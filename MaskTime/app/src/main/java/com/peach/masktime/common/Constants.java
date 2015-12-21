@@ -14,40 +14,56 @@ public class Constants {
      */
     public static final int REQUEST_MAX_RETRIES = 1;
 
+//    /**
+//     * SP关键字
+//     */
+//    public static final String GUIDE_KEY = "guide_key";
+//
+//    /**
+//     * intent关键字
+//     */
+//    public static final String INTENT_KEY = "intent_key";
+//
+//    /**
+//     * bundle关键字
+//     */
+//    public static final String BUNDLE_KEY = "bundle_key";
+//
+//    /**
+//     * bundle关键字
+//     */
+//    public static final String BUNDLE_URL = "bundle_url_key";
+//
+//    /**
+//     * bundle关键字
+//     */
+//    public static final String MUSIC_ITEM_KEY = "music_item_key";
+
     /**
      * SP关键字
      */
-    public static final String HAVED_SHOW_GUIDE = "haved_show_guide";
+    public static class SPKey {
+        // 导航页
+        public static final String GUIDE_KEY = "guide_key";
+        // intent关键字
+        public static final String INTENT_KEY = "intent_key";
+        // bundle关键字
+        public static final String BUNDLE_KEY = "bundle_key";
+        // 广告位
+        public static final String BUNDLE_URL = "bundle_url_key";
+        // 通知栏音乐
+        public static final String MUSIC_ITEM_KEY = "music_item_key";
+    }
 
     /**
-     * intent关键字
+     * 音乐项目
      */
-    public static final String INTENT_KEY = "intent_key";
-
-    /**
-     * bundle关键字
-     */
-    public static final String BUNDLE_KEY = "bundle_key";
-
-    /**
-     * bundle关键字
-     */
-    public static final String BUNDLE_URL = "bundle_url";
-
-    /**
-     * bundle关键字
-     */
-    public static final String PLAYER_MSG = "player_msg";
-
-    /**
-     * bundle关键字
-     */
-    public static final String PLAYER_URL = "player_url";
-
-    /**
-     * bundle关键字
-     */
-    public static final String PLAYER_RES_ID = "res_id";
+    public static class Music {
+        public static final String ITEM_01 = "music_item_01";
+        public static final String ITEM_02 = "music_item_02";
+        public static final String ITEM_03 = "music_item_03";
+        public static final String ITEM_04 = "music_item_04";
+    }
 
     /**
      * 播放控制msg
@@ -57,7 +73,7 @@ public class Constants {
         public static final int IDLE = 0;
         /* 开始播放 */
         public static final int PLAY = 1;
-        /* 暂停播放 */
+        /* 暂停|开始播放 */
         public static final int PAUSE = 2;
         /* 下一首 */
         public static final int NEXT = 4;

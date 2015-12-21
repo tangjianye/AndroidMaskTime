@@ -15,6 +15,7 @@ import android.os.Bundle;
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
+import com.peach.masktime.config.GlobalSetting;
 import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.VolleyManager;
 
@@ -100,6 +101,25 @@ public class CommUtils {
     }
 
     /**
+     * 获取apk信息
+     *
+     * @param context
+     * @return
+     */
+    public static String getAppPackageName(Context context) {
+        String packageName = null;
+        PackageManager manager = context.getPackageManager();
+        try {
+            packageName = context.getPackageName();
+            LogUtils.i(TAG, "packageName = " + context.getPackageName());
+        } catch (Exception e) {
+            // TODO Auto-generated catch blockd
+            e.printStackTrace();
+        }
+        return packageName;
+    }
+
+    /**
      * private
      **********************************************************************************************/
     /**
@@ -137,7 +157,7 @@ public class CommUtils {
      */
     public static Intent getMaskIntent(Context context, Bundle bundle, Class<?> cls) {
         Intent intent = new Intent();
-        intent.putExtra(Constants.INTENT_KEY, bundle);
+        intent.putExtra(Constants.SPKey.INTENT_KEY, bundle);
         // intent.putExtras(bundle);
         intent.setClass(context.getApplicationContext(), cls);
         return intent;
@@ -151,9 +171,9 @@ public class CommUtils {
      */
     public static Serializable getMaskSerializable(Intent intent) {
         if (null != intent) {
-            Bundle bundle = intent.getBundleExtra(Constants.INTENT_KEY);
+            Bundle bundle = intent.getBundleExtra(Constants.SPKey.INTENT_KEY);
             if (null != bundle) {
-                return bundle.getSerializable(Constants.BUNDLE_KEY);
+                return bundle.getSerializable(Constants.SPKey.BUNDLE_KEY);
             }
         }
         return null;
@@ -167,8 +187,24 @@ public class CommUtils {
      */
     public static Bundle getMaskBundle(Serializable value) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.BUNDLE_KEY, value);
+        bundle.putSerializable(Constants.SPKey.BUNDLE_KEY, value);
         return bundle;
+    }
+
+    /**
+     * 获取setting模块音乐默认选项
+     *
+     * @param context
+     * @return
+     */
+    public static String getMusicItemKey(Context context) {
+        String key = (String) SPUtils.get(context, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_01);
+        LogUtils.i(TAG, "getMusicItemKey key = " + key);
+        return key;
+    }
+
+    public static int getMusicId(Context context) {
+        return GlobalSetting.MUSIC_MAP.get(getMusicItemKey(context));
     }
 
     /**
@@ -183,6 +219,12 @@ public class CommUtils {
             MediaPlayer mediaPlayer = new MediaPlayer();
             mediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
                     fileDescriptor.getStartOffset(), fileDescriptor.getLength());
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.release();
+                }
+            });
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (Exception e) {

@@ -112,7 +112,7 @@ public class AlbumActivity extends BaseTitleActivity implements IInit, AdapterVi
         LogUtils.i(TAG, "onItemClick i = " + i + " ; info = " + info);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.BUNDLE_URL, info.getUrl());
+        bundle.putSerializable(Constants.SPKey.BUNDLE_URL, info.getUrl());
         openActivity(WebViewActivity.class, bundle);
     }
 

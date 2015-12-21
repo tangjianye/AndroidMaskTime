@@ -24,7 +24,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private Boolean getGuideSwitch() {
-        return (Boolean) SPUtils.get(this, Constants.HAVED_SHOW_GUIDE, false);
+        return (Boolean) SPUtils.get(this, Constants.SPKey.GUIDE_KEY, false);
     }
 
     private void switchView(Boolean havedShowGuide) {
@@ -39,7 +39,7 @@ public class SplashActivity extends BaseActivity {
             mGuideLayer = (GuideLayer) findViewById(R.id.in_guide);
             mGuideLayer.refresh(null);
 
-            SPUtils.put(this, Constants.HAVED_SHOW_GUIDE, true);
+            SPUtils.put(this, Constants.SPKey.GUIDE_KEY, true);
         }
     }
 

@@ -5,12 +5,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.peach.masktime.BaseApplication;
 import com.peach.masktime.R;
 import com.peach.masktime.ui.activity.MainActivity;
 import com.peach.masktime.ui.activity.SplashActivity;
+import com.peach.masktime.utils.CommUtils;
 import com.peach.masktime.utils.LogUtils;
 
 /**
@@ -66,9 +68,9 @@ public class Notify {
         notify.setLatestEventInfo(context, "Notification Title", "This is the notification message", pendingIntent);
         notify.number = 1;
         notify.flags |= Notification.FLAG_AUTO_CANCEL;
-        notify.defaults = Notification.DEFAULT_SOUND;
-        // notify.sound = Uri.fromFile(new File("android.resource://" + context.getApplicationContext().getPackageName() + "/" + R.raw.point1sec));
-
+        // notify.defaults = Notification.DEFAULT_SOUND;
+        notify.sound = Uri.parse("android.resource://" +
+                CommUtils.getAppPackageName(context) + "/" + CommUtils.getMusicId(context));
         sManager.notify(TIME_UP_ID, notify);
     }
 

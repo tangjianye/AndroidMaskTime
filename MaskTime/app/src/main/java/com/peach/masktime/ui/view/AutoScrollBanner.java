@@ -98,9 +98,9 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
     }
 
     private void initView(Context ctx) {
-        mContext = ctx;
+        LayoutInflater.from(ctx).inflate(R.layout.auto_scroll_banner, this);
 
-        LayoutInflater.from(mContext).inflate(R.layout.auto_scroll_banner, this);
+        mContext = ctx;
         // mTips = (TextView) findViewById(R.id.txt_title);
         mIndicator = (LinearLayout) findViewById(R.id.ll_dot_group);
         mViewPager = (ScrollViewPager) findViewById(R.id.view_pager);
@@ -222,7 +222,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
 
                     if (null != info) {
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable(Constants.BUNDLE_URL, info.getUrl());
+                        bundle.putSerializable(Constants.SPKey.BUNDLE_URL, info.getUrl());
                         ((BaseActivity) getContext()).openActivity(WebViewActivity.class, bundle);
                     }
                 }
