@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/darkgray">
 
-    <com.peach.masktime.ui.view.CircleSeekBar
+<!--    <com.peach.masktime.ui.view.CircleSeekBar
         android:id="@+id/circle_seekbar"
         android:layout_width="@dimen/android_width_xlarge"
         android:layout_height="@dimen/android_height_xlarge"
@@ -17,5 +17,11 @@
         android_custom:progress_text_size="30sp"
         android_custom:progress_text_stroke_width="4dp"
         android_custom:progress_width="@dimen/android_width_normal"
-        android_custom:show_progress_text="true" />
+        android_custom:show_progress_text="true" />-->
+
+    <com.peach.masktime.ui.view.CircularSeekBar
+        android:id="@+id/circular_seekbar"
+        android:layout_width="@dimen/android_width_xlarge"
+        android:layout_height="@dimen/android_height_xlarge"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

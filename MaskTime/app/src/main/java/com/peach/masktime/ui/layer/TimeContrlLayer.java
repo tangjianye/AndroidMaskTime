@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.peach.masktime.R;
 import com.peach.masktime.ui.notification.Notify;
-import com.peach.masktime.ui.view.CircleSeekBar;
+import com.peach.masktime.ui.view.CircularSeekBar;
 import com.peach.masktime.utils.LogUtils;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     private static final String TAG = TimeContrlLayer.class.getSimpleName();
 
     /* 15分钟 */
-    private static final int TIME_MAX = 15 * 60 * 1000;
+    private static final int TIME_MAX = 30 * 60 * 1000;
 
     /* 1秒钟 */
     private static final int TIME_INTERVAL = 1000;
@@ -31,8 +31,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     /* 进度条起点 */
     private static final int PROGRESS_START = 50;
 
-    // private CircleProgressBar mRoundPgbar;
-    private CircleSeekBar mCircleSeekBar;
+    private CircularSeekBar mCircularSeekbar;
     private Button mTimeContrl;
     private TextView mTxtTime;
 
@@ -109,15 +108,26 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         mCurrTime = (TIME_MAX * PROGRESS_START) / 100;
         mHandler = new Handler(Looper.getMainLooper());
 
-        // mRoundPgbar = (CircleProgressBar) findViewById(R.id.round_progressbar);
-        mCircleSeekBar = (CircleSeekBar) findViewById(R.id.circle_seekbar);
+        mCircularSeekbar = (CircularSeekBar) findViewById(R.id.circle_seekbar);
         mTimeContrl = (Button) findViewById(R.id.btn_time_contrl);
         mTxtTime = (TextView) findViewById(R.id.txt_time);
 
         mTimeContrl.setOnClickListener(this);
-        mCircleSeekBar.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
 
-        mCircleSeekBar.setProgress(PROGRESS_START);
+        mCircularSeekbar.setProgress(PROGRESS_START);
+        mCircularSeekbar.hideSeekBar();
+        mCircularSeekbar.invalidate();
+        mCircularSeekbar.setSeekBarChangeListener(new CircularSeekBar.OnSeekChangeListener() {
+            @Override
+            public void onProgressChange(CircularSeekBar view, int newProgress) {
+                // Log.d("Welcome", "Progress:" + view.getProgress() + "/" + view.getMaxProgress());
+                LogUtils.i(TAG, "onProgressChange progress = " + view.getProgress() + " ;max = " + view.getMaxProgress());
+                int max = mCircularSeekbar.getMaxProgress();
+                mCurrTime = (TIME_MAX * view.getProgress()) / max;
+                setTimeTips(mCurrTime);
+            }
+        });
+
         setTimeTips(mCurrTime);
         setPlayStatus(Status.IDLE);
     }
@@ -185,7 +195,8 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         } else if (progress > 100) {
             progress = 100;
         }
-        mCircleSeekBar.setProgress(progress);
+        mCircularSeekbar.setProgress(progress);
+        mCircularSeekbar.invalidate();
     }
 
     /**
@@ -208,28 +219,28 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         mTxtTime.setText(time);
     }
 
-    private class CircleSeekBarOnChangeListener implements CircleSeekBar.OnSeekBarChangeListener {
-
-        @Override
-        public void onProgressChanged(int progress) {
-            LogUtils.i(TAG, "onProgressChanged progress = " + progress);
-            int max = mCircleSeekBar.getProgressMax();
-            mCurrTime = (TIME_MAX * progress) / max;
-            setTimeTips(mCurrTime);
-        }
-
-        @Override
-        public void onStartTrackingTouch() {
-            LogUtils.i(TAG, "onStartTrackingTouch");
-            stop();
-            setPlayStatus(Status.STOP);
-        }
-
-        @Override
-        public void onStopTrackingTouch() {
-            LogUtils.i(TAG, "onStopTrackingTouch");
-            start();
-            setPlayStatus(Status.PLAY);
-        }
-    }
+//    private class CircleSeekBarOnChangeListener implements CircleSeekBar.OnSeekBarChangeListener {
+//
+//        @Override
+//        public void onProgressChanged(int progress) {
+//            LogUtils.i(TAG, "onProgressChanged progress = " + progress);
+//            int max = mCircularSeekbar.getProgressMax();
+//            mCurrTime = (TIME_MAX * progress) / max;
+//            setTimeTips(mCurrTime);
+//        }
+//
+//        @Override
+//        public void onStartTrackingTouch() {
+//            LogUtils.i(TAG, "onStartTrackingTouch");
+//            stop();
+//            setPlayStatus(Status.STOP);
+//        }
+//
+//        @Override
+//        public void onStopTrackingTouch() {
+//            LogUtils.i(TAG, "onStopTrackingTouch");
+//            start();
+//            setPlayStatus(Status.PLAY);
+//        }
+//    }
 }

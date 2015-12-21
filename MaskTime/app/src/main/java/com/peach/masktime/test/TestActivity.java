@@ -1,6 +1,5 @@
 package com.peach.masktime.test;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,8 +7,9 @@ import android.widget.RelativeLayout;
 
 import com.peach.masktime.R;
 import com.peach.masktime.ui.base.BaseActivity;
-import com.peach.masktime.ui.view.CircleSeekBar;
 import com.peach.masktime.ui.view.CircleSeekBar.OnSeekBarChangeListener;
+import com.peach.masktime.ui.view.CircularSeekBar;
+import com.peach.masktime.utils.LogUtils;
 
 /**
  * Created by Administrator on 2015/12/16 0016.
@@ -22,22 +22,40 @@ public class TestActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /********************************************************************/
         RelativeLayout mainLayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.activity_test, null);
         setContentView(mainLayout);
 
-        CircleSeekBar circleSeekBar = (CircleSeekBar) findViewById(R.id.circle_seekbar);
-        // circleSeekBar.setProgressMax(100);
-        circleSeekBar.setProgress(10);
-        circleSeekBar.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
+//        CircleSeekBar circleSeekBar = (CircleSeekBar) findViewById(R.id.circle_seekbar);
+//        // circleSeekBar.setProgressMax(100);
+//        circleSeekBar.setProgress(10);
+//        circleSeekBar.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
 
-        CircleSeekBar circleSeekBar2 = new CircleSeekBar(this);
-        circleSeekBar2.setProgress(10);
-        circleSeekBar2.setProgressFrontColor(Color.RED);
-        circleSeekBar2.setProgressThumb(R.drawable.thumb_circle_skbar);
-        circleSeekBar2.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
-        RelativeLayout.LayoutParams circleSeekBarParams = new RelativeLayout.LayoutParams(200, 200);
-        circleSeekBarParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        mainLayout.addView(circleSeekBar2, circleSeekBarParams);
+//        CircleSeekBar circleSeekBar2 = new CircleSeekBar(this);
+//        circleSeekBar2.setProgress(10);
+//        circleSeekBar2.setProgressFrontColor(Color.RED);
+//        circleSeekBar2.setProgressThumb(R.drawable.thumb_circle_skbar);
+//        circleSeekBar2.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
+//        RelativeLayout.LayoutParams circleSeekBarParams = new RelativeLayout.LayoutParams(200, 200);
+//        circleSeekBarParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//        mainLayout.addView(circleSeekBar2, circleSeekBarParams);
+
+
+        /********************************************************************/
+        CircularSeekBar circularSeekbar = (CircularSeekBar) findViewById(R.id.circular_seekbar);
+        circularSeekbar.setMaxProgress(100);
+        circularSeekbar.setProgress(50);
+        circularSeekbar.hideSeekBar();
+        // setContentView(circularSeekbar);
+        circularSeekbar.invalidate();
+
+        circularSeekbar.setSeekBarChangeListener(new CircularSeekBar.OnSeekChangeListener() {
+            @Override
+            public void onProgressChange(CircularSeekBar view, int newProgress) {
+                LogUtils.i(TAG, "Progress:" + view.getProgress() + "/" + view.getMaxProgress());
+            }
+        });
     }
 
     private class CircleSeekBarOnChangeListener implements OnSeekBarChangeListener {

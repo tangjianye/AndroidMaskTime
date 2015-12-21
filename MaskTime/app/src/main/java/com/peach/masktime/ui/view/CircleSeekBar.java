@@ -302,6 +302,9 @@ public class CircleSeekBar extends View {
 
     private void setThumbPosition(double radian) {
         if (DEBUG) Log.v(TAG, "setThumbPosition radian = " + radian);
+        // double rel = (2 * Math.PI / 360) * 90;
+
+        float degree = (float)Math.toDegrees(radian);
         double x = mSeekBarCenterX + mSeekBarRadius * Math.cos(radian);
         double y = mSeekBarCenterY + mSeekBarRadius * Math.sin(radian);
         mThumbLeft = (float) (x - mThumbWidth / 2);
