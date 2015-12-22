@@ -19,8 +19,8 @@ import java.util.HashMap;
 /**
  * Created by Administrator on 2015/12/7 0007.
  */
-public class TimeContrlLayer extends RelativeLayout implements View.OnClickListener, Runnable {
-    private static final String TAG = TimeContrlLayer.class.getSimpleName();
+public class SeekbarContrlLayer extends RelativeLayout implements View.OnClickListener, Runnable {
+    private static final String TAG = SeekbarContrlLayer.class.getSimpleName();
 
     /* 15分钟 */
     private static final int TIME_MAX = 1 * 60 * 1000;
@@ -73,15 +73,15 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         STOP,
     }
 
-    public TimeContrlLayer(Context context) {
+    public SeekbarContrlLayer(Context context) {
         super(context);
     }
 
-    public TimeContrlLayer(Context context, AttributeSet attrs) {
+    public SeekbarContrlLayer(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public TimeContrlLayer(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SeekbarContrlLayer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -149,7 +149,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
         }
     }
 
-    public void setPlayStatus(TimeContrlLayer.Status status) {
+    public void setPlayStatus(SeekbarContrlLayer.Status status) {
         mStatus = status;
         // mTimeContrl.setText(CONTENT_MAP.get(status));
         mTimeContrl.setText("");

@@ -207,12 +207,8 @@ public class CircularSeekBar extends View {
         innerColor = new Paint();
         circleRing = new Paint();
 
-        circleColor.setColor(Color.parseColor("#ff33b5e5")); // Set default
-        // progress
-        // color to holo
-        // blue.
-        innerColor.setColor(Color.BLACK); // Set default background color to
-        // black
+        circleColor.setColor(Color.parseColor("#ff33b5e5")); // Set default progress color to holo blue.
+        innerColor.setColor(Color.BLACK); // Set default background color to black
         circleRing.setColor(Color.GRAY);// Set default background color to Gray
 
         circleColor.setAntiAlias(true);
@@ -490,6 +486,7 @@ public class CircularSeekBar extends View {
             }
             mListener.onProgressChange(this, this.getProgress());
             CALLED_FROM_ANGLE = false;
+            invalidate();
         }
     }
 
@@ -615,7 +612,7 @@ public class CircularSeekBar extends View {
     /**
      * To display seekbar
      */
-    public void ShowSeekBar() {
+    public void showSeekBar() {
         SHOW_SEEKBAR = true;
     }
 

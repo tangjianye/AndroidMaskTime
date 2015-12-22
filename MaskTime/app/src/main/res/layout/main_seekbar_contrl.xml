@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.peach.masktime.ui.layer.TimeContrlLayer xmlns:android="http://schemas.android.com/apk/res/android"
+<com.peach.masktime.ui.layer.SeekbarContrlLayer xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/android_padding_middle">
@@ -15,16 +15,16 @@
             android_custom:style="STROKE"
             android_custom:textIsDisplayable="false" />-->
 
-<!--    <com.peach.masktime.ui.view.CircleSeekBar
-        android:id="@+id/circle_seekbar"
-        android_custom:progress_background="@color/white"
-        android_custom:progress_front="@color/pink"
-        android_custom:progress_width="@dimen/android_width_normal"
-        android_custom:show_progress_text="false"
-        android:layout_width="@dimen/android_width_xlarge"
-        android:layout_height="@dimen/android_height_xlarge"
-        android:layout_centerInParent="true"
-        android:thumb="@drawable/thumb_circle_skbar" />-->
+    <!--    <com.peach.masktime.ui.view.CircleSeekBar
+            android:id="@+id/circle_seekbar"
+            android:layout_width="@dimen/android_width_xlarge"
+            android:layout_height="@dimen/android_height_xlarge"
+            android:layout_centerInParent="true"
+            android:thumb="@drawable/thumb_circle_skbar"
+            android_custom:progress_background="@color/white"
+            android_custom:progress_front="@color/pink"
+            android_custom:progress_width="@dimen/android_width_normal"
+            android_custom:show_progress_text="false" />-->
 
     <com.peach.masktime.ui.view.CircularSeekBar
         android:id="@+id/circle_seekbar"
@@ -48,4 +48,4 @@
         android:layout_marginTop="@dimen/android_margin_middle"
         android:text="@string/app_name" />
 
-</com.peach.masktime.ui.layer.TimeContrlLayer>
+</com.peach.masktime.ui.layer.SeekbarContrlLayer>
