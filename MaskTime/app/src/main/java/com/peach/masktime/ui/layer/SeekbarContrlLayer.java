@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.peach.masktime.R;
 import com.peach.masktime.ui.notification.Notify;
-import com.peach.masktime.ui.view.CircularSeekBar;
+import com.peach.masktime.ui.view.CircleSeekBar;
 import com.peach.masktime.utils.LogUtils;
 
 import java.util.HashMap;
@@ -31,7 +31,7 @@ public class SeekbarContrlLayer extends RelativeLayout implements View.OnClickLi
     /* 进度条起点 */
     private static final int PROGRESS_START = 50;
 
-    private CircularSeekBar mCircularSeekbar;
+    private CircleSeekBar mCircularSeekbar;
     private Button mTimeContrl;
     private TextView mTxtTime;
 
@@ -108,27 +108,14 @@ public class SeekbarContrlLayer extends RelativeLayout implements View.OnClickLi
         mCurrTime = (TIME_MAX * PROGRESS_START) / 100;
         mHandler = new Handler(Looper.getMainLooper());
 
-        mCircularSeekbar = (CircularSeekBar) findViewById(R.id.circle_seekbar);
+        mCircularSeekbar = (CircleSeekBar) findViewById(R.id.circle_seekbar);
         mTimeContrl = (Button) findViewById(R.id.btn_time_contrl);
         mTxtTime = (TextView) findViewById(R.id.txt_time);
 
         mTimeContrl.setOnClickListener(this);
 
-        mCircularSeekbar.setRingBackgroundColor(getResources().getColor(R.color.white));
-        mCircularSeekbar.setProgressColor(getResources().getColor(R.color.pink));
-        mCircularSeekbar.setBackGroundColor(getResources().getColor(R.color.ghostwhite));
-        mCircularSeekbar.setBarWidth(getResources().getDimensionPixelSize(R.dimen.circular_seekbar_width_normal));
-        mCircularSeekbar.hideSeekBar();
         mCircularSeekbar.setProgress(PROGRESS_START);
-        mCircularSeekbar.setSeekBarChangeListener(new CircularSeekBar.OnSeekChangeListener() {
-            @Override
-            public void onProgressChange(CircularSeekBar view, int newProgress) {
-                // LogUtils.i(TAG, "onProgressChange progress = " + view.getProgress() + " ;max = " + view.getMaxProgress());
-                int max = mCircularSeekbar.getMaxProgress();
-                mCurrTime = (TIME_MAX * view.getProgress()) / max;
-                setTimeTips(mCurrTime);
-            }
-        });
+        mCircularSeekbar.setOnSeekBarChangeListener(new CircleSeekBarOnChangeListener());
 
         setTimeTips(mCurrTime);
         setPlayStatus(Status.IDLE);
@@ -221,28 +208,28 @@ public class SeekbarContrlLayer extends RelativeLayout implements View.OnClickLi
         mTxtTime.setText(time);
     }
 
-//    private class CircleSeekBarOnChangeListener implements CircleSeekBar.OnSeekBarChangeListener {
-//
-//        @Override
-//        public void onProgressChanged(int progress) {
-//            LogUtils.i(TAG, "onProgressChanged progress = " + progress);
-//            int max = mCircularSeekbar.getProgressMax();
-//            mCurrTime = (TIME_MAX * progress) / max;
-//            setTimeTips(mCurrTime);
-//        }
-//
-//        @Override
-//        public void onStartTrackingTouch() {
-//            LogUtils.i(TAG, "onStartTrackingTouch");
-//            stop();
-//            setPlayStatus(Status.STOP);
-//        }
-//
-//        @Override
-//        public void onStopTrackingTouch() {
-//            LogUtils.i(TAG, "onStopTrackingTouch");
-//            start();
-//            setPlayStatus(Status.PLAY);
-//        }
-//    }
+    private class CircleSeekBarOnChangeListener implements CircleSeekBar.OnSeekBarChangeListener {
+
+        @Override
+        public void onProgressChanged(int progress) {
+            LogUtils.i(TAG, "onProgressChanged progress = " + progress);
+            int max = mCircularSeekbar.getProgressMax();
+            mCurrTime = (TIME_MAX * progress) / max;
+            setTimeTips(mCurrTime);
+        }
+
+        @Override
+        public void onStartTrackingTouch() {
+            LogUtils.i(TAG, "onStartTrackingTouch");
+            stop();
+            setPlayStatus(Status.STOP);
+        }
+
+        @Override
+        public void onStopTrackingTouch() {
+            LogUtils.i(TAG, "onStopTrackingTouch");
+            start();
+            setPlayStatus(Status.PLAY);
+        }
+    }
 }

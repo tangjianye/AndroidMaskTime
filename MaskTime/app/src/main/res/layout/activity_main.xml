@@ -29,7 +29,7 @@
             android:layout_margin="@dimen/android_margin_normal" />
 
         <include
-            layout="@layout/main_time_contrl"
+            layout="@layout/main_seekbar_contrl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true" />
