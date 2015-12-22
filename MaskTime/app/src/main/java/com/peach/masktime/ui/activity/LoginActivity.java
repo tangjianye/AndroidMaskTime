@@ -16,10 +16,10 @@ import com.peach.masktime.ui.layer.RawMusicContrlLayer;
 import com.peach.masktime.utils.CommUtils;
 import com.peach.masktime.utils.SPUtils;
 
-public class SettingActivity extends BaseTitleActivity implements IInit, View.OnClickListener {
-    private static final String TAG = SettingActivity.class.getSimpleName();
+public class LoginActivity extends BaseTitleActivity implements IInit, View.OnClickListener {
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private Dialog mDialog;
-    private TextView mTxtSoundType;
+    private TextView mTvSoundType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +68,13 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
 
     @Override
     public void initViews() {
-        mTxtSoundType = (TextView) findViewById(R.id.txt_sound_type);
+        mTvSoundType = (TextView) findViewById(R.id.txt_sound_type);
         String key = CommUtils.getMusicItemKey(this);
-        mTxtSoundType.setText(GlobalSetting.CONTENT_MAP.get(key));
+        mTvSoundType.setText(GlobalSetting.CONTENT_MAP.get(key));
     }
 
     @Override
     public void initEvents() {
-        findViewById(R.id.ly_login).setOnClickListener(this);
         findViewById(R.id.ly_plan).setOnClickListener(this);
         findViewById(R.id.ly_sound).setOnClickListener(this);
         findViewById(R.id.ly_favorable).setOnClickListener(this);
@@ -86,9 +85,6 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ly_login:
-                openActivity(LoginActivity.class);
-                break;
             case R.id.ly_plan:
                 // openActivity(CommunityActivity.class);
                 break;
@@ -160,20 +156,20 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
 
             switch (view.getId()) {
                 case R.id.ly_01:
-                    mTxtSoundType.setText(GlobalSetting.CONTENT_MAP.get(Constants.Music.ITEM_01));
-                    SPUtils.put(SettingActivity.this, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_01);
+                    mTvSoundType.setText(GlobalSetting.CONTENT_MAP.get(Constants.Music.ITEM_01));
+                    SPUtils.put(LoginActivity.this, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_01);
                     break;
                 case R.id.ly_02:
-                    mTxtSoundType.setText(GlobalSetting.CONTENT_MAP.get(Constants.Music.ITEM_02));
-                    SPUtils.put(SettingActivity.this, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_02);
+                    mTvSoundType.setText(GlobalSetting.CONTENT_MAP.get(Constants.Music.ITEM_02));
+                    SPUtils.put(LoginActivity.this, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_02);
                     break;
                 case R.id.ly_03:
-                    mTxtSoundType.setText(GlobalSetting.CONTENT_MAP.get(Constants.Music.ITEM_03));
-                    SPUtils.put(SettingActivity.this, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_03);
+                    mTvSoundType.setText(GlobalSetting.CONTENT_MAP.get(Constants.Music.ITEM_03));
+                    SPUtils.put(LoginActivity.this, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_03);
                     break;
                 case R.id.ly_04:
-                    mTxtSoundType.setText(GlobalSetting.CONTENT_MAP.get(Constants.Music.ITEM_04));
-                    SPUtils.put(SettingActivity.this, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_04);
+                    mTvSoundType.setText(GlobalSetting.CONTENT_MAP.get(Constants.Music.ITEM_04));
+                    SPUtils.put(LoginActivity.this, Constants.SPKey.MUSIC_ITEM_KEY, Constants.Music.ITEM_04);
                     break;
                 default:
                     break;

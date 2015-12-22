@@ -13,6 +13,31 @@
         android:src="@drawable/set_header" />
 
     <RelativeLayout
+        android:id="@+id/ly_login"
+        style="@style/SettingBlockStyle">
+
+        <TextView
+            style="@style/TextStyle.Setting"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/facial_cycle"
+            android:drawablePadding="@dimen/android_padding_normal"
+            android:gravity="center"
+            android:text="@string/setting_plan" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right_noraml" />
+
+        <View
+            style="@style/DividerStyle"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/ly_plan"
         style="@style/SettingBlockStyle">
 
