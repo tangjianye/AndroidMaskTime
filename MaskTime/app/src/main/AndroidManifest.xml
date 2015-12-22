@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.peach.masktime">
+    package="com.peach.masktime" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme">
+        android:theme="@style/AppBaseTheme" >
         // 测试文件
         <activity
             android:name=".test.TestActivity"
@@ -23,7 +28,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +81,6 @@
         <service
             android:name=".ui.service.OnlinePlayerService"
             android:exported="true" />
-
         // 渠道信息
         <meta-data
             android:name="CHANNEL"
