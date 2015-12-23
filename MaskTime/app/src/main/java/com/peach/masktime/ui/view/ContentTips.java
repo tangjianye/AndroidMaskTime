@@ -11,7 +11,7 @@ public class ContentTips extends FrameLayout {
 
     public ContentTips(Context context) {
         super(context);
-        // LayoutInflater.from(context).inflate(R.layout.layout_content_tips, null);
+        // LayoutInflater.from(context).inflate(R.layout.layout_content_tips, this);
     }
 
     public ContentTips(Context context, AttributeSet attrs) {
