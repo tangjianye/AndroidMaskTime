@@ -3,12 +3,12 @@ package com.peach.masktime.module.net.response;
 import java.util.ArrayList;
 
 /**
- * Created by Administrator on 2015/11/19 0019.
+ * Created by Administrator on 2015/12/23 0023.
  */
-public class AlbumSet {
+public class MaskSet<T> {
     private int errno;
     private String err;
-    private ArrayList<AlbumItem> rsm;
+    private ArrayList<T> rsm;
 
     public String getErr() {
         return err;
@@ -26,20 +26,20 @@ public class AlbumSet {
         this.errno = errno;
     }
 
-    public ArrayList<AlbumItem> getRsm() {
+    public ArrayList<T> getRsm() {
         return rsm;
     }
 
-    public void setRsm(ArrayList<AlbumItem> rsm) {
+    public void setRsm(ArrayList<T> rsm) {
         this.rsm = rsm;
     }
 
     @Override
     public String toString() {
-        return "AlbumSet{" +
+        return "MaskSet{" +
                 "err='" + err + '\'' +
                 ", errno=" + errno +
-                ", rsm=" + rsm +
+                ", rsm=" + ((null != rsm) ? rsm.size() : null) +
                 '}';
     }
 }

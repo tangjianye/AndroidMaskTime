@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
@@ -15,7 +16,7 @@ import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.GsonRequest;
 import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.response.AlbumItem;
-import com.peach.masktime.module.net.response.AlbumSet;
+import com.peach.masktime.module.net.response.MaskSet;
 import com.peach.masktime.ui.adapter.AlbumListAdapter;
 import com.peach.masktime.ui.base.BaseListActivity;
 import com.peach.masktime.utils.LogUtils;
@@ -107,10 +108,11 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
     }
 
     private void request(final boolean isInit, final String url, final Status mode) {
-        GsonRequest.GsonRequestBuilder<AlbumSet> builder = new GsonRequest.GsonRequestBuilder<>();
+        GsonRequest.GsonRequestBuilder<MaskSet<AlbumItem>> builder = new GsonRequest.GsonRequestBuilder<>();
         builder.setMethod(Request.Method.GET)
                 .setUrl(url)
-                .setBclass(AlbumSet.class)
+                // .setBclass(MaskSet<AlbumItem>.class)
+                .setType(new TypeToken<MaskSet<AlbumItem>>() {}.getType())
                 .setDialog(isInit ? creatLoadingDialog() : null)
                 .setErrorListener(new Response.ErrorListener() {
                     @Override
@@ -121,9 +123,9 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
                         }
                     }
                 })
-                .setListener(new Response.Listener<AlbumSet>() {
+                .setListener(new Response.Listener<MaskSet<AlbumItem>>() {
                     @Override
-                    public void onResponse(AlbumSet response) {
+                    public void onResponse(MaskSet<AlbumItem> response) {
                         refreshComplete();
                         if (null != response && response.getRsm() != null && response.getRsm().size() > 0) {
                             response(mode, response.getRsm());
@@ -137,7 +139,7 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
                     }
                 });
 
-        GsonRequest<AlbumSet> request = builder.create();
+        GsonRequest<MaskSet<AlbumItem>> request = builder.create();
         VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 

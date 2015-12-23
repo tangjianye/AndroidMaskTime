@@ -2,6 +2,7 @@ package com.peach.masktime.ui.base;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -67,6 +68,15 @@ public abstract class BaseListActivity extends BaseTitleActivity {
         mListView.onRefreshComplete();
     }
 
+    /**
+     * 设置数据适配器
+     *
+     * @param adapter
+     */
+    protected void setListAdapter(ListAdapter adapter) {
+        mListView.setAdapter(adapter);
+    }
+
     private void initViews() {
         mLyContentTips = findViewById(R.id.ly_tips_content);
         mLyContentTips.setVisibility(View.GONE);
@@ -111,4 +121,6 @@ public abstract class BaseListActivity extends BaseTitleActivity {
     protected abstract void pullDown();
 
     protected abstract void pullUp();
+
+    //protected abstract void setListAdapter(ListAdapter adapter);
 }

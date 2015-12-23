@@ -13,7 +13,7 @@
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/lv_content"
-            style="@style/PullListViewStyle" />
+            style="@style/ListViewStyle" />
     </LinearLayout>
 
     <include

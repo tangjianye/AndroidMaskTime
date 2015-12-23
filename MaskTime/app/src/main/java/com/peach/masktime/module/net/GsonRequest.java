@@ -18,6 +18,7 @@ package com.peach.masktime.module.net;
 
 import android.app.Dialog;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -27,23 +28,30 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
+import com.peach.masktime.utils.JsonUtils;
 import com.peach.masktime.utils.LogUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.Map;
 
 public class GsonRequest<T> extends Request<T> {
     private static final String TAG = GsonRequest.class.getSimpleName();
 
     private final Listener<T> mListener;
     private static Gson sGson;
-    private Class<T> mClass;
+    // private Class<T> mClass;
+    private Type mType;
+    private Map<String, String> mMap;
 
     public static class GsonRequestBuilder<T> {
-        private int method;
+        private int method = Method.GET;
         private String url;
         private Listener<T> listener;
         private ErrorListener errorListener;
-        private Class<T> bclass;
+        // private Class<T> bclass;
+        private Type type;
+        private Map<String, String> map = null;
         private Dialog dialog;
 
         public GsonRequestBuilder setMethod(int method) {
@@ -56,8 +64,13 @@ public class GsonRequest<T> extends Request<T> {
             return this;
         }
 
-        public GsonRequestBuilder setBclass(Class<T> bclass) {
-            this.bclass = bclass;
+        public GsonRequestBuilder setType(Type type) {
+            this.type = type;
+            return this;
+        }
+
+        public GsonRequestBuilder setMap(Map<String, String> map) {
+            this.map = map;
             return this;
         }
 
@@ -80,7 +93,7 @@ public class GsonRequest<T> extends Request<T> {
             if (null != dialog) {
                 dialog.show();
             }
-            return new GsonRequest<T>(method, url, bclass, listener, errorListener);
+            return new GsonRequest<T>(method, url, type, listener, errorListener, map);
         }
 
         /**
@@ -125,19 +138,21 @@ public class GsonRequest<T> extends Request<T> {
         }
     }
 
-    public GsonRequest(int method, String url, Class<T> clazz, Listener<T> listener,
-                       ErrorListener errorListener) {
+    public GsonRequest(int method, String url, Type type, Listener<T> listener,
+                       ErrorListener errorListener, Map<String, String> map) {
         super(method, url, errorListener);
 //        setRetryPolicy(new DefaultRetryPolicy(
 //                Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         sGson = new Gson();
-        mClass = clazz;
+        mType = type;
         mListener = listener;
+        mMap = map;
     }
 
-    public GsonRequest(String url, Class<T> clazz, Listener<T> listener,
-                       ErrorListener errorListener) {
-        this(Method.GET, url, clazz, listener, errorListener);
+    @Override
+    protected Map<String, String> getParams() throws AuthFailureError {
+        LogUtils.i(TAG, "mMap = " + mMap.toString());
+        return mMap;
     }
 
     @Override
@@ -146,9 +161,12 @@ public class GsonRequest<T> extends Request<T> {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
             LogUtils.i(TAG, "parseNetworkResponse jsonString = " + jsonString);
-            // Type type = new TypeToken<T>() {}.getType();
-            return Response.success(sGson.fromJson(jsonString, mClass),
-                    HttpHeaderParser.parseCacheHeaders(response));
+
+            T result = JsonUtils.parseJson(jsonString, mType);
+            return Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
+
+            // return Response.success(sGson.fromJson(jsonString, mClass),
+            //        HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         }

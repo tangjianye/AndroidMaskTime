@@ -16,11 +16,14 @@ public class API {
      * 后台api接口
      **********************************************************************************************/
     private static final String TEST_MODE = "/masktime0123456789";
+
     private static final String DOMAIN = "http://mask.cloudsdee.com/?";
     private static final String TEST_DOMAIN = "http://113.107.245.39:92?";
 
     private static final String GET_PICTURE = "http://mask.cloudsdee.com/uploads/kshop/";
     private static final String GET_GOODS = "/api/shop/get_goods/?";
+
+    public static final String LOGIN = "/api/account/login_process/";
 
     public static final int PAGE_BANNER = 1;
     public static final int CATEGORY_BANNER = 7;
