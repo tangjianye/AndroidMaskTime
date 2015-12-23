@@ -18,8 +18,8 @@ import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.module.net.response.AlbumSet;
 import com.peach.masktime.ui.adapter.AlbumListAdapter;
 import com.peach.masktime.ui.base.BaseTitleActivity;
-import com.peach.masktime.ui.widget.xlistview.XListView;
-import com.peach.masktime.ui.widget.xlistview.XListView.IXListViewListener;
+import com.peach.masktime.ui.view.XListView;
+import com.peach.masktime.ui.view.XListView.IXListViewListener;
 import com.peach.masktime.utils.LogUtils;
 import com.peach.masktime.utils.TimeUtils;
 

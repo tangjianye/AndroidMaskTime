@@ -4,7 +4,7 @@
  * @author Maxwin
  * @description XListView's footer
  */
-package com.peach.masktime.ui.widget.xlistview;
+package com.peach.masktime.ui.view;
 
 
 import android.content.Context;

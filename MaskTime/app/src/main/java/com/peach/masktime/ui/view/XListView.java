@@ -6,7 +6,7 @@
  * @description An ListView support (a) Pull down to refresh, (b) Pull up to load more.
  * Implement IXListViewListener, and see stopRefresh() / stopLoadMore().
  */
-package com.peach.masktime.ui.widget.xlistview;
+package com.peach.masktime.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
