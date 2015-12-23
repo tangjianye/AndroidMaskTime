@@ -92,8 +92,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/MaskTime/libraries@Android-PullToRefresh/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -121,7 +121,7 @@
     <orderEntry type="library" exported="" name="1_httpclient-android-4.3.5.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.3.0" level="project" />
-    <orderEntry type="library" exported="" name="libraries/Android-PullToRefresh-unspecified" level="project" />
     <orderEntry type="module" module-name="volley" exported="" />
+    <orderEntry type="module" module-name="Android-PullToRefresh" exported="" />
   </component>
 </module>

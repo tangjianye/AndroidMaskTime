@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/libraries/Android-PullToRefresh/Android-PullToRefresh.iml" filepath="$PROJECT_DIR$/libraries/Android-PullToRefresh/Android-PullToRefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/MaskTime.iml" filepath="$PROJECT_DIR$/MaskTime.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraries/Android-PullToRefresh/libraries_Android-PullToRefresh.iml" filepath="$PROJECT_DIR$/libraries/Android-PullToRefresh/libraries_Android-PullToRefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
     </modules>
   </component>
