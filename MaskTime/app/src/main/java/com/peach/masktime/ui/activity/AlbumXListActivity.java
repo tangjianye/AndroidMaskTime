@@ -17,20 +17,31 @@ import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.module.net.response.AlbumSet;
 import com.peach.masktime.ui.adapter.AlbumListAdapter;
-import com.peach.masktime.ui.base.BaseListActivity;
+import com.peach.masktime.ui.base.BaseTitleActivity;
+import com.peach.masktime.ui.widget.xlistview.XListView;
+import com.peach.masktime.ui.widget.xlistview.XListView.IXListViewListener;
 import com.peach.masktime.utils.LogUtils;
+import com.peach.masktime.utils.TimeUtils;
 
 import java.util.ArrayList;
 
-public class AlbumActivity extends BaseListActivity implements IInit, AdapterView.OnItemClickListener {
-    private static final String TAG = AlbumActivity.class.getSimpleName();
+public class AlbumXListActivity extends BaseTitleActivity implements IInit, AdapterView.OnItemClickListener, IXListViewListener {
+    private static final String TAG = AlbumXListActivity.class.getSimpleName();
     private static final int FRIST_PAGE = 1;
     private static final boolean IS_INIT = true;
 
+    private View mLyContentTips;
+    private XListView mListView;
     private AlbumListAdapter mListAdapter;
 
     private int mPage = FRIST_PAGE;
     private ArrayList<AlbumItem> mAlbumDataSet;
+
+    // 加载方式
+    private enum Status {
+        LordMore,
+        Refresh,
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +52,12 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
         initViews();
         initEvents();
 
-        request(IS_INIT, getUrl(FRIST_PAGE), Status.PullUp);
+        request(IS_INIT, getUrl(FRIST_PAGE), Status.LordMore);
     }
 
     @Override
     protected void setContentLayer() {
-        setContentView(R.layout.activity_album);
+        setContentView(R.layout.activity_xlist_album);
     }
 
     @Override
@@ -74,8 +85,17 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
         mTitleTips.setText(R.string.main_album);
     }
 
+    private void refreshContentTips(boolean visible) {
+        mLyContentTips.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
     @Override
     public void initViews() {
+        mLyContentTips = findViewById(R.id.ly_tips_content);
+        mLyContentTips.setVisibility(View.GONE);
+
+        mListView = (XListView) findViewById(R.id.lv_content);
+        mListView.setPullLoadEnable(true);
         mListAdapter = new AlbumListAdapter(this, mAlbumDataSet);
         mListView.setAdapter(mListAdapter);
     }
@@ -83,6 +103,7 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
     @Override
     public void initEvents() {
         mListView.setOnItemClickListener(this);
+        mListView.setXListViewListener(this);
     }
 
     @Override
@@ -95,15 +116,25 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
         openActivity(WebViewActivity.class, bundle);
     }
 
-    private void loadMore() {
+    @Override
+    public void onLoadMore() {
         mPage++;
-        LogUtils.i(TAG, "loadMore: mPage = " + mPage);
-        request(!IS_INIT, getUrl(mPage), Status.PullUp);
+        LogUtils.i(TAG, "onLoadMore: mPage = " + mPage);
+        request(!IS_INIT, getUrl(mPage), Status.LordMore);
     }
 
+    @Override
+    public void onRefresh() {
+        request(!IS_INIT, getUrl(FRIST_PAGE), Status.Refresh);
+    }
 
-    private void refresh() {
-        request(!IS_INIT, getUrl(FRIST_PAGE), Status.PullDown);
+    /**
+     * 重新设置xlistview的状态
+     */
+    private void onLoad() {
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
+        mListView.setRefreshTime(TimeUtils.getCurrentTimeInString());
     }
 
     private void request(final boolean isInit, final String url, final Status mode) {
@@ -115,7 +146,7 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
                 .setErrorListener(new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        refreshComplete();
+                        onLoad();
                         if (!isInit) {
                             showToast(R.string.default_get_data_fail);
                         }
@@ -124,7 +155,7 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
                 .setListener(new Response.Listener<AlbumSet>() {
                     @Override
                     public void onResponse(AlbumSet response) {
-                        refreshComplete();
+                        onLoad();
                         if (null != response && response.getRsm() != null && response.getRsm().size() > 0) {
                             response(mode, response.getRsm());
                         } else {
@@ -147,7 +178,7 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
     }
 
     private void response(final Status mode, final ArrayList<AlbumItem> list) {
-        if (Status.PullDown == mode) {
+        if (Status.Refresh == mode) {
             mAlbumDataSet.clear();
         }
 
@@ -158,16 +189,6 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
             mAlbumDataSet.add(item);
         }
         mListAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void pullDown() {
-        refresh();
-    }
-
-    @Override
-    protected void pullUp() {
-        loadMore();
     }
 }
 

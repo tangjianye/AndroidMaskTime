@@ -117,6 +117,7 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.squareup.okhttp:okhttp:2.3.0'
     compile project(':volley')
+	compile project(':libraries/Android-PullToRefresh')
     compile files('libs/gson-2.2.4.jar')
     compile files('httpmime-4.3.jar')
     compile files('httpclient-android-4.3.5.1.jar')
