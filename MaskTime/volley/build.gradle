@@ -16,21 +16,21 @@ buildscript {
     }
 }
 
-//def makeJar(String target,String classDir) {
-//    exec{
+//def makeJar(String target, String classDir) {
+//    exec {
 //        executable "jar"   //调用jar
-//        args "cvf",target
+//        args "cvf", target
 //        args "-C", classDir
-//        args "","."
+//        args "", "."
 //
 //    }
 //
 //    //新建一个task,名为buildLib,依赖build(build是一个自带的task)
-//task buildLib(dependsOn:['build'])<< {
-//        makeJar("volley.jar","build/intermediates/classes/release")
+//    task buildLib(dependsOn: ['build']) << {
+//        makeJar("volley.jar", "build/intermediates/classes/release")
 //    }
 //}
-
+//
 //task clearJar(type: Delete) {
 //    delete 'build/outputs/volley.jar'
 //}
@@ -39,7 +39,7 @@ buildscript {
 //    from('build/intermediates/bundles/release/')
 //    into('build/outputs/')
 //    include('classes.jar')
-//    rename ('classes.jar', 'volley.jar')
+//    rename('classes.jar', 'volley.jar')
 //}
 //
 //makeJar.dependsOn(clearJar, ['build'])
@@ -50,4 +50,4 @@ android {
     buildToolsVersion = '21.1.2'
 }
 
-//apply from: 'rules.gradle'
+// apply from: 'rules.gradle'

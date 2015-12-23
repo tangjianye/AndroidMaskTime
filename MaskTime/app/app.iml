@@ -115,10 +115,8 @@
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="httpmime-4.3" level="project" />
-    <orderEntry type="library" exported="" name="1_httpmime-4.3" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="httpclient-android-4.3.5.1" level="project" />
-    <orderEntry type="library" exported="" name="1_httpclient-android-4.3.5.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.3.0" level="project" />
     <orderEntry type="module" module-name="volley" exported="" />
