@@ -9,7 +9,7 @@ import android.animation.ValueAnimator;
 import java.util.HashSet;
 
 public class AnimatorUtils {
-    static HashSet<Animator> sAnimators = new HashSet<Animator>();
+    private static HashSet<Animator> sAnimators = new HashSet<Animator>();
 
     static Animator.AnimatorListener sEndAnimListener = new Animator.AnimatorListener() {
         public void onAnimationStart(Animator animation) {
@@ -56,8 +56,7 @@ public class AnimatorUtils {
         return anim;
     }
 
-    public static ObjectAnimator ofFloat(Object target, String propertyName,
-                                         float... values) {
+    public static ObjectAnimator ofFloat(Object target, String propertyName, float... values) {
         ObjectAnimator anim = new ObjectAnimator();
         anim.setTarget(target);
         anim.setPropertyName(propertyName);
@@ -66,8 +65,7 @@ public class AnimatorUtils {
         return anim;
     }
 
-    public static ObjectAnimator ofPropertyValuesHolder(Object target,
-                                                        PropertyValuesHolder... values) {
+    public static ObjectAnimator ofPropertyValuesHolder(Object target, PropertyValuesHolder... values) {
         ObjectAnimator anim = new ObjectAnimator();
         anim.setTarget(target);
         anim.setValues(values);

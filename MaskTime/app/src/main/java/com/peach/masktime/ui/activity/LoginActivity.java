@@ -1,7 +1,12 @@
 package com.peach.masktime.ui.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.animation.CycleInterpolator;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.Request;
@@ -16,6 +21,7 @@ import com.peach.masktime.module.net.request.GsonRequest;
 import com.peach.masktime.module.net.response.AccountItem;
 import com.peach.masktime.module.net.response.MaskObjectSet;
 import com.peach.masktime.ui.base.BaseTitleActivity;
+import com.peach.masktime.utils.AnimatorUtils;
 import com.peach.masktime.utils.StringUtils;
 
 import java.util.HashMap;
@@ -30,6 +36,7 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
     private EditText mEtAccount;
     private EditText mEtPassword;
     private EditText mEtEmail;
+    private Button mBtnSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +81,8 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
         mEtAccount = (EditText) findViewById(R.id.et_account);
         mEtPassword = (EditText) findViewById(R.id.et_password);
         mEtEmail = (EditText) findViewById(R.id.et_email);
+        mBtnSubmit = (Button) findViewById(R.id.btn_submit);
+
         mEtEmail.setVisibility(View.GONE);
     }
 
@@ -94,18 +103,33 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
     }
 
     private void submit() {
+        AnimatorSet set = getAnimatorSet(mBtnSubmit);
+        String url = API.getUrl(API.LOGIN);
         mAccount = mEtAccount.getText().toString();
         mPassword = mEtPassword.getText().toString();
-        String url = API.getUrl(API.LOGIN);
 
         if (StringUtils.isEmpty(mAccount)) {
             showToast(R.string.error_invalid_account);
+            set.start();
         } else if (StringUtils.isEmpty(mPassword)) {
             showToast(R.string.error_invalid_password);
+            set.start();
         } else {
             //request(url, "yoyo1", "870914");
             request(url, mAccount, mPassword);
         }
+    }
+
+    @NonNull
+    private AnimatorSet getAnimatorSet(View view) {
+        AnimatorSet set = AnimatorUtils.createAnimatorSet();
+        ObjectAnimator translationX = AnimatorUtils.ofFloat(view, "translationX", 0.0f, 20.0f, 0.0f);
+        ObjectAnimator translationY = AnimatorUtils.ofFloat(view, "translationY", 0, 10);
+        set.setDuration(getResources().getInteger(R.integer.anim_shake_duration));
+        set.setInterpolator(new CycleInterpolator(getResources().getInteger(R.integer.anim_shake_cycle_num)));
+        set.play(translationX);
+        // set.play(translationX).with(translationY);
+        return set;
     }
 
     private void request(final String url, final String account, final String password) {

@@ -24,6 +24,7 @@
     <string name="pause">暂停</string>
     <string name="stop">停止</string>
 
+    <string name="setting_login">登陆</string>
     <string name="setting_plan">美丽计划</string>
     <string name="setting_sound">提醒声音</string>
     <string name="setting_feedback">意见反馈</string>

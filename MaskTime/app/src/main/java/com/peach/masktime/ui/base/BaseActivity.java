@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.peach.masktime.R;
 import com.peach.masktime.common.AppManager;
 import com.peach.masktime.ui.dialog.LoadingDialog;
+import com.peach.masktime.utils.AnimatorUtils;
 
 /**
  * Created by tangjy on 2015/10/24.
@@ -37,6 +38,7 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         AppManager.getInstance().killActivity(this);
+        AnimatorUtils.onDestroyActivity();
         cancelToast();
         dismissLoadingDialog();
     }

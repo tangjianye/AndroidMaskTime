@@ -23,7 +23,7 @@
             android:drawableLeft="@drawable/facial_cycle"
             android:drawablePadding="@dimen/android_padding_normal"
             android:gravity="center"
-            android:text="@string/setting_plan" />
+            android:text="@string/setting_login" />
 
         <ImageView
             android:layout_width="wrap_content"
