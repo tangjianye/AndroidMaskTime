@@ -11,12 +11,12 @@ import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.module.net.API;
-import com.peach.masktime.module.net.GsonRequest;
 import com.peach.masktime.module.net.VolleyManager;
+import com.peach.masktime.module.net.request.GsonRequest;
 import com.peach.masktime.module.net.response.AccountItem;
-import com.peach.masktime.module.net.response.MaskSet;
+import com.peach.masktime.module.net.response.MaskObjectSet;
 import com.peach.masktime.ui.base.BaseTitleActivity;
-import com.peach.masktime.utils.LogUtils;
+import com.peach.masktime.utils.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,8 +74,7 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
         mEtAccount = (EditText) findViewById(R.id.et_account);
         mEtPassword = (EditText) findViewById(R.id.et_password);
         mEtEmail = (EditText) findViewById(R.id.et_email);
-
-        // mEtEmail.setVisibility(View.GONE);
+        mEtEmail.setVisibility(View.GONE);
     }
 
     @Override
@@ -87,74 +86,62 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_submit:
-                mAccount = mEtAccount.getText().toString();
-                mPassword = mEtPassword.getText().toString();
-
-                String url = API.getUrl(API.LOGIN);
-                // StringRequest request = new StringRequest(Request.Method.POST, url, new R)
-                LogUtils.i(TAG, "url -> " + url);
-
-                GsonRequest.GsonRequestBuilder<MaskSet<AccountItem>> builder = new GsonRequest.GsonRequestBuilder<>();
-                builder.setMethod(Request.Method.POST)
-                        .setUrl(url)
-                        .setType(new TypeToken<MaskSet<AccountItem>>() {
-                        }.getType())
-                        .setDialog(creatLoadingDialog())
-                        .setErrorListener(new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                showToast(R.string.default_get_data_fail);
-                            }
-                        })
-                        .setListener(new Response.Listener<MaskSet<AccountItem>>() {
-                            @Override
-                            public void onResponse(MaskSet<AccountItem> response) {
-                                if (null != response && response.getRsm() != null && response.getRsm().size() > 0) {
-
-                                } else {
-                                    showToast(response.getErr());
-                                }
-                            }
-                        })
-                        .setMap(getParams());
-
-                GsonRequest<MaskSet<AccountItem>> request = builder.create();
-                VolleyManager.getInstance().addToRequestQueue(request, url);
-
-//                StringRequest aaa = new StringRequest(Request.Method.POST, url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                LogUtils.i(TAG, "response -> " + response);
-//                            }
-//                        }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        LogUtils.e(TAG, error.getMessage(), error);
-//                    }
-//                }) {
-//                    @Override
-//                    protected Map<String, String> getParams() {
-//                        //在这里设置需要post的参数
-//                        Map<String, String> map = new HashMap<String, String>();
-//                        map.put("user_name", "yoyo1");
-//                        map.put("password", "870914");
-//                        return map;
-//                    }
-//                };
-
-//                VolleyManager.getInstance().addToRequestQueue(aaa, TAG);
+                submit();
                 break;
             default:
                 break;
         }
     }
 
-    Map<String, String> getParams() {
-        //在这里设置需要post的参数
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("user_name", "yoyo1");
-        map.put("password", "870914");
-        return map;
+    private void submit() {
+        mAccount = mEtAccount.getText().toString();
+        mPassword = mEtPassword.getText().toString();
+        String url = API.getUrl(API.LOGIN);
+
+        if (StringUtils.isEmpty(mAccount)) {
+            showToast(R.string.error_invalid_account);
+        } else if (StringUtils.isEmpty(mPassword)) {
+            showToast(R.string.error_invalid_password);
+        } else {
+            //request(url, "yoyo1", "870914");
+            request(url, mAccount, mPassword);
+        }
+    }
+
+    private void request(final String url, final String account, final String password) {
+        GsonRequest.GsonRequestBuilder<MaskObjectSet<AccountItem>> builder = new GsonRequest.GsonRequestBuilder<>();
+        builder.setMethod(Request.Method.POST)
+                .setUrl(url)
+                .setType(new TypeToken<MaskObjectSet<AccountItem>>() {
+                }.getType())
+                .setDialog(creatLoadingDialog())
+                .setErrorListener(new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        showToast(R.string.default_get_data_fail);
+                    }
+                })
+                .setListener(new Response.Listener<MaskObjectSet<AccountItem>>() {
+                    @Override
+                    public void onResponse(MaskObjectSet<AccountItem> response) {
+                        if (null != response && response.getRsm() != null) {
+                            finish();
+                        } else {
+                            showToast((null != response) ? response.getErr() : getString(R.string.default_get_data_fail));
+                        }
+                    }
+                })
+                .setParams(new GsonRequest.IParams() {
+                    @Override
+                    public Map<String, String> getParams() {
+                        Map<String, String> map = new HashMap<String, String>();
+                        map.put("user_name", account);
+                        map.put("password", password);
+                        return map;
+                    }
+                });
+
+        GsonRequest<MaskObjectSet<AccountItem>> request = builder.create();
+        VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 }

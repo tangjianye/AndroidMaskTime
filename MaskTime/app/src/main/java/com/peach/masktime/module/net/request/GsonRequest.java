@@ -1,20 +1,4 @@
-/*
- * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package com.peach.masktime.module.net;
+package com.peach.masktime.module.net.request;
 
 import android.app.Dialog;
 
@@ -27,7 +11,6 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.google.gson.Gson;
 import com.peach.masktime.utils.JsonUtils;
 import com.peach.masktime.utils.LogUtils;
 
@@ -38,21 +21,22 @@ import java.util.Map;
 public class GsonRequest<T> extends Request<T> {
     private static final String TAG = GsonRequest.class.getSimpleName();
 
+    private int mMethod;
     private final Listener<T> mListener;
-    private static Gson sGson;
-    // private Class<T> mClass;
     private Type mType;
-    private Map<String, String> mMap;
+    private IParams mParamListener;
+    // private static Gson sGson;
+    // private Class<T> mClass;
 
     public static class GsonRequestBuilder<T> {
         private int method = Method.GET;
         private String url;
         private Listener<T> listener;
         private ErrorListener errorListener;
-        // private Class<T> bclass;
         private Type type;
-        private Map<String, String> map = null;
+        private IParams paramListener;
         private Dialog dialog;
+        // private Class<T> bclass;
 
         public GsonRequestBuilder setMethod(int method) {
             this.method = method;
@@ -69,17 +53,17 @@ public class GsonRequest<T> extends Request<T> {
             return this;
         }
 
-        public GsonRequestBuilder setMap(Map<String, String> map) {
-            this.map = map;
+        public GsonRequestBuilder setParams(IParams listener) {
+            this.paramListener = listener;
             return this;
         }
 
-        public GsonRequestBuilder setErrorListener(final Response.ErrorListener errorListener) {
+        public GsonRequestBuilder setErrorListener(final ErrorListener errorListener) {
             this.errorListener = deliverErrorListener(errorListener);
             return this;
         }
 
-        public GsonRequestBuilder setListener(final Response.Listener<T> listener) {
+        public GsonRequestBuilder setListener(final Listener<T> listener) {
             this.listener = deliverResponse(listener);
             return this;
         }
@@ -93,7 +77,7 @@ public class GsonRequest<T> extends Request<T> {
             if (null != dialog) {
                 dialog.show();
             }
-            return new GsonRequest<T>(method, url, type, listener, errorListener, map);
+            return new GsonRequest<T>(method, url, type, listener, errorListener, paramListener);
         }
 
         /**
@@ -103,10 +87,10 @@ public class GsonRequest<T> extends Request<T> {
          * @return
          */
         private Listener<T> deliverResponse(final Listener<T> listener) {
-            return new Response.Listener<T>() {
+            return new Listener<T>() {
                 @Override
                 public void onResponse(T response) {
-                    LogUtils.i(TAG, "onResponse = " + response.toString());
+                    LogUtils.i(TAG, "onResponse = " + ((null != response) ? response.toString() : null));
                     dismissDialog();
                     listener.onResponse(response);
                 }
@@ -139,20 +123,27 @@ public class GsonRequest<T> extends Request<T> {
     }
 
     public GsonRequest(int method, String url, Type type, Listener<T> listener,
-                       ErrorListener errorListener, Map<String, String> map) {
+                       ErrorListener errorListener, IParams params) {
         super(method, url, errorListener);
-//        setRetryPolicy(new DefaultRetryPolicy(
-//                Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        sGson = new Gson();
+        // setRetryPolicy(new DefaultRetryPolicy(
+        //        Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        mMethod = method;
         mType = type;
         mListener = listener;
-        mMap = map;
+        mParamListener = params;
+        LogUtils.i(TAG, "url =" + url);
     }
 
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
-        LogUtils.i(TAG, "mMap = " + mMap.toString());
-        return mMap;
+        if (null != mParamListener) {
+            Map<String, String> map = mParamListener.getParams();
+            LogUtils.i(TAG, "map = " + map.toString());
+            return map;
+        } else {
+            LogUtils.i(TAG, "map = null");
+            return null;
+        }
     }
 
     @Override
@@ -164,9 +155,6 @@ public class GsonRequest<T> extends Request<T> {
 
             T result = JsonUtils.parseJson(jsonString, mType);
             return Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
-
-            // return Response.success(sGson.fromJson(jsonString, mClass),
-            //        HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         }
@@ -175,5 +163,9 @@ public class GsonRequest<T> extends Request<T> {
     @Override
     protected void deliverResponse(T response) {
         mListener.onResponse(response);
+    }
+
+    public interface IParams {
+        Map<String, String> getParams();
     }
 }

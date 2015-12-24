@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2015/12/23 0023.
  */
-public class MaskSet<T> {
+public class MaskArraySet<T> {
     private int errno;
     private String err;
     private ArrayList<T> rsm;
@@ -36,7 +36,7 @@ public class MaskSet<T> {
 
     @Override
     public String toString() {
-        return "MaskSet{" +
+        return "MaskArraySet{" +
                 "err='" + err + '\'' +
                 ", errno=" + errno +
                 ", rsm=" + ((null != rsm) ? rsm.size() : null) +
