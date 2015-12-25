@@ -13,8 +13,8 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.module.net.API;
-import com.peach.masktime.module.net.request.GsonRequest;
 import com.peach.masktime.module.net.VolleyManager;
+import com.peach.masktime.module.net.request.GsonRequest;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.module.net.response.MaskArraySet;
 import com.peach.masktime.ui.adapter.AlbumListAdapter;
@@ -119,7 +119,6 @@ public class AlbumXListActivity extends BaseTitleActivity implements IInit, Adap
 
     @Override
     public void onLoadMore() {
-        mPage++;
         LogUtils.i(TAG, "onLoadMore: mPage = " + mPage);
         request(!IS_INIT, getUrl(mPage), Status.LordMore);
     }
@@ -139,38 +138,36 @@ public class AlbumXListActivity extends BaseTitleActivity implements IInit, Adap
     }
 
     private void request(final boolean isInit, final String url, final Status mode) {
-        GsonRequest.GsonRequestBuilder<MaskArraySet<AlbumItem>> builder = new GsonRequest.GsonRequestBuilder<>();
-        builder.setMethod(Request.Method.GET)
-                .setUrl(url)
-                .setType(new TypeToken<MaskArraySet<AlbumItem>>() {
-                }.getType())
-                .setDialog(isInit ? creatLoadingDialog() : null)
-                .setErrorListener(new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        onLoad();
-                        if (!isInit) {
-                            showToast(R.string.default_get_data_fail);
-                        }
-                    }
-                })
-                .setListener(new Response.Listener<MaskArraySet<AlbumItem>>() {
+        showLoadingDialog(getString(R.string.default_loading_tips));
+
+        GsonRequest<MaskArraySet<AlbumItem>> request = new GsonRequest<MaskArraySet<AlbumItem>>(
+                Request.Method.GET,
+                url,
+                new TypeToken<MaskArraySet<AlbumItem>>() {
+                }.getType(),
+                new Response.Listener<MaskArraySet<AlbumItem>>() {
                     @Override
                     public void onResponse(MaskArraySet<AlbumItem> response) {
+                        dismissLoadingDialog();
                         onLoad();
                         if (null != response && response.getRsm() != null && response.getRsm().size() > 0) {
                             response(mode, response.getRsm());
+                            mPage++;
                         } else {
-                            if (isInit) {
-                                refreshContentTips(true);
-                            } else {
-                                showToast(R.string.default_no_more_date);
-                            }
+                            showToast(R.string.default_no_more_date);
                         }
+                        refreshContentTips(mAlbumDataSet.size() > 0 ? false : true);
                     }
-                });
-
-        GsonRequest<MaskArraySet<AlbumItem>> request = builder.create();
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dismissLoadingDialog();
+                        onLoad();
+                        showToast(R.string.default_get_data_fail);
+                    }
+                }
+        );
         VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 

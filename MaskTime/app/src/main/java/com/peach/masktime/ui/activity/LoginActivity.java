@@ -9,6 +9,7 @@ import android.view.animation.CycleInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -115,7 +116,7 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
             showToast(R.string.error_invalid_password);
             set.start();
         } else {
-            //request(url, "yoyo1", "870914");
+            // request(url, "yoyo1", "870914");
             request(url, mAccount, mPassword);
         }
     }
@@ -133,39 +134,41 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
     }
 
     private void request(final String url, final String account, final String password) {
-        GsonRequest.GsonRequestBuilder<MaskObjectSet<AccountItem>> builder = new GsonRequest.GsonRequestBuilder<>();
-        builder.setMethod(Request.Method.POST)
-                .setUrl(url)
-                .setType(new TypeToken<MaskObjectSet<AccountItem>>() {
-                }.getType())
-                .setDialog(creatLoadingDialog())
-                .setErrorListener(new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        showToast(R.string.default_get_data_fail);
-                    }
-                })
-                .setListener(new Response.Listener<MaskObjectSet<AccountItem>>() {
+        showLoadingDialog(getString(R.string.default_loading_tips));
+
+        GsonRequest<MaskObjectSet<AccountItem>> request = new GsonRequest<MaskObjectSet<AccountItem>>(
+                Request.Method.GET,
+                url,
+                new TypeToken<MaskObjectSet<AccountItem>>() {
+                }.getType(),
+                new Response.Listener<MaskObjectSet<AccountItem>>() {
                     @Override
                     public void onResponse(MaskObjectSet<AccountItem> response) {
+                        dismissLoadingDialog();
                         if (null != response && response.getRsm() != null) {
                             finish();
                         } else {
                             showToast((null != response) ? response.getErr() : getString(R.string.default_get_data_fail));
                         }
                     }
-                })
-                .setParams(new GsonRequest.IParams() {
+                },
+                new Response.ErrorListener() {
                     @Override
-                    public Map<String, String> getParams() {
-                        Map<String, String> map = new HashMap<String, String>();
-                        map.put("user_name", account);
-                        map.put("password", password);
-                        return map;
+                    public void onErrorResponse(VolleyError error) {
+                        dismissLoadingDialog();
+                        showToast(R.string.default_get_data_fail);
                     }
-                });
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("user_name", account);
+                map.put("password", password);
+                return map;
+            }
+        };
 
-        GsonRequest<MaskObjectSet<AccountItem>> request = builder.create();
         VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 }

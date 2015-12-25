@@ -77,18 +77,6 @@ public abstract class BaseActivity extends FragmentActivity {
     /**********************************************************************************************/
 
     /**********************************************************************************************/
-    public LoadingDialog creatLoadingDialog(String text) {
-        if (mLoadingDialog != null) {
-            dismissLoadingDialog();
-        }
-        mLoadingDialog = new LoadingDialog(this, text);
-        mLoadingDialog.setCancelable(true);
-        return mLoadingDialog;
-    }
-
-    public LoadingDialog creatLoadingDialog() {
-        return creatLoadingDialog(getResources().getString(R.string.default_loading_tips));
-    }
 
     public void showLoadingDialog(final String text) {
         if (mLoadingDialog != null) {
@@ -100,7 +88,7 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     public void showLoadingDialog() {
-        showLoadingDialog(getResources().getString(R.string.default_loading_tips));
+        showLoadingDialog(getString(R.string.default_loading_tips));
     }
 
     public void dismissLoadingDialog() {

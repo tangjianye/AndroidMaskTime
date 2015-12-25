@@ -12,8 +12,8 @@ import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.ICycle;
 import com.peach.masktime.module.net.API;
-import com.peach.masktime.module.net.request.GsonRequest;
 import com.peach.masktime.module.net.VolleyManager;
+import com.peach.masktime.module.net.request.GsonRequest;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.module.net.response.MaskArraySet;
 import com.peach.masktime.ui.view.AutoScrollBanner;
@@ -74,26 +74,26 @@ public class BannerLayer extends LinearLayout implements ICycle {
     }
 
     private void request(final String url) {
-        GsonRequest.GsonRequestBuilder<MaskArraySet<AlbumItem>> builder = new GsonRequest.GsonRequestBuilder<>();
-        builder.setMethod(Request.Method.GET)
-                .setUrl(url)
-                .setType(new TypeToken<MaskArraySet<AlbumItem>>() {
-                }.getType())
-                .setErrorListener(new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                })
-                .setListener(new Response.Listener<MaskArraySet<AlbumItem>>() {
+        GsonRequest<MaskArraySet<AlbumItem>> request = new GsonRequest<MaskArraySet<AlbumItem>>(
+                Request.Method.GET,
+                url,
+                new TypeToken<MaskArraySet<AlbumItem>>() {
+                }.getType(),
+                new Response.Listener<MaskArraySet<AlbumItem>>() {
                     @Override
                     public void onResponse(MaskArraySet<AlbumItem> response) {
                         if (null != response && response.getRsm() != null && response.getRsm().size() > 0) {
                             mAutoBanner.refresh(response.getRsm());
                         }
                     }
-                });
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        );
 
-        GsonRequest<MaskArraySet<AlbumItem>> request = builder.create();
         VolleyManager.getInstance().addToRequestQueue(request, url);
     }
 

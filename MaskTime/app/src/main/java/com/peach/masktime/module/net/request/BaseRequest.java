@@ -4,23 +4,20 @@ import android.app.Dialog;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.peach.masktime.utils.JsonUtils;
 import com.peach.masktime.utils.LogUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-/**
- * 所有联网请求的基类，返回string类型
- *
- * @param <T>
- */
 public class BaseRequest<T> extends Request<T> {
     private static final String TAG = BaseRequest.class.getSimpleName();
 
@@ -30,7 +27,6 @@ public class BaseRequest<T> extends Request<T> {
     private IParams mParamListener;
     // private static Gson sGson;
     // private Class<T> mClass;
-    // private Map<String, String> mMap;
 
     public static class BaseRequestBuilder<T> {
         private int method = Method.GET;
@@ -41,7 +37,6 @@ public class BaseRequest<T> extends Request<T> {
         private IParams paramListener;
         private Dialog dialog;
         // private Class<T> bclass;
-        // private Map<String, String> map = null;
 
         public BaseRequestBuilder setMethod(int method) {
             this.method = method;
@@ -132,7 +127,6 @@ public class BaseRequest<T> extends Request<T> {
         super(method, url, errorListener);
         // setRetryPolicy(new DefaultRetryPolicy(
         //        Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        // sGson = new Gson();
         mMethod = method;
         mType = type;
         mListener = listener;
@@ -154,13 +148,16 @@ public class BaseRequest<T> extends Request<T> {
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
-        String parsed;
         try {
-            parsed = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+            String jsonString = new String(response.data,
+                    HttpHeaderParser.parseCharset(response.headers));
+            LogUtils.i(TAG, "parseNetworkResponse jsonString = " + jsonString);
+
+            T result = JsonUtils.parseJson(jsonString, mType);
+            return Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
-            parsed = new String(response.data);
+            return Response.error(new ParseError(e));
         }
-        return Response.success((T) parsed, HttpHeaderParser.parseCacheHeaders(response));
     }
 
     @Override
