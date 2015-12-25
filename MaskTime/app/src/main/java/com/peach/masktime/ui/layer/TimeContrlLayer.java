@@ -23,7 +23,7 @@ public class TimeContrlLayer extends RelativeLayout implements View.OnClickListe
     private static final String TAG = TimeContrlLayer.class.getSimpleName();
 
     /* 15分钟 */
-    private static final int TIME_MAX = 1 * 60 * 1000;
+    private static final int TIME_MAX = 30 * 60 * 1000;
 
     /* 1秒钟 */
     private static final int TIME_INTERVAL = 1000;

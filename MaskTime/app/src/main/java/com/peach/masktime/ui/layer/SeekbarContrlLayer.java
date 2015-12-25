@@ -23,7 +23,7 @@ public class SeekbarContrlLayer extends RelativeLayout implements View.OnClickLi
     private static final String TAG = SeekbarContrlLayer.class.getSimpleName();
 
     /* 15分钟 */
-    private static final int TIME_MAX = 1 * 60 * 1000;
+    private static final int TIME_MAX = 30 * 60 * 1000;
 
     /* 1秒钟 */
     private static final int TIME_INTERVAL = 1000;
