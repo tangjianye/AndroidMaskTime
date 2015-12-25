@@ -45,10 +45,10 @@ public class AlbumActivity extends BaseListActivity implements IInit, AdapterVie
         request(IS_INIT, getUrl(FRIST_PAGE), Status.PullUp);
     }
 
-    @Override
-    protected void setContentLayer() {
-        setContentView(R.layout.activity_album);
-    }
+//    @Override
+//    protected void setContentLayer() {
+//        setContentView(R.layout.activity_album);
+//    }
 
     @Override
     protected void onDestroy() {

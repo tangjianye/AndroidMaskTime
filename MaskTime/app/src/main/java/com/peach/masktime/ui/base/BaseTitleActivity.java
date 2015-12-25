@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.peach.masktime.R;
 
 public abstract class BaseTitleActivity extends BaseActivity {
-    private static final String TAG = "BaseTitleActivity";
+    private static final String TAG = BaseTitleActivity.class.getSimpleName();
     protected ImageView mTitleBack;
     protected TextView mTitleTips;
     protected ImageView mTitleMore;
