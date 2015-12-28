@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.peach.masktime.ui.view.ContentTips xmlns:android="http://schemas.android.com/apk/res/android"
+<com.peach.masktime.ui.layer.ContentTips xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
@@ -10,4 +10,4 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/default_no_content" />
-</com.peach.masktime.ui.view.ContentTips>
+</com.peach.masktime.ui.layer.ContentTips>

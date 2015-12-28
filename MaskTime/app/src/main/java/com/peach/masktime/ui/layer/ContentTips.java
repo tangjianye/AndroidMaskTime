@@ -1,4 +1,4 @@
-package com.peach.masktime.ui.view;
+package com.peach.masktime.ui.layer;
 
 import android.content.Context;
 import android.util.AttributeSet;

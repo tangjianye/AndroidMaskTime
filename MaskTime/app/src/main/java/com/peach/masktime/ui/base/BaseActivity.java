@@ -16,13 +16,15 @@ import com.peach.masktime.utils.AnimatorUtils;
  * Created by tangjy on 2015/10/24.
  */
 public abstract class BaseActivity extends FragmentActivity {
+    private static final String TAG = BaseActivity.class.getSimpleName();
+    /**
+     * Flag
+     */
     private static final int FLAG_NO = -100;
-
     /**
      * 加载提示框
      */
     private LoadingDialog mLoadingDialog = null;
-
     /**
      * 弹出提示框
      */

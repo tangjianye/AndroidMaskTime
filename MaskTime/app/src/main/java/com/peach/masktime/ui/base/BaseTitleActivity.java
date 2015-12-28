@@ -18,10 +18,10 @@ public abstract class BaseTitleActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.activity_community);
         setContentLayer();
-        this.initDatas();
-        this.initTitles();
-        this.initViews();
-        this.initEvents();
+        initDatas();
+        initTitles();
+        initViews();
+        initEvents();
     }
 
     @Override
