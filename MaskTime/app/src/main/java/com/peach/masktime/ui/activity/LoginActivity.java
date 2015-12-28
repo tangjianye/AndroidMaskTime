@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
+import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.VolleyManager;
@@ -23,6 +24,8 @@ import com.peach.masktime.module.net.response.AccountItem;
 import com.peach.masktime.module.net.response.MaskObjectSet;
 import com.peach.masktime.ui.base.BaseTitleActivity;
 import com.peach.masktime.utils.AnimatorUtils;
+import com.peach.masktime.utils.LogUtils;
+import com.peach.masktime.utils.SPUtils;
 import com.peach.masktime.utils.StringUtils;
 
 import java.util.HashMap;
@@ -38,6 +41,7 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
     private EditText mEtPassword;
     private EditText mEtEmail;
     private Button mBtnSubmit;
+    // private TextView mTxtQuicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,7 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
         mEtPassword = (EditText) findViewById(R.id.et_password);
         mEtEmail = (EditText) findViewById(R.id.et_email);
         mBtnSubmit = (Button) findViewById(R.id.btn_submit);
+        mBtnSubmit.setText(R.string.action_sign_in);
 
         mEtEmail.setVisibility(View.GONE);
     }
@@ -90,6 +95,7 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
     @Override
     public void initEvents() {
         findViewById(R.id.btn_submit).setOnClickListener(this);
+        findViewById(R.id.txt_quick_register).setOnClickListener(this);
     }
 
     @Override
@@ -97,6 +103,10 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
         switch (view.getId()) {
             case R.id.btn_submit:
                 submit();
+                break;
+            case R.id.txt_quick_register:
+                finish();
+                openActivity(RegisterActivity.class);
                 break;
             default:
                 break;
@@ -106,8 +116,8 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
     private void submit() {
         AnimatorSet set = getAnimatorSet(mBtnSubmit);
         String url = API.getUrl(API.LOGIN);
-        mAccount = mEtAccount.getText().toString();
-        mPassword = mEtPassword.getText().toString();
+        mAccount = mEtAccount.getText().toString().trim();
+        mPassword = mEtPassword.getText().toString().trim();
 
         if (StringUtils.isEmpty(mAccount)) {
             showToast(R.string.error_invalid_account);
@@ -137,7 +147,7 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
         showLoadingDialog(getString(R.string.default_loading_tips));
 
         GsonRequest<MaskObjectSet<AccountItem>> request = new GsonRequest<MaskObjectSet<AccountItem>>(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
                 new TypeToken<MaskObjectSet<AccountItem>>() {
                 }.getType(),
@@ -146,6 +156,10 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
                     public void onResponse(MaskObjectSet<AccountItem> response) {
                         dismissLoadingDialog();
                         if (null != response && response.getRsm() != null) {
+                            SPUtils.put(LoginActivity.this, Constants.SPKey.ACCOUNT_UID, response.getRsm().getUid());
+                            SPUtils.put(LoginActivity.this, Constants.SPKey.ACCOUNT_NAME, account);
+                            SPUtils.put(LoginActivity.this, Constants.SPKey.ACCOUNT_PASSWORD, password);
+                            SPUtils.put(LoginActivity.this, Constants.SPKey.ACCOUNT_AVATAR_FILE, response.getRsm().getAvatar_file());
                             finish();
                         } else {
                             showToast((null != response) ? response.getErr() : getString(R.string.default_get_data_fail));
@@ -165,6 +179,7 @@ public class LoginActivity extends BaseTitleActivity implements IInit, View.OnCl
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("user_name", account);
                 map.put("password", password);
+                LogUtils.i(TAG, "map = " + map.toString());
                 return map;
             }
         };

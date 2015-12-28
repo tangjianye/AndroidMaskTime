@@ -23,6 +23,7 @@ public class API {
     private static final String GET_PICTURE = "http://mask.cloudsdee.com/uploads/kshop/";
     private static final String GET_GOODS = "/api/shop/get_goods/?";
 
+    public static final String REGISTER = "/api/account/register_process/";
     public static final String LOGIN = "/api/account/login_process/";
 
     public static final int PAGE_BANNER = 1;

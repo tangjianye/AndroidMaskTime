@@ -19,6 +19,7 @@ import com.peach.masktime.utils.SPUtils;
 public class SettingActivity extends BaseTitleActivity implements IInit, View.OnClickListener {
     private static final String TAG = SettingActivity.class.getSimpleName();
     private Dialog mDialog;
+    private TextView mTxtLogIn;
     private TextView mTxtSoundType;
 
     @Override
@@ -49,6 +50,8 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
     @Override
     protected void onResume() {
         super.onResume();
+        String name = (String) SPUtils.get(this, Constants.SPKey.ACCOUNT_NAME, getString(R.string.setting_login));
+        mTxtLogIn.setText(name);
     }
 
     @Override
@@ -68,7 +71,9 @@ public class SettingActivity extends BaseTitleActivity implements IInit, View.On
 
     @Override
     public void initViews() {
+        mTxtLogIn = (TextView) findViewById(R.id.txt_login);
         mTxtSoundType = (TextView) findViewById(R.id.txt_sound_type);
+
         String key = CommUtils.getMusicItemKey(this);
         mTxtSoundType.setText(GlobalSetting.CONTENT_MAP.get(key));
     }

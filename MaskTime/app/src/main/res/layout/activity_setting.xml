@@ -17,6 +17,7 @@
         style="@style/SettingBlockStyle">
 
         <TextView
+            android:id="@+id/txt_login"
             style="@style/TextStyle.Setting"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"

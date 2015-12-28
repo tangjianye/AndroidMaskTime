@@ -23,7 +23,7 @@ public class GsonRequest<T> extends Request<T> {
         super(method, url, errorListener);
         // setRetryPolicy(new DefaultRetryPolicy(
         //        Constants.REQUEST_TIMEOUT_MS, Constants.REQUEST_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        LogUtils.i(TAG, "url =" + url);
+        LogUtils.i(TAG, "url = " + url);
 
         mType = type;
         mListener = listener;

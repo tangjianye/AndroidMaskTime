@@ -14,31 +14,6 @@ public class Constants {
      */
     public static final int REQUEST_MAX_RETRIES = 1;
 
-//    /**
-//     * SP关键字
-//     */
-//    public static final String GUIDE_KEY = "guide_key";
-//
-//    /**
-//     * intent关键字
-//     */
-//    public static final String INTENT_KEY = "intent_key";
-//
-//    /**
-//     * bundle关键字
-//     */
-//    public static final String BUNDLE_KEY = "bundle_key";
-//
-//    /**
-//     * bundle关键字
-//     */
-//    public static final String BUNDLE_URL = "bundle_url_key";
-//
-//    /**
-//     * bundle关键字
-//     */
-//    public static final String MUSIC_ITEM_KEY = "music_item_key";
-
     /**
      * SP关键字
      */
@@ -53,6 +28,14 @@ public class Constants {
         public static final String BUNDLE_URL = "bundle_url_key";
         // 通知栏音乐
         public static final String MUSIC_ITEM_KEY = "music_item_key";
+        // 用户UID
+        public static final String ACCOUNT_UID = "account_uid";
+        // 用户名字
+        public static final String ACCOUNT_NAME = "account_name";
+        // 用户密码
+        public static final String ACCOUNT_PASSWORD = "account_password";
+        // 用户头像
+        public static final String ACCOUNT_AVATAR_FILE = "account_avatar_file";
     }
 
     /**

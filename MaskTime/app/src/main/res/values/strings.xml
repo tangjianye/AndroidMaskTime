@@ -44,6 +44,7 @@
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登陆</string>
     <string name="action_sign_in_short">登陆</string>
+    <string name="action_sign_in_quick">快速注册</string>
 
     <string name="error_invalid_account">账号错误</string>
     <string name="error_invalid_email">邮箱错误</string>
