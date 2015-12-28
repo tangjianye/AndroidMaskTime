@@ -15,6 +15,11 @@ public class Constants {
     public static final int REQUEST_MAX_RETRIES = 1;
 
     /**
+     * The default acoount uid
+     */
+    public static final int DEFAULT_UID = 9;
+
+    /**
      * SP关键字
      */
     public static class SPKey {
