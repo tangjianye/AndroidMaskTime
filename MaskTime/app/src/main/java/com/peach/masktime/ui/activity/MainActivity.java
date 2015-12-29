@@ -7,6 +7,7 @@ import android.view.View;
 import com.peach.masktime.BaseApplication;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
+import com.peach.masktime.test.TestActivity;
 import com.peach.masktime.ui.base.BaseActivity;
 
 public class MainActivity extends BaseActivity implements IInit, View.OnClickListener {
@@ -66,8 +67,8 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txt_community:
-                openActivity(CommunityActivity.class);
-                // openActivity(TestActivity.class);
+                // openActivity(CommunityActivity.class);
+                openActivity(TestActivity.class);
                 // Notify.getInstance().show(this);
                 break;
             case R.id.txt_record:
