@@ -20,6 +20,7 @@ public class DBManager {
     private DaoSession mDaoSession;
 
     private NoteDao mNoteDao;
+    private RecordDao mRecordDao;
 
     private DBManager() {
     }
@@ -43,6 +44,7 @@ public class DBManager {
         mDaoSession = mDaoMaster.newSession();
 
         mNoteDao = mDaoSession.getNoteDao();
+        mRecordDao = mDaoSession.getRecordDao();
     }
 
     public SQLiteDatabase getDb() {
@@ -51,5 +53,9 @@ public class DBManager {
 
     public NoteDao getNoteDao() {
         return mNoteDao;
+    }
+
+    public RecordDao getRecordDao() {
+        return mRecordDao;
     }
 }

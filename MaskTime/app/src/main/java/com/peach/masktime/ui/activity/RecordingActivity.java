@@ -17,6 +17,8 @@ import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
+import com.peach.masktime.db.DBManager;
+import com.peach.masktime.db.Record;
 import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.module.net.request.GsonRequest;
@@ -29,6 +31,7 @@ import com.peach.masktime.utils.SPUtils;
 import com.peach.masktime.utils.StringUtils;
 import com.peach.masktime.utils.TimeUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,7 +105,12 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_submit:
-                submit();
+                // submit();
+
+                mAccount = mEtAccount.getText().toString().trim();
+                mPassword = mEtPassword.getText().toString().trim();
+                Record info = new Record(null, mAccount, mPassword, null, null, null, new Date());
+                DBManager.getInstance().getRecordDao().insert(info);
                 break;
             default:
                 break;

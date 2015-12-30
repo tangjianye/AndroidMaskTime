@@ -90,4 +90,16 @@ public class Record {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "Record{" +
+                "content='" + content + '\'' +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", path01='" + path01 + '\'' +
+                ", path02='" + path02 + '\'' +
+                ", path03='" + path03 + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }
