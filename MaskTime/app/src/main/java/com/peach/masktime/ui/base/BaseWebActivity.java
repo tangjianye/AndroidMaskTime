@@ -18,7 +18,7 @@ import com.peach.masktime.utils.StringUtils;
  *
  * @author tangjy
  */
-public class BaseWebActivity extends BaseTitleActivity {
+public abstract class BaseWebActivity extends BaseTitleActivity {
     private static final String TAG = BaseWebActivity.class.getSimpleName();
     protected WebView mWebView = null;
     protected String mUrl = null;
