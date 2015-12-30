@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
                 // Notify.getInstance().show(this);
                 break;
             case R.id.txt_record:
-                openActivity(RecordActivity.class);
+                openActivity(TimelineActivity.class);
                 break;
             case R.id.txt_store:
                 openActivity(AlbumActivity.class);

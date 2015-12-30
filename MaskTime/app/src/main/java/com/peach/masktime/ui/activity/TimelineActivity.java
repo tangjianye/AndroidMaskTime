@@ -6,13 +6,13 @@ import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.ui.base.BaseActivity;
 
-public class RecordActivity extends BaseActivity implements IInit {
-    public static final String TAG = "CommunityActivity";
+public class TimelineActivity extends BaseActivity implements IInit {
+    private static final String TAG = TimelineActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record);
+        setContentView(R.layout.activity_timeline);
         initDatas();
         initTitles();
         initViews();

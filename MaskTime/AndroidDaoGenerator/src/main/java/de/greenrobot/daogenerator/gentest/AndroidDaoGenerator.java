@@ -9,6 +9,7 @@ public class AndroidDaoGenerator {
         Schema schema = new Schema(1, "com.peach.masktime.db");
 
         addNote(schema);
+        addRecord(schema);
         new DaoGenerator().generateAll(schema, "app/src/main/java");
     }
 
@@ -17,6 +18,17 @@ public class AndroidDaoGenerator {
         note.addIdProperty();
         note.addStringProperty("text").notNull();
         note.addStringProperty("comment");
+        note.addDateProperty("date");
+    }
+
+    private static void addRecord(Schema schema) {
+        Entity note = schema.addEntity("Record");
+        note.addIdProperty();
+        note.addStringProperty("title").notNull();
+        note.addStringProperty("content");
+        note.addStringProperty("path01");
+        note.addStringProperty("path02");
+        note.addStringProperty("path03");
         note.addDateProperty("date");
     }
 }
