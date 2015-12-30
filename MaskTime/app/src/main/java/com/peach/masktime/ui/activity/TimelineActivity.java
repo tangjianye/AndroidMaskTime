@@ -1,10 +1,12 @@
 package com.peach.masktime.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.peach.masktime.R;
+import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.db.DBManager;
 import com.peach.masktime.db.Record;
@@ -67,7 +69,7 @@ public class TimelineActivity extends BaseListActivity implements IInit {
         mTitleMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openActivity(RecordingActivity.class);
+                openActivityForResult(RecordingActivity.class, Constants.COMMON_REQUEST_CODE);
             }
         });
     }
@@ -100,7 +102,8 @@ public class TimelineActivity extends BaseListActivity implements IInit {
         LogUtils.i(TAG, "refresh");
 
         for (Record item : list) {
-            RecordBean temp = new RecordBean(null, item.getTitle(), item.getContent(), item.getPath01(), item.getPath02(), item.getPath03(), item.getDate(), false);
+            RecordBean temp = new RecordBean(null, item.getTitle(), item.getContent(),
+                    item.getPath01(), item.getPath02(), item.getPath03(), item.getDate(), false);
             LogUtils.i(TAG, "temp = " + temp);
             mListData.add(temp);
         }
@@ -110,7 +113,12 @@ public class TimelineActivity extends BaseListActivity implements IInit {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogUtils.i(TAG, "onActivityResult");
-        refresh();
+        LogUtils.i(TAG, "onActivityResult requestCode = " + requestCode + " ;resultCode = " + resultCode);
+        if (Activity.RESULT_OK == resultCode) {
+            if (Constants.COMMON_REQUEST_CODE == requestCode) {
+                LogUtils.i(TAG, "xxx onActivityResult requestCode = " + requestCode + " ;resultCode = " + resultCode);
+                refresh();
+            }
+        }
     }
 }

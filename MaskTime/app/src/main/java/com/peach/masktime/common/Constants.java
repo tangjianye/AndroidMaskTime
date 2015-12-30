@@ -15,6 +15,11 @@ public class Constants {
     public static final int REQUEST_MAX_RETRIES = 1;
 
     /**
+     * The default number of retries
+     */
+    public static final int COMMON_REQUEST_CODE = 0x01;
+
+    /**
      * The default acoount uid
      */
     public static final int DEFAULT_UID = 9;

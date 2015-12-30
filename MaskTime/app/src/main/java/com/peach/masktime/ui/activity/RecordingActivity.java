@@ -2,6 +2,7 @@ package com.peach.masktime.ui.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -111,6 +112,7 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
                 mPassword = mEtPassword.getText().toString().trim();
                 Record info = new Record(null, mAccount, mPassword, null, null, null, new Date());
                 DBManager.getInstance().getRecordDao().insert(info);
+                setResult(Activity.RESULT_OK);
                 break;
             default:
                 break;
