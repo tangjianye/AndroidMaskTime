@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Created by tangjy on 2015/10/24.
  */
 public class GlobalSetting {
-    private static final String DATABASE_NAME = "[com.peach.masktime]";
+    public static final String DATABASE_NAME = "masktime";
     // private static final String CHANNEL = "CHANNEL";
 
     /**

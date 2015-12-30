@@ -16,9 +16,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.peach.masktime.R;
-import com.peach.masktime.db.DaoMaster;
-import com.peach.masktime.db.DaoMaster.DevOpenHelper;
-import com.peach.masktime.db.DaoSession;
+import com.peach.masktime.db.DbManager;
 import com.peach.masktime.db.Note;
 import com.peach.masktime.db.NoteDao;
 
@@ -95,8 +93,8 @@ public class TestActivity extends ListActivity {
 
     private EditText editText;
 
-    private DaoMaster daoMaster;
-    private DaoSession daoSession;
+//    private DaoMaster daoMaster;
+//    private DaoSession daoSession;
     private NoteDao noteDao;
 
     private Cursor cursor;
@@ -107,11 +105,13 @@ public class TestActivity extends ListActivity {
 
         setContentView(R.layout.activity_test);
 
-        DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "notes-db", null);
-        db = helper.getWritableDatabase();
-        daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
-        noteDao = daoSession.getNoteDao();
+//        DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "notes-db", null);
+//        db = helper.getWritableDatabase();
+//        daoMaster = new DaoMaster(db);
+//        daoSession = daoMaster.newSession();
+//        noteDao = daoSession.getNoteDao();
+        db = DbManager.getInstance().getDb();
+        noteDao = DbManager.getInstance().getNoteDao();
 
         String textColumn = NoteDao.Properties.Text.columnName;
         String orderBy = textColumn + " COLLATE LOCALIZED ASC";
