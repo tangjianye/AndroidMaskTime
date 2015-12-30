@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Android-PullToRefresh/Android-PullToRefresh.iml" filepath="$PROJECT_DIR$/Android-PullToRefresh/Android-PullToRefresh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidDaoGenerator/AndroidDaoGenerator.iml" filepath="$PROJECT_DIR$/AndroidDaoGenerator/AndroidDaoGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidDaoGenerator/AndroidDaoGenerator.iml" filepath="$PROJECT_DIR$/AndroidDaoGenerator/AndroidDaoGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/MaskTime.iml" filepath="$PROJECT_DIR$/MaskTime.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />

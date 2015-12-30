@@ -1,1 +1,1 @@
-include ':app', ':volley', ':Android-PullToRefresh'
+include ':app', ':volley', ':Android-PullToRefresh', ':AndroidDaoGenerator'
