@@ -3,7 +3,7 @@ package com.peach.masktime;
 import android.app.Application;
 
 import com.peach.masktime.common.AppManager;
-import com.peach.masktime.db.DbManager;
+import com.peach.masktime.db.DBManager;
 import com.peach.masktime.module.net.VolleyManager;
 import com.peach.masktime.ui.notification.Notify;
 import com.peach.masktime.utils.CommUtils;
@@ -19,7 +19,7 @@ public class BaseApplication extends Application {
 
     private void init() {
         // CrashException.getInstance().init(this);
-        DbManager.getInstance().init(this);
+        DBManager.getInstance().init(this);
         VolleyManager.getInstance().init(this);
         Notify.getInstance().init(this);
 

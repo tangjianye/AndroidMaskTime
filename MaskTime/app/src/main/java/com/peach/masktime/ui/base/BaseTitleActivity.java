@@ -1,5 +1,6 @@
 package com.peach.masktime.ui.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -55,7 +56,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
         mTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // setResult(Activity.RESULT_CANCELED, null);
+                setResult(Activity.RESULT_CANCELED, null);
                 finish();
             }
         });

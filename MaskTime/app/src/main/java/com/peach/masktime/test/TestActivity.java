@@ -16,7 +16,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.peach.masktime.R;
-import com.peach.masktime.db.DbManager;
+import com.peach.masktime.db.DBManager;
 import com.peach.masktime.db.Note;
 import com.peach.masktime.db.NoteDao;
 
@@ -110,8 +110,8 @@ public class TestActivity extends ListActivity {
 //        daoMaster = new DaoMaster(db);
 //        daoSession = daoMaster.newSession();
 //        noteDao = daoSession.getNoteDao();
-        db = DbManager.getInstance().getDb();
-        noteDao = DbManager.getInstance().getNoteDao();
+        db = DBManager.getInstance().getDb();
+        noteDao = DBManager.getInstance().getNoteDao();
 
         String textColumn = NoteDao.Properties.Text.columnName;
         String orderBy = textColumn + " COLLATE LOCALIZED ASC";

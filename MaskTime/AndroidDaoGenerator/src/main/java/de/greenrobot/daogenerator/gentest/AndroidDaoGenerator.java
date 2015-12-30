@@ -23,7 +23,7 @@ public class AndroidDaoGenerator {
 
     private static void addRecord(Schema schema) {
         Entity note = schema.addEntity("Record");
-        note.addIdProperty();
+        note.addIdProperty().autoincrement();
         note.addStringProperty("title").notNull();
         note.addStringProperty("content");
         note.addStringProperty("path01");

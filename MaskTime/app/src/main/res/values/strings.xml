@@ -55,4 +55,8 @@
     <!-- Strings related to 注册 -->
     <string name="title_activity_register">注册</string>
     <string name="action_register">注册</string>
+
+    <!-- Strings related to 记录 -->
+    <string name="title_activity_recording">记录</string>
+
 </resources>

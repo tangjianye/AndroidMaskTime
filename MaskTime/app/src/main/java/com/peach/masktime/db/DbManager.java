@@ -7,26 +7,26 @@ import com.peach.masktime.BaseApplication;
 import com.peach.masktime.config.GlobalSetting;
 
 /**
- * DbManager 数据库管理类<br>
+ * DBManager 数据库管理类<br>
  * Created by tangjy on 2015/3/2.
  */
-public class DbManager {
-    private static final String TAG = DbManager.class.getSimpleName();
+public class DBManager {
+    private static final String TAG = DBManager.class.getSimpleName();
 
     private static Context sCtx;
-    private static DbManager sINSTANTCE;
+    private static DBManager sINSTANTCE;
     private SQLiteDatabase mDb;
     private DaoMaster mDaoMaster;
     private DaoSession mDaoSession;
 
     private NoteDao mNoteDao;
 
-    private DbManager() {
+    private DBManager() {
     }
 
-    public static synchronized DbManager getInstance() {
+    public static synchronized DBManager getInstance() {
         if (sINSTANTCE == null) {
-            sINSTANTCE = new DbManager();
+            sINSTANTCE = new DBManager();
         }
         return sINSTANTCE;
     }
