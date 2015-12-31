@@ -8,12 +8,13 @@ import android.view.View;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
-import com.peach.masktime.db.DBManager;
+import com.peach.masktime.db.DBRecordHelper;
 import com.peach.masktime.db.Record;
 import com.peach.masktime.ui.adapter.TimelineAdapter;
 import com.peach.masktime.ui.base.BaseListActivity;
 import com.peach.masktime.ui.beans.RecordBean;
 import com.peach.masktime.utils.LogUtils;
+import com.peach.masktime.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,16 +101,29 @@ public class TimelineActivity extends BaseListActivity implements IInit {
 
     private void refresh() {
         LogUtils.i(TAG, "refresh");
-        List<Record> list = DBManager.getInstance().getRecordDao().loadAll();
-        mListData.clear();
+        // List<Record> list = DBManager.getInstance().getRecordDao().loadAll();
+        List<Record> list = DBRecordHelper.getInstance().loadAllByDate();
 
-        for (Record item : list) {
-            RecordBean temp = new RecordBean(null, item.getTitle(), item.getContent(),
-                    item.getPath01(), item.getPath02(), item.getPath03(), item.getDate(), false);
-            LogUtils.i(TAG, "temp = " + temp);
-            mListData.add(temp);
+        if (null != list && list.size() > 0) {
+            String day = null;
+            mListData.clear();
+            for (int i = 0; i < list.size(); i++) {
+                boolean isDay = false;
+                Record item = list.get(i);
+
+                String tmpDay = TimeUtils.getTime(item.getDate(), TimeUtils.DATE_FORMAT_DAY);
+                if (null == day || !day.equals(tmpDay)) {
+                    isDay = true;
+                }
+                day = tmpDay;
+
+                RecordBean temp = new RecordBean(null, item.getTitle(), item.getContent(),
+                        item.getPath01(), item.getPath02(), item.getPath03(), item.getDate(), isDay);
+                LogUtils.i(TAG, "temp = " + temp);
+                mListData.add(temp);
+            }
+            mListAdapter.notifyDataSetChanged();
         }
-        mListAdapter.notifyDataSetChanged();
     }
 
     @Override

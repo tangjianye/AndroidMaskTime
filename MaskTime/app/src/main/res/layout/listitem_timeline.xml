@@ -8,6 +8,7 @@
         android:id="@+id/ly_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/pink"
         android:orientation="horizontal">
 
         <ImageView
@@ -17,7 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
-            android:src="@drawable/place_holder" />
+            android:src="@drawable/btn_record_normal" />
 
         <TextView
             android:id="@+id/txt_title_data"
@@ -37,6 +38,7 @@
         android:id="@+id/ly_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout

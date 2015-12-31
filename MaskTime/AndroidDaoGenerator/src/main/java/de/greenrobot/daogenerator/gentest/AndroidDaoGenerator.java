@@ -14,21 +14,21 @@ public class AndroidDaoGenerator {
     }
 
     private static void addNote(Schema schema) {
-        Entity note = schema.addEntity("Note");
-        note.addIdProperty();
-        note.addStringProperty("text").notNull();
-        note.addStringProperty("comment");
-        note.addDateProperty("date");
+        Entity entity = schema.addEntity("Note");
+        entity.addIdProperty();
+        entity.addStringProperty("text").notNull();
+        entity.addStringProperty("comment");
+        entity.addDateProperty("date");
     }
 
     private static void addRecord(Schema schema) {
-        Entity note = schema.addEntity("Record");
-        note.addIdProperty().autoincrement();
-        note.addStringProperty("title").notNull();
-        note.addStringProperty("content");
-        note.addStringProperty("path01");
-        note.addStringProperty("path02");
-        note.addStringProperty("path03");
-        note.addDateProperty("date");
+        Entity entity = schema.addEntity("Record");
+        entity.addIdProperty().autoincrement();
+        entity.addStringProperty("title").notNull();
+        entity.addStringProperty("content");
+        entity.addStringProperty("path01");
+        entity.addStringProperty("path02");
+        entity.addStringProperty("path03");
+        entity.addLongProperty("date").notNull();
     }
 }

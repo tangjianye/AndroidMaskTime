@@ -7,7 +7,7 @@ import com.peach.masktime.BaseApplication;
 import com.peach.masktime.config.GlobalSetting;
 
 /**
- * DBManager 数据库管理类<br>
+ * DBManager 数据库统一管理类<br> 负责数据库表的统一创建，获取和销毁的动作。不负责具体表的添删改查操作。
  * Created by tangjy on 2015/3/2.
  */
 public class DBManager {
@@ -57,5 +57,10 @@ public class DBManager {
 
     public RecordDao getRecordDao() {
         return mRecordDao;
+    }
+
+    public void deleteAll() {
+        mNoteDao.deleteAll();
+        mRecordDao.deleteAll();
     }
 }

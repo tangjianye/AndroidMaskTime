@@ -2,8 +2,6 @@ package com.peach.masktime.ui.beans;
 
 import com.peach.masktime.db.Record;
 
-import java.util.Date;
-
 /**
  * Entity mapped to table RECORD.
  */
@@ -13,7 +11,7 @@ public class RecordBean extends Record {
     public RecordBean() {
     }
 
-    public RecordBean(Long id, String title, String content, String path01, String path02, String path03, Date date, boolean isFirstData) {
+    public RecordBean(Long id, String title, String content, String path01, String path02, String path03, Long date, boolean isFirstData) {
         super(id, title, content, path01, path02, path03, date);
         this.isFirstData = isFirstData;
     }

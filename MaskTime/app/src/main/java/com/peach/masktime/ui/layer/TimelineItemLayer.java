@@ -10,8 +10,6 @@ import com.peach.masktime.R;
 import com.peach.masktime.ui.beans.RecordBean;
 import com.peach.masktime.utils.TimeUtils;
 
-import java.text.SimpleDateFormat;
-
 /**
  * Created by Administrator on 2015/11/20 0020.
  */
@@ -51,21 +49,16 @@ public class TimelineItemLayer extends LinearLayout {
         }
         RecordBean info = (RecordBean) obj;
 
-        SimpleDateFormat formatter = TimeUtils.DATE_FORMAT_DATE;
-        String dateString = formatter.format(info.getDate());
+        if (info.isFirstData()) {
+            mLyTitle.setVisibility(VISIBLE);
 
-//        if (info.isFirstData()) {
-//            mLyTitle.setVisibility(VISIBLE);
-//            TimeUtils.getCurrentTimeInString();
-//            mTitleData.setText(dateString);
-//        } else {
-//            mLyTitle.setVisibility(GONE);
-//        }
-
-        mTitleData.setText(dateString);
-        mTitleNum.setText("2条");
+            mTitleData.setText(TimeUtils.getTime(info.getDate(), TimeUtils.DATE_FORMAT_DAY));
+            mTitleNum.setText("2条");
+        } else {
+            mLyTitle.setVisibility(GONE);
+        }
 
         mBodyTitle.setText(info.getTitle());
-        mBodyContent.setText(info.getContent());
+        mBodyContent.setText(TimeUtils.getTime(info.getDate(), TimeUtils.DATE_FORMAT_HH_MM_SS));
     }
 }

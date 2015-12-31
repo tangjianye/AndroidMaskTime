@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
-import com.peach.masktime.db.DBManager;
+import com.peach.masktime.db.DBRecordHelper;
 import com.peach.masktime.db.Record;
 import com.peach.masktime.module.net.API;
 import com.peach.masktime.module.net.VolleyManager;
@@ -82,7 +82,7 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
 
     @Override
     public void initTitles() {
-        mTitleTips.setText(TimeUtils.getCurrentTimeInString(TimeUtils.DATE_FORMAT_DATE));
+        mTitleTips.setText(TimeUtils.getCurrentTimeInString(TimeUtils.DATE_FORMAT_DAY));
     }
 
     @Override
@@ -109,8 +109,9 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
 
                 mAccount = mEtAccount.getText().toString().trim();
                 mPassword = mEtPassword.getText().toString().trim();
-                Record info = new Record(null, mAccount, mPassword, null, null, null, new java.util.Date());
-                DBManager.getInstance().getRecordDao().insert(info);
+                Record info = new Record(null, mAccount, mPassword, null, null, null, System.currentTimeMillis());
+                // DBManager.getInstance().getRecordDao().insert(info);
+                DBRecordHelper.getInstance().save(info);
                 setResult(Activity.RESULT_OK);
                 break;
             default:

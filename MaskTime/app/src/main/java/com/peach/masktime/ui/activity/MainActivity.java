@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
                 // openActivity(CommunityActivity.class);
                 // openActivity(TestActivity.class);
                 // Notify.getInstance().show(this);
-                DBManager.getInstance().getRecordDao().deleteAll();
+                DBManager.getInstance().deleteAll();
                 break;
             case R.id.txt_record:
                 openActivity(TimelineActivity.class);

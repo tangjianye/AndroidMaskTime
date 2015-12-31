@@ -13,7 +13,7 @@ public class Record {
     private String path01;
     private String path02;
     private String path03;
-    private java.util.Date date;
+    private Long date;
 
     public Record() {
     }
@@ -22,7 +22,7 @@ public class Record {
         this.id = id;
     }
 
-    public Record(Long id, String title, String content, String path01, String path02, String path03, java.util.Date date) {
+    public Record(Long id, String title, String content, String path01, String path02, String path03, Long date) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -82,24 +82,12 @@ public class Record {
         this.path03 = path03;
     }
 
-    public java.util.Date getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(java.util.Date date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "Record{" +
-                "content='" + content + '\'' +
-                ", id=" + id +
-                ", title='" + title + '\'' +
-                ", path01='" + path01 + '\'' +
-                ", path02='" + path02 + '\'' +
-                ", path03='" + path03 + '\'' +
-                ", date=" + date +
-                '}';
-    }
 }
