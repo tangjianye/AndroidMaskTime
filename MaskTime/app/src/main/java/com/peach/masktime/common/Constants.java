@@ -20,6 +20,11 @@ public class Constants {
     public static final int COMMON_REQUEST_CODE = 1001;
 
     /**
+     * The default list page count
+     */
+    public static final int PAGE_COUNT = 3;
+
+    /**
      * The default acoount uid
      */
     public static final int DEFAULT_UID = 9;

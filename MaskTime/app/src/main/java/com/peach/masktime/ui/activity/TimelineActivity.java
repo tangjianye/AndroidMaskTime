@@ -26,6 +26,8 @@ public class TimelineActivity extends BaseListActivity implements IInit {
 
     private ArrayList<RecordBean> mListData;
 
+    private int mPage = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,8 +82,6 @@ public class TimelineActivity extends BaseListActivity implements IInit {
     public void initViews() {
         mListAdapter = new TimelineAdapter(this, mListData);
         mListView.setAdapter(mListAdapter);
-
-        refreshContentTips(true);
     }
 
     @Override
@@ -91,38 +91,59 @@ public class TimelineActivity extends BaseListActivity implements IInit {
 
     @Override
     protected void pullDown() {
-
+        mPage = 1;
+        refresh();
     }
 
     @Override
     protected void pullUp() {
-
+        refresh();
     }
 
     private void refresh() {
         LogUtils.i(TAG, "refresh");
-        // List<Record> list = DBManager.getInstance().getRecordDao().loadAll();
         List<Record> list = DBRecordHelper.getInstance().loadAllByDate();
 
         if (null != list && list.size() > 0) {
-            String day = null;
-            mListData.clear();
-            for (int i = 0; i < list.size(); i++) {
-                boolean isDay = false;
-                Record item = list.get(i);
+            rebuildListData(list, mPage * Constants.PAGE_COUNT);
+        } else {
+            refreshContentTips(mListData.size() > 0 ? false : true);
+            refreshCompleteQuick();
+        }
+    }
 
-                String tmpDay = TimeUtils.getTime(item.getDate(), TimeUtils.DATE_FORMAT_DAY);
-                if (null == day || !day.equals(tmpDay)) {
-                    isDay = true;
-                }
-                day = tmpDay;
+    private void rebuildListData(List<Record> list, int pageSize) {
+        int count = 0;
+        String day = null;
+        int rebuildSize = (list.size() > pageSize) ? pageSize : list.size();
 
-                RecordBean temp = new RecordBean(null, item.getTitle(), item.getContent(),
-                        item.getPath01(), item.getPath02(), item.getPath03(), item.getDate(), isDay);
-                LogUtils.i(TAG, "temp = " + temp);
-                mListData.add(temp);
+        mListData.clear();
+        for (int i = 0; i < rebuildSize; i++) {
+            boolean isDay = false;
+            Record item = list.get(i);
+
+            String tmpDay = TimeUtils.getTime(item.getDate(), TimeUtils.DATE_FORMAT_DAY);
+            if (null == day || !day.equals(tmpDay)) {
+                isDay = true;
+                count = 0;
             }
+            count++;
+            day = tmpDay;
+
+            RecordBean temp = new RecordBean(null, item.getTitle(), item.getContent(),
+                    item.getPath01(), item.getPath02(), item.getPath03(), item.getDate(), count, isDay);
+            // LogUtils.i(TAG, "temp = " + temp);
+            mListData.add(temp);
             mListAdapter.notifyDataSetChanged();
+
+            // 页面计数加一
+            mPage++;
+        }
+
+        refreshContentTips(mListData.size() > 0 ? false : true);
+        refreshCompleteQuick();
+        if (list.size() <= pageSize) {
+            showToast(R.string.default_no_more_date);
         }
     }
 

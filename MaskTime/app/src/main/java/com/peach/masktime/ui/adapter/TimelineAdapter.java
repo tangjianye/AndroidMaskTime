@@ -58,7 +58,7 @@ public class TimelineAdapter extends BaseAdapter {
 //            holder = (TimelineViewHolder) convertView.getTag();
 //        }
 //
-//        if (info.isFirstData()) {
+//        if (info.isFirstDay()) {
 //
 //        } else {
 //

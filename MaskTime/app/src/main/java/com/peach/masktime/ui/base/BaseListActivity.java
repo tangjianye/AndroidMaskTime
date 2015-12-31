@@ -8,6 +8,7 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.peach.masktime.R;
+import com.peach.masktime.utils.LogUtils;
 import com.peach.masktime.utils.TimeUtils;
 
 
@@ -18,6 +19,10 @@ import com.peach.masktime.utils.TimeUtils;
  */
 public abstract class BaseListActivity extends BaseTitleActivity {
     private static final String TAG = BaseListActivity.class.getSimpleName();
+    /**
+     * 延迟100毫秒刷新列表
+     */
+    private static final long DELAY = 100;
     /**
      * 没有数据的显示
      */
@@ -65,7 +70,21 @@ public abstract class BaseListActivity extends BaseTitleActivity {
      * 重新设置xlistview的状态
      */
     protected void refreshComplete() {
+        LogUtils.i(TAG, "refreshComplete");
         mListView.onRefreshComplete();
+    }
+
+    /**
+     * 快速刷新回调
+     */
+    protected void refreshCompleteQuick() {
+        LogUtils.i(TAG, "refreshComplete2");
+        mListView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mListView.onRefreshComplete();
+            }
+        }, DELAY);
     }
 
     /**

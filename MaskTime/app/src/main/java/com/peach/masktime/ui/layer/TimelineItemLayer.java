@@ -49,7 +49,7 @@ public class TimelineItemLayer extends LinearLayout {
         }
         RecordBean info = (RecordBean) obj;
 
-        if (info.isFirstData()) {
+        if (info.isFirstDay()) {
             mLyTitle.setVisibility(VISIBLE);
 
             mTitleData.setText(TimeUtils.getTime(info.getDate(), TimeUtils.DATE_FORMAT_DAY));
