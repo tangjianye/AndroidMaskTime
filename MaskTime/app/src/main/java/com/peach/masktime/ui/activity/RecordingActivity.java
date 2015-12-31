@@ -121,6 +121,7 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
             set.start();
         } else {
             saveLocal();
+            finish();
             // request(url, mTitle, mContent);
         }
     }

@@ -22,7 +22,7 @@ public class Constants {
     /**
      * The default list page count
      */
-    public static final int PAGE_COUNT = 3;
+    public static final int PAGE_COUNT = 5;
 
     /**
      * The default acoount uid
