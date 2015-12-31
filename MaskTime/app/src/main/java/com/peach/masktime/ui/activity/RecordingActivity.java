@@ -38,12 +38,11 @@ import java.util.Map;
 public class RecordingActivity extends BaseTitleActivity implements IInit, View.OnClickListener {
     private static final String TAG = RecordingActivity.class.getSimpleName();
 
-    private String mAccount;
-    private String mPassword;
+    private String mTitle;
+    private String mContent;
 
-    private EditText mEtAccount;
-    private EditText mEtPassword;
-    private EditText mEtEmail;
+    private EditText mEtTitle;
+    private EditText mEtContent;
     private Button mBtnSubmit;
 
     @Override
@@ -87,13 +86,9 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
 
     @Override
     public void initViews() {
-        mEtAccount = (EditText) findViewById(R.id.et_account);
-        mEtPassword = (EditText) findViewById(R.id.et_password);
-        mEtEmail = (EditText) findViewById(R.id.et_email);
+        mEtTitle = (EditText) findViewById(R.id.et_title);
+        mEtContent = (EditText) findViewById(R.id.et_content);
         mBtnSubmit = (Button) findViewById(R.id.btn_submit);
-        mBtnSubmit.setText(R.string.action_sign_in);
-
-        mEtEmail.setVisibility(View.GONE);
     }
 
     @Override
@@ -105,14 +100,7 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_submit:
-                // submit();
-
-                mAccount = mEtAccount.getText().toString().trim();
-                mPassword = mEtPassword.getText().toString().trim();
-                Record info = new Record(null, mAccount, mPassword, null, null, null, System.currentTimeMillis());
-                // DBManager.getInstance().getRecordDao().insert(info);
-                DBRecordHelper.getInstance().save(info);
-                setResult(Activity.RESULT_OK);
+                submit();
                 break;
             default:
                 break;
@@ -122,19 +110,26 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
     private void submit() {
         AnimatorSet set = getAnimatorSet(mBtnSubmit);
         String url = API.getUrl(API.LOGIN);
-        mAccount = mEtAccount.getText().toString().trim();
-        mPassword = mEtPassword.getText().toString().trim();
+        mTitle = mEtTitle.getText().toString().trim();
+        mContent = mEtContent.getText().toString().trim();
 
-        if (StringUtils.isEmpty(mAccount)) {
-            showToast(R.string.error_invalid_account);
+        if (StringUtils.isEmpty(mTitle)) {
+            showToast(R.string.error_invalid_title);
             set.start();
-        } else if (StringUtils.isEmpty(mPassword)) {
-            showToast(R.string.error_invalid_password);
+        } else if (StringUtils.isEmpty(mContent)) {
+            showToast(R.string.error_invalid_content);
             set.start();
         } else {
-            // request(url, "yoyo1", "870914");
-            request(url, mAccount, mPassword);
+            saveLocal();
+            // request(url, mTitle, mContent);
         }
+    }
+
+    private void saveLocal() {
+        Record info = new Record(null, mTitle, mContent, null, null, null, System.currentTimeMillis());
+        // DBManager.getInstance().getRecordDao().insert(info);
+        DBRecordHelper.getInstance().save(info);
+        setResult(Activity.RESULT_OK);
     }
 
     @NonNull

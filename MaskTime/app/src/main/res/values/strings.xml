@@ -58,5 +58,11 @@
 
     <!-- Strings related to 记录 -->
     <string name="title_activity_recording">记录</string>
+    <string name="prompt_record_title">快来为你的心得取一个名字吧</string>
+    <string name="prompt_record_note">快来记录你的心得体会吧</string>
+    <string name="action_submit">提交</string>
+
+    <string name="error_invalid_title">心得标题为空</string>
+    <string name="error_invalid_content">心得内容为空</string>
 
 </resources>
