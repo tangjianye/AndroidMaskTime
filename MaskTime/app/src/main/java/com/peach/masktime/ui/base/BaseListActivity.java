@@ -8,7 +8,6 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.peach.masktime.R;
-import com.peach.masktime.utils.LogUtils;
 import com.peach.masktime.utils.TimeUtils;
 
 
@@ -70,7 +69,7 @@ public abstract class BaseListActivity extends BaseTitleActivity {
      * 重新设置xlistview的状态
      */
     protected void refreshComplete() {
-        LogUtils.i(TAG, "refreshComplete");
+        // LogUtils.i(TAG, "refreshComplete");
         mListView.onRefreshComplete();
     }
 
@@ -78,7 +77,7 @@ public abstract class BaseListActivity extends BaseTitleActivity {
      * 快速刷新回调
      */
     protected void refreshCompleteQuick() {
-        LogUtils.i(TAG, "refreshComplete2");
+        // LogUtils.i(TAG, "refreshComplete2");
         mListView.postDelayed(new Runnable() {
             @Override
             public void run() {

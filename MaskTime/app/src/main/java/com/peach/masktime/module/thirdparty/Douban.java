@@ -12,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 /**
  * Created by Administrator on 2015/12/8 0008.
  */
@@ -60,12 +62,12 @@ public class Douban {
                     public void onResponse(JSONObject response) {
                         try {
                             LogUtils.i(TAG, "response = " + response.toString(50));
-                            int id = 1;
                             JSONObject data = response.getJSONObject("data");
                             JSONArray channels = data.getJSONArray("channels");
                             if (channels.length() > 0) {
-                                JSONObject channel = (JSONObject) channels.get(0);
-                                id = channel.getInt("id");
+                                int pos = new Random().nextInt(channels.length());
+                                JSONObject channel = (JSONObject) channels.get(pos);
+                                int id = channel.getInt("id");
 
                                 // 获取音乐列表
                                 isRequestPlayList(context, id, listener);

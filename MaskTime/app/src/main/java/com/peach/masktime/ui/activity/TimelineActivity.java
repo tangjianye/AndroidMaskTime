@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
@@ -37,7 +38,7 @@ public class TimelineActivity extends BaseListActivity implements IInit {
         initViews();
         initEvents();
 
-        refresh();
+        pullDown();
     }
 
 //    @Override
@@ -80,6 +81,8 @@ public class TimelineActivity extends BaseListActivity implements IInit {
 
     @Override
     public void initViews() {
+        mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+
         mListAdapter = new TimelineAdapter(this, mListData);
         mListView.setAdapter(mListAdapter);
     }
@@ -116,6 +119,7 @@ public class TimelineActivity extends BaseListActivity implements IInit {
         int count = 0;
         String day = null;
         int rebuildSize = (list.size() > pageSize) ? pageSize : list.size();
+        LogUtils.i(TAG, "rebuildListData pageSize = " + pageSize + " ;rebuildSize = " + rebuildSize);
 
         mListData.clear();
         for (int i = 0; i < rebuildSize; i++) {
@@ -135,11 +139,12 @@ public class TimelineActivity extends BaseListActivity implements IInit {
             // LogUtils.i(TAG, "temp = " + temp);
             mListData.add(temp);
             mListAdapter.notifyDataSetChanged();
-
-            // 页面计数加一
-            mPage++;
         }
 
+        // 页面计数加一
+        mPage++;
+
+        // 刷新UI
         refreshContentTips(mListData.size() > 0 ? false : true);
         refreshCompleteQuick();
         if (list.size() <= pageSize) {

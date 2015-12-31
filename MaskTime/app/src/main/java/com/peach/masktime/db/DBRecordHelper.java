@@ -43,7 +43,7 @@ public class DBRecordHelper {
     public List<Record> loadAllByDate() {
         Query<Record> query = mRecordDao
                 .queryBuilder()
-                .orderAsc(RecordDao.Properties.Date)
+                .orderDesc(RecordDao.Properties.Date)
                 .build();
         return query.list();
     }

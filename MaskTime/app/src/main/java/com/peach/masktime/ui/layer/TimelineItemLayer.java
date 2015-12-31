@@ -54,6 +54,7 @@ public class TimelineItemLayer extends LinearLayout {
 
             mTitleData.setText(TimeUtils.getTime(info.getDate(), TimeUtils.DATE_FORMAT_DAY));
             mTitleNum.setText("2条");
+            mTitleNum.setVisibility(GONE);
         } else {
             mLyTitle.setVisibility(GONE);
         }
