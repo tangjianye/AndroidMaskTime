@@ -32,7 +32,6 @@ import com.peach.masktime.utils.SPUtils;
 import com.peach.masktime.utils.StringUtils;
 import com.peach.masktime.utils.TimeUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,11 +45,11 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
     private EditText mEtPassword;
     private EditText mEtEmail;
     private Button mBtnSubmit;
-    // private TextView mTxtQuicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtils.i(TAG, "onCreate");
         initDatas();
         initTitles();
         initViews();
@@ -110,7 +109,7 @@ public class RecordingActivity extends BaseTitleActivity implements IInit, View.
 
                 mAccount = mEtAccount.getText().toString().trim();
                 mPassword = mEtPassword.getText().toString().trim();
-                Record info = new Record(null, mAccount, mPassword, null, null, null, new Date());
+                Record info = new Record(null, mAccount, mPassword, null, null, null, new java.util.Date());
                 DBManager.getInstance().getRecordDao().insert(info);
                 setResult(Activity.RESULT_OK);
                 break;

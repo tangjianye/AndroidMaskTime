@@ -28,6 +28,7 @@ public class TimelineActivity extends BaseListActivity implements IInit {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtils.i(TAG, "onCreate");
         initDatas();
         initTitles();
         initViews();
@@ -98,8 +99,9 @@ public class TimelineActivity extends BaseListActivity implements IInit {
     }
 
     private void refresh() {
-        List<Record> list = DBManager.getInstance().getRecordDao().loadAll();
         LogUtils.i(TAG, "refresh");
+        List<Record> list = DBManager.getInstance().getRecordDao().loadAll();
+        mListData.clear();
 
         for (Record item : list) {
             RecordBean temp = new RecordBean(null, item.getTitle(), item.getContent(),
@@ -116,7 +118,6 @@ public class TimelineActivity extends BaseListActivity implements IInit {
         LogUtils.i(TAG, "onActivityResult requestCode = " + requestCode + " ;resultCode = " + resultCode);
         if (Activity.RESULT_OK == resultCode) {
             if (Constants.COMMON_REQUEST_CODE == requestCode) {
-                LogUtils.i(TAG, "xxx onActivityResult requestCode = " + requestCode + " ;resultCode = " + resultCode);
                 refresh();
             }
         }
