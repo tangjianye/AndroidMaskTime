@@ -19,7 +19,7 @@ import com.peach.masktime.ui.view.ScrollViewPager;
 import java.util.ArrayList;
 
 public class CommunityActivity extends BaseActivity implements IInit, View.OnClickListener {
-    private static final String TAG = "CommunityActivity";
+    private static final String TAG = CommunityActivity.class.getSimpleName();
     private static final int SELECTED_ITEM_INDEX = 0;
     /**
      * 标题选择
@@ -96,7 +96,20 @@ public class CommunityActivity extends BaseActivity implements IInit, View.OnCli
 
         mPageAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(), getFragmentList());
         mViewPager.setAdapter(mPageAdapter);
-        mViewPager.setOnPageChangeListener(mPageChangeListener);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageSelected(int arg0) {
+                setIndicatorSelected(arg0);
+            }
+        });
     }
 
     @Override
@@ -130,18 +143,18 @@ public class CommunityActivity extends BaseActivity implements IInit, View.OnCli
         return list;
     }
 
-    private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-        }
-
-        @Override
-        public void onPageSelected(int arg0) {
-            setIndicatorSelected(arg0);
-        }
-    };
+//    private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
+//        @Override
+//        public void onPageScrollStateChanged(int arg0) {
+//        }
+//
+//        @Override
+//        public void onPageScrolled(int arg0, float arg1, int arg2) {
+//        }
+//
+//        @Override
+//        public void onPageSelected(int arg0) {
+//            setIndicatorSelected(arg0);
+//        }
+//    };
 }

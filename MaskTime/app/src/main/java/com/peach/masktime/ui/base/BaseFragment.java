@@ -32,4 +32,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
+    public BaseActivity getBaseActivity() {
+        return (BaseActivity)getActivity();
+    }
 }
