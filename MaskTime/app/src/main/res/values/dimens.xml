@@ -65,6 +65,15 @@
     <dimen name="android_divider_height_middle">2dp</dimen>
     <dimen name="android_divider_height_normal">1dp</dimen>
     <dimen name="android_divider_height_micro">1px</dimen>
+
+    <dimen name="size2">2dp</dimen>
+    <dimen name="size4">4dp</dimen>
+    <dimen name="size8">8dp</dimen>
+    <dimen name="size10">10dp</dimen>
+    <dimen name="size50">50dp</dimen>
+    <dimen name="size100">100dp</dimen>
+    <dimen name="size120">120dp</dimen>
+    <dimen name="size200">200dp</dimen>
     <!-- 其他 -->
     <!-- Default app dimen, per the Android Design guidelines. End -->
 

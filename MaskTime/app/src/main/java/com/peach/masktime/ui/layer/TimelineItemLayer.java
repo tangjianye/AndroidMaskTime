@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.peach.masktime.R;
-import com.peach.masktime.ui.beans.RecordBean;
+import com.peach.masktime.ui.beans.TimelineBean;
 import com.peach.masktime.utils.TimeUtils;
 
 /**
@@ -37,7 +37,7 @@ public class TimelineItemLayer extends LinearLayout {
         mLyTitle = findViewById(R.id.ly_title);
         mLyBody = findViewById(R.id.ly_body);
 
-        mTitleData = (TextView) findViewById(R.id.txt_title_data);
+        mTitleData = (TextView) findViewById(R.id.txt_title_date);
         mTitleNum = (TextView) findViewById(R.id.txt_title_num);
         mBodyTitle = (TextView) findViewById(R.id.txt_body_title);
         mBodyContent = (TextView) findViewById(R.id.txt_body_content);
@@ -47,17 +47,17 @@ public class TimelineItemLayer extends LinearLayout {
         if (null == obj) {
             return;
         }
-        RecordBean info = (RecordBean) obj;
+        TimelineBean info = (TimelineBean) obj;
 
-        if (info.isFirstDay()) {
-            mLyTitle.setVisibility(VISIBLE);
-
-            mTitleData.setText(TimeUtils.getTime(info.getDate(), TimeUtils.DATE_FORMAT_DAY));
-            mTitleNum.setText("2条");
-            mTitleNum.setVisibility(GONE);
-        } else {
-            mLyTitle.setVisibility(GONE);
-        }
+//        if (info.isFirst()) {
+//            mLyTitle.setVisibility(VISIBLE);
+//
+//            mTitleData.setText(TimeUtils.getTime(info.getDate(), TimeUtils.DATE_FORMAT_DAY));
+//            mTitleNum.setText("2条");
+//            mTitleNum.setVisibility(GONE);
+//        } else {
+//            mLyTitle.setVisibility(GONE);
+//        }
 
         mBodyTitle.setText(info.getTitle());
         mBodyContent.setText(TimeUtils.getTime(info.getDate(), TimeUtils.DATE_FORMAT_HH_MM_SS));

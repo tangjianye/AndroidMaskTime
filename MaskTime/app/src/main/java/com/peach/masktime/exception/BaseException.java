@@ -8,4 +8,5 @@ package com.peach.masktime.exception;
  */
 public class BaseException extends Exception {
 
+
 }

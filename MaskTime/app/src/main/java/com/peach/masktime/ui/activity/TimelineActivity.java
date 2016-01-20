@@ -11,9 +11,8 @@ import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.db.DBRecordHelper;
 import com.peach.masktime.db.Record;
-import com.peach.masktime.ui.adapter.TimelineAdapter;
+import com.peach.masktime.ui.adapter.TimelineGroupAdapter;
 import com.peach.masktime.ui.base.BaseListActivity;
-import com.peach.masktime.ui.beans.RecordBean;
 import com.peach.masktime.utils.LogUtils;
 import com.peach.masktime.utils.TimeUtils;
 
@@ -23,11 +22,9 @@ import java.util.List;
 public class TimelineActivity extends BaseListActivity implements IInit {
     private static final String TAG = TimelineActivity.class.getSimpleName();
 
-    private TimelineAdapter mListAdapter;
-
-    private ArrayList<RecordBean> mListData;
-
-    private int mPage = 1;
+    private TimelineGroupAdapter mListAdapter;
+    private ArrayList<ArrayList<Record>> mGroupData;
+    private int mPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +60,7 @@ public class TimelineActivity extends BaseListActivity implements IInit {
 
     @Override
     public void initDatas() {
-        mListData = new ArrayList<>();
+        mGroupData = new ArrayList<>();
     }
 
     @Override
@@ -83,7 +80,7 @@ public class TimelineActivity extends BaseListActivity implements IInit {
     public void initViews() {
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
 
-        mListAdapter = new TimelineAdapter(this, mListData);
+        mListAdapter = new TimelineGroupAdapter(this, mGroupData);
         mListView.setAdapter(mListAdapter);
     }
 
@@ -110,46 +107,55 @@ public class TimelineActivity extends BaseListActivity implements IInit {
         if (null != list && list.size() > 0) {
             rebuildListData(list, mPage * Constants.PAGE_COUNT);
         } else {
-            refreshContentTips(mListData.size() > 0 ? false : true);
+            refreshContentTips(list.size() > 0 ? false : true);
             refreshCompleteQuick();
         }
     }
 
     private void rebuildListData(List<Record> list, int pageSize) {
-        int count = 0;
-        String day = null;
-        int rebuildSize = (list.size() > pageSize) ? pageSize : list.size();
-        LogUtils.i(TAG, "rebuildListData pageSize = " + pageSize + " ;rebuildSize = " + rebuildSize);
-
-        mListData.clear();
-        for (int i = 0; i < rebuildSize; i++) {
-            boolean isDay = false;
-            Record item = list.get(i);
-
-            String tmpDay = TimeUtils.getTime(item.getDate(), TimeUtils.DATE_FORMAT_DAY);
-            if (null == day || !day.equals(tmpDay)) {
-                isDay = true;
-                count = 0;
-            }
-            count++;
-            day = tmpDay;
-
-            RecordBean temp = new RecordBean(null, item.getTitle(), item.getContent(),
-                    item.getPath01(), item.getPath02(), item.getPath03(), item.getDate(), count, isDay);
-            // LogUtils.i(TAG, "temp = " + temp);
-            mListData.add(temp);
-            mListAdapter.notifyDataSetChanged();
-        }
+        groupBy(list);
+        boolean noMoreData = filterGroupByPage(pageSize / Constants.PAGE_COUNT);
+        mListAdapter.notifyDataSetChanged();
 
         // 页面计数加一
         mPage++;
 
         // 刷新UI
-        refreshContentTips(mListData.size() > 0 ? false : true);
+        refreshContentTips(list.size() > 0 ? false : true);
         refreshCompleteQuick();
-        if (list.size() <= pageSize) {
+        LogUtils.i(TAG, "rebuildListData pageSize = " + pageSize + " ;list.size() = " + list.size());
+        if (noMoreData) {
             showToast(R.string.default_no_more_date);
         }
+    }
+
+    private void groupBy(final List<Record> list) {
+        mGroupData.clear();
+        ArrayList<Record> childData = null;
+        String preDate = null;
+
+        for (Record item : list) {
+            String date = TimeUtils.getTime(item.getDate(), TimeUtils.DATE_FORMAT_DAY);
+            if (null == preDate || !preDate.equals(date)) {
+                childData = new ArrayList<>();
+                mGroupData.add(childData);
+            }
+            childData.add(item);
+            preDate = date;
+        }
+    }
+
+    private boolean filterGroupByPage(int page) {
+        if (1 == mGroupData.size() || mGroupData.size() <= page) {
+            return true;
+        }
+
+        int min = Math.min(mGroupData.size(), page) - 1;
+        int max = Math.max(mGroupData.size(), page) - 1;
+        for (int i = max; i > min; i--) {
+            mGroupData.remove(i);
+        }
+        return false;
     }
 
     @Override
