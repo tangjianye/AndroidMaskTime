@@ -12,13 +12,12 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.ImageView;
 
-import com.android.volley.toolbox.NetworkImageView;
-import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.config.GlobalSetting;
+import com.peach.masktime.module.image.ImageLoaderManager;
 import com.peach.masktime.module.net.API;
-import com.peach.masktime.module.net.VolleyManager;
 
 import java.io.Serializable;
 import java.util.List;
@@ -156,17 +155,27 @@ public class CommUtils {
         return channel;
     }
 
+//    /**
+//     * 设置图片显示
+//     *
+//     * @param context
+//     * @param view
+//     * @param url
+//     */
+//    public static void setImageUrl(Context context, NetworkImageView view, String url) {
+//        view.setDefaultImageResId(R.drawable.place_holder);
+//        view.setErrorImageResId(R.drawable.place_holder);
+//        view.setImageUrl(API.getPicUrl(url), VolleyManager.getInstance().getImageLoader());
+//    }
+
     /**
      * 设置图片显示
      *
-     * @param context
      * @param view
      * @param url
      */
-    public static void setImageUrl(Context context, NetworkImageView view, String url) {
-        view.setDefaultImageResId(R.drawable.place_holder);
-        view.setErrorImageResId(R.drawable.place_holder);
-        view.setImageUrl(API.getPicUrl(url), VolleyManager.getInstance().getImageLoader());
+    public static void loadImage(ImageView view, String url) {
+        ImageLoaderManager.getInstance().loadImage(view, API.getPicUrl(url));
     }
 
     /**

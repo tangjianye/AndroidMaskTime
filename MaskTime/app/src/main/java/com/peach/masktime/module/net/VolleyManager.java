@@ -76,7 +76,7 @@ public class VolleyManager {
         return mRequestQueue;
     }
 
-    public ImageLoader getImageLoader() {
-        return mImageLoader;
-    }
+//    public ImageLoader getImageLoader() {
+//        return mImageLoader;
+//    }
 }

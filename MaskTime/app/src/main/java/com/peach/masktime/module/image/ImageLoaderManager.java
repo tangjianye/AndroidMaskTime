@@ -38,11 +38,11 @@ public class ImageLoaderManager {
         ImageLoaderConfig.initImageLoader(context, null);
     }
 
-    public void loadImage(String uri, ImageView imageView) {
+    public void loadImage(ImageView imageView, String uri) {
         ImageLoaderConfig.getImageLoader().displayImage(uri, imageView, ImageLoaderConfig.getDefaultOptions(), loadingListener);
     }
 
-    public void loadImage(String uri, ImageView imageView, ImageLoadingListener listener) {
+    public void loadImage(ImageView imageView, String uri, ImageLoadingListener listener) {
         ImageLoaderConfig.getImageLoader().displayImage(uri, imageView, ImageLoaderConfig.getDefaultOptions(), listener);
     }
 

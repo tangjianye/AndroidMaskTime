@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
 import com.peach.masktime.module.net.response.AlbumItem;
 import com.peach.masktime.ui.layer.BannerLayer;
@@ -88,7 +88,7 @@ public class AlbumListAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new AlbumViewHolder();
                     convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_album, null);
-                    holder.image = (NetworkImageView) convertView.findViewById(R.id.nt_image);
+                    holder.image = (ImageView) convertView.findViewById(R.id.nt_image);
                     holder.title = (TextView) convertView.findViewById(R.id.txt_title);
                     convertView.setTag(holder);
                 } else {
@@ -96,7 +96,7 @@ public class AlbumListAdapter extends BaseAdapter {
                 }
 
                 holder.title.setText(info.getTitle());
-                CommUtils.setImageUrl(mContext, holder.image, info.getCover());
+                CommUtils.loadImage(holder.image, info.getCover());
                 break;
             }
 
@@ -111,7 +111,7 @@ public class AlbumListAdapter extends BaseAdapter {
     }
 
     static class AlbumViewHolder {
-        public NetworkImageView image;
+        public ImageView image;
         public TextView title;
     }
 }

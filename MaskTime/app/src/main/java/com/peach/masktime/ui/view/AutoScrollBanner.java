@@ -9,10 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
 import com.peach.masktime.common.Constants;
 import com.peach.masktime.common.interfaces.ICycle;
@@ -212,7 +212,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
         for (AlbumItem info : list) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_banner, null);
             // TextView title = (TextView) view.findViewById(R.id.txt_title);
-            NetworkImageView image = (NetworkImageView) view.findViewById(R.id.nt_image);
+            ImageView image = (ImageView) view.findViewById(R.id.nt_image);
             image.setTag(info);
             image.setOnClickListener(new OnClickListener() {
                 @Override
@@ -229,7 +229,7 @@ public class AutoScrollBanner extends RelativeLayout implements ICycle {
             });
 
             // title.setText(info.getTitle());
-            CommUtils.setImageUrl(mContext, image, info.getCover());
+            CommUtils.loadImage(image, info.getCover());
             mViews.add(view);
         }
     }
