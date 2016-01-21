@@ -33,14 +33,14 @@ android {
         flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
     }
 
-    signingConfigs {
-        release {
-            storeFile file('E:/appKey/keyStore.jks')
-            storePassword 'tztt0746'
-            keyAlias 'key'
-            keyPassword 'tztt0731'
-        }
-    }
+//    signingConfigs {
+//        release {
+//            storeFile file('E:/appKey/keyStore.jks')
+//            storePassword 'xxxxxxxx'
+//            keyAlias 'xxx'
+//            keyPassword 'xxxxxxxx'
+//        }
+//    }
 
     buildTypes {
         release {
@@ -49,7 +49,7 @@ android {
             shrinkResources true
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            // signingConfig signingConfigs.release
         }
 
         debug {
