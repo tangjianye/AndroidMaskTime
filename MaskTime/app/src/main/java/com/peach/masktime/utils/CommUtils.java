@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.peach.masktime.R;
@@ -117,6 +118,27 @@ public class CommUtils {
             e.printStackTrace();
         }
         return packageName;
+    }
+
+
+    public static String getSdCard() {
+        String sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
+        LogUtils.i(TAG, "sdcard = " + sdcard);
+        return sdcard;
+    }
+
+    public static String getSdPath(String relPath) {
+        String absolutePath = getSdCard() + relPath;
+        LogUtils.i(TAG, "getSdPath = " + absolutePath);
+        return absolutePath;
+    }
+
+    private static void makeFolders() {
+        FileUtils.makeFolders(getSdPath(Constants.Folder.ROOT_PATH));
+    }
+
+    public static void initAppEnvironment() {
+        makeFolders();
     }
 
     /**

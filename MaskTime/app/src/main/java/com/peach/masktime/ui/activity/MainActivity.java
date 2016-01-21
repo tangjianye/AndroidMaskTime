@@ -8,6 +8,7 @@ import com.peach.masktime.BaseApplication;
 import com.peach.masktime.R;
 import com.peach.masktime.common.interfaces.IInit;
 import com.peach.masktime.ui.base.BaseActivity;
+import com.peach.masktime.utils.CommUtils;
 
 public class MainActivity extends BaseActivity implements IInit, View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -18,6 +19,8 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        CommUtils.initAppEnvironment();
+
         initDatas();
         initTitles();
         initViews();
@@ -67,6 +70,7 @@ public class MainActivity extends BaseActivity implements IInit, View.OnClickLis
         switch (view.getId()) {
             case R.id.txt_community:
                 openActivity(CommunityActivity.class);
+                // openActivity(BaseList2Activity.class);
                 // openActivity(TestActivity.class);
                 // Notify.getInstance().show(this);
                 // DBManager.getInstance().deleteAll();

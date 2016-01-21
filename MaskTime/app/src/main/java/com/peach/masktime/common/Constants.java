@@ -30,6 +30,14 @@ public class Constants {
     public static final int DEFAULT_UID = 9;
 
     /**
+     * T卡文件夹
+     */
+    public static class Folder {
+        // 根目录
+        public static final String ROOT_PATH = "/Mask/";
+    }
+
+    /**
      * SP关键字
      */
     public static class SPKey {
